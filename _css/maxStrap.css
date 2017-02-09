@@ -1,0 +1,161 @@
+/*!
+ * MaxStrap v0.0.3 (http://getbootstrap.com)
+ * Copyright 2013 Twitter, Inc.
+ * Licensed under http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+/*! normalize.css v2.1.3 | MIT License | git.io/normalize */
+
+
+
+/* Characters Index.php */
+.divThumbs {
+	width: 170px;
+	float: left;
+	}
+
+img.imgThumbs {
+	margin-top: 15px;
+
+	height: 150px;
+	width:  150px;
+
+	background-color: #678;
+	border: 4px solid #678;
+
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	}
+
+.boldOrange { color: orange; }
+.thumbSM {
+	display: inline;
+	height: 50px;
+	width:  50px;
+	margin-right: 1em;
+	float: left;
+
+	background-color: #678;
+	border: 1px solid #678;
+
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+
+	}
+
+
+/*maxTweak to images*/
+.img-review {
+		width: 150px;
+		margin: 10px;
+		border: 10px solid orange;
+		border-radius: 500px;
+		-webkit-border-radius: 500px;
+		-moz-border-radius: 500px;
+}
+
+
+/* btn tweak - outlined */
+/*Bootstrap button outline override*/
+.btn-outline {
+		background-color: transparent;
+		color: inherit;
+		transition: all .5s;
+}
+
+.btn-primary.btn-outline {
+		color: #428bca;
+}
+
+.btn-success.btn-outline {
+		color: #5cb85c;
+}
+
+.btn-info.btn-outline {
+		color: #5bc0de;
+}
+
+.btn-warning.btn-outline {
+		color: #f0ad4e;
+}
+
+.btn-danger.btn-outline {
+		color: #d9534f;
+}
+
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+		color: #fff;
+}
+
+
+/* maxTweak to columnumn alignments */
+
+col-sm-3-center  {text-align: center;}
+col-sm-3-left    {text-align: left;}
+col-sm-3-right   {text-align: right;}
+
+col-xs-12-center {text-align: center;}
+col-xs-12-left   {text-align: left;}
+col-xs-12-right  {text-align: right;}
+
+
+
+.text-left-not-xs, .text-left-not-sm,
+.text-left-not-md, .text-left-not-lg
+										{ text-align: left; }
+.text-center-not-xs, .text-center-not-sm,
+.text-center-not-md, .text-center-not-lg
+										{ text-align: center; }
+.text-right-not-xs, .text-right-not-sm,
+.text-right-not-md, .text-right-not-lg
+										{ text-align: right; }
+.text-justify-not-xs, .text-justify-not-sm,
+.text-justify-not-md, .text-justify-not-lg
+										{ text-align: justify; }
+
+@media (max-width: 767px) {
+	.text-left-not-xs, .text-center-not-xs,
+	.text-right-not-xs, .text-justify-not-xs
+										{ text-align: inherit; }
+	.text-left-xs 		{ text-align: left; }
+	.text-center-xs 	{ text-align: center; }
+	.text-right-xs 		{ text-align: right; }
+	.text-justify-xs 	{ text-align: justify; }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.text-left-not-sm, .text-center-not-sm,
+	.text-right-not-sm, .text-justify-not-sm
+									 { text-align: inherit; }
+	.text-left-sm    { text-align: left; }
+	.text-center-sm  { text-align: center; }
+	.text-right-sm   { text-align: right; }
+	.text-justify-sm { text-align: justify; }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+	.text-left-not-md, .text-center-not-md,
+	.text-right-not-md, .text-justify-not-md
+										{ text-align: inherit;}
+	.text-left-md 		{ text-align: left;}
+	.text-center-md 	{ text-align: center;}
+	.text-right-md 		{ text-align: right;}
+	.text-justify-md 	{ text-align: justify;}
+}
+@media (min-width: 1200px) {
+	.text-left-not-lg, .text-center-not-lg,
+	.text-right-not-lg, .text-justify-not-lg
+										{ text-align: inherit;}
+	.text-left-lg 		{ text-align: left;}
+	.text-center-lg 	{ text-align: center;}
+	.text-right-lg 		{ text-align: right;}
+	.text-justify-lg 	{ text-align: justify;}
+}
+
+
+
+}

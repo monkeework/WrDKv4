@@ -1,0 +1,1270 @@
+<?php
+
+#test URL: http://localhost/WrDKv3/library/powers.php?act=travel-skills&codeName=Ulli&charID=60&stageID=4&gender=male
+function maxDoc_library_skills(){
+	/**
+	 * based on add.php is a single page web application that allows us to add a new customer to
+	 * an existing table
+	 *
+	 * LAYOUT: http://www.w3schools.com/bootstrap/bootstrap_templates.asp
+	 *
+	 * This page is based onedit.php
+	 *
+	 * Any number of additional steps or processes can be added by adding keywords to the switch
+	 * statement and identifying a hidden form field in the previous step's form:
+	 *
+	 *<code>
+	 * <input type="hidden" name="act" value="next" />
+	 *</code>
+	 *
+	 * The above code shows the parameter "act" being loaded with the value "next" which would be the
+	 * unique identifier for the next step of a multi-step process
+	 *
+	 *
+	 * @package ma-v1605-22
+	 * @author monkeework <monkeework@gmail.com>
+	 * @version 3.02 2011/05/18
+	 * @link http://www.monkeework.com/
+	 * @license http://www.apche.org/licenses/LICENSE-2.0
+	 * @todo add more complicated checkbox & radio button examples
+	 */
+}
+
+$pageDeets = '<li> UPGRADE --> noCaptcha</li>
+	<li> Review/update function checkForm(thisForm)</li>';
+
+# '../' works for a sub-folder.  use './' for the root
+require '../_inc/config_inc.php'; #configuration, pathing, error handling, db credentials
+require '../_inc/aarCharPower-inc.php';
+require '../_inc/aarContent-inc.php';
+
+	$config->titleTag = smartTitle(); #Fills <title> tag. If left empty will fallback to $config->titleTag in config_inc.php
+	$config->metaDescription = smartTitle() . ' - ' . $config->metaDescription;
+
+	$config->loadhead = '
+	<script type="text/javascript" src="' . VIRTUAL_PATH . '_js/util.js"></script>
+		<!-- Edit Required Form Elements via JavaScript Here -->
+	<script type="text/javascript">
+		//here we make sure the user has entered valid data
+		function checkForm(thisForm)
+		{//check form data for valid info
+			if(empty(thisForm.Name,"Please Enter Your Name")){return false;}
+			if(!isEmail(thisForm.Email,"Please enter a valid Email Address")){return false;}
+			return true;//if all is passed, submit!
+		}
+	</script>
+
+	<!-- CSS class for required field elements.  Move to your CSS? (or not) -->
+	<style type="text/css">
+		.required {font-style:italic;color:#FF0000;font-weight:bold;}
+	</style>
+
+
+	<!-- CSS class for required field elements.  Move to your CSS? (or not) -->
+	<style>
+		.jumbotron {
+			position: relative;
+			background: #000 url("../_img/_bgs/bgPowers02.jpg") center center;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			overflow: hidden;
+			color: white;
+		}
+
+		div.container div.jumbotron h1 b, div.jumbotron p {
+			color: white;
+			text-shadow: 2px 2px 16px #000000;
+			text-shadow: 0 0 16px #000000;
+		}
+
+		/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+		.row.content {height: 1500px}
+
+		/* On small screens, set height to \'auto\' for sidenav and grid */
+		@media screen and (max-width: 767px) {
+			.sidenav {
+				height: auto;
+				padding: 15px;
+			}
+			.row.content {height: auto;}
+		}
+
+		p:first-letter{ text-transform: capitalize; }
+	</style>
+
+
+	<!-- JS for captcha.  Move to your _JS? (or not) -->
+	<script type="text/javascript">
+		 var RecaptchaOptions = {
+				theme : "clean"
+		 };
+	 </script>
+
+	 <!-- CSS class for captcha.  Move to your CSS? (or not) -->
+		<style>
+			.g-recaptcha div { margin-left: auto; margin-right: auto;}
+
+			#recaptcha_area { margin: auto;}
+		</style>
+	';
+
+
+//END CONFIG AREA ----------------------------------------------------------
+
+#dumpDie($_SESSION);
+
+# Read the value of 'action' whether it is passed via $_POST or $_GET with $_REQUEST
+if(isset($_REQUEST['act'])){$myAction = (trim($_REQUEST['act']));}else{$myAction = "";}
+
+#if(isset($_GET['CodeName'])){$myCodeName = $_GET['CodeName']; }
+$CharID = $CodeName = $Gender = ''; #initialize
+
+#get hidden values to personize page with.
+if(isset($_GET['codeName'])){#get CodeName
+	$codeName = $_GET['codeName'];
+	$_SESSION['codeName'] = $codeName;
+}else{
+	#set CodeName
+	$codeName = '';
+	$_SESSION['codeName'] = '';
+}
+
+#get hidden values to personize page with.
+if(isset($_GET['charID'])){
+	#get CharID
+	$charID = $_GET['charID'];
+	$_SESSION['charID'] = $charID;
+}else{#get CharID
+	$charID = 0 ;
+	$_SESSION['charID'] = $charID;
+}
+
+#get url/hidden values to personize page with.
+if(isset($_GET['gender'])){#get gender
+	$gender = $_GET['gender'];
+	$_SESSION['gender'] = $gender;
+}else{
+	#set gender
+	$gender = '';
+	$_SESSION['gender'] = $gender;
+}
+
+
+#get url/hidden values to personize page with.
+if(isset($_GET['statusID'])){#get gender
+	$stageID = $_GET['statusID'];
+	$_SESSION['stageID'] = $stageID;
+}else{
+	#set gender
+	$stageID = 0;
+	$_SESSION['stageID'] = $stageID;
+}
+
+global $config;
+get_header();
+
+#echo MaxNotes($pageDeets); #notes to me!
+
+echo '
+<div class="jumbotron">
+	<h1 style="margin: 0 0 -35px -35px;"><br /><br /><br /><br />
+	<b>Power Library</b></h1>
+
+</div>';
+
+
+
+#function genCategory($sql, $charID, $codeName, $gender, $stageID,  $str='' )
+switch ($myAction){//check 'act' for type of process
+	case 'combat-skills':
+			echo genOverview($myAction, $aarContent['powersCombat'], $codeName, $charID, $gender);
+			echo genCategoryBtns('combat', $codeName);
+			echo genCategory('combat', $charID, $codeName, $gender, $stageID);
+
+		break;
+	########################################################
+	case 'defensive-skills':
+			echo genOverview($myAction, $aarContent['powersDefensive'], $codeName, $charID, $gender);
+			echo genCategoryBtns('defensive', $codeName);
+			echo genCategory('defensive', $charID, $codeName, $gender, $stageID);
+
+		break;
+	########################################################
+	case "detection-skills":
+			echo genOverview($myAction, $aarContent['powersDetection'], $codeName, $charID, $gender);
+			echo genCategoryBtns('detection', $codeName);
+			echo genCategory('detection', $charID, $codeName, $gender, $stageID);
+
+		break;
+	########################################################
+	case "faith-skills":
+			echo genOverview($myAction, $aarContent['powersFaith'], $codeName, $charID, $gender);
+			echo genCategoryBtns('faith', $codeName);
+			echo genCategory('faith', $charID, $codeName, $gender, $stageID);
+
+		break;
+	########################################################
+	case "magic-skills":
+			echo genOverview($myAction, $aarContent['powersMagical'], $codeName, $charID, $gender);
+			echo genCategoryBtns('magical', $codeName);
+			echo genCategory('magical', $charID, $codeName, $gender, $stageID);
+
+		break;
+	########################################################
+	case "mental-skills":
+			echo genOverview($myAction, $aarContent['powersMental'], $codeName, $charID, $gender);
+			echo genCategoryBtns('mental enhancement', $codeName);
+			echo genCategory('mental enhancement', $charID, $codeName, $gender, $stageID);
+
+		break;
+	########################################################
+	case "physical-skills":
+			echo genOverview($myAction, $aarContent['powersPhysical'], $codeName, $charID, $gender);
+			echo genCategoryBtns('physical enhancement', $codeName);
+			echo genCategory('physical enhancement', $charID, $codeName, $gender, $stageID);
+
+		break;
+	########################################################
+	case "restricted-skills":
+			echo genOverview($myAction, $aarContent['powersRestricted'], $codeName, $charID, $gender);
+			echo genCategoryBtns('restricted', $codeName);
+			echo genCategory('restricted', $charID, $codeName, $gender);
+
+		break;
+	########################################################
+	##################    ADMIN STUFF     ##################
+	########################################################
+
+
+	case "addTrait":
+			chekPrivies(4); #admin+
+			echo addTrait(); //We get stuff from link here.. be careful
+
+		break;
+
+
+	########################################################
+	##################    ADMIN STUFF     ##################
+	########################################################
+
+
+	case "add":
+		chekPrivies(4); #admin+
+		echo powerAdd(); #show my silly assed power
+
+		break;
+	########################################################
+	case "edit":
+
+		chekPrivies(4); #admin+
+		echo powerEdit(); #process event/add to power
+
+		break;
+	########################################################
+	case "insert":
+		chekPrivies(4); #admin+
+		echo powerInsert(); #process event/add to power
+
+		#myRedirect(THIS_PAGE);
+
+		break;
+	########################################################
+	case "revise":
+
+		#dumpDie($_POST);
+
+		chekPrivies(4); #admin+
+		echo powerRevise(); #process event/add to power
+
+		#myRedirect(THIS_PAGE);
+
+		break;
+	########################################################
+	case "trash":
+		chekPrivies(4); #admin+
+		echo powerTrash(); #process event/add to power
+
+		break;
+	########################################################
+
+
+	default:
+		#customize category
+			$myBody = "<p>
+					A 'skill' is typically defined as an ability to do something well or with some amount of expertise. It is an aquired ability, coming from one's accrued knowledge, practice, aptitude, and life experiences, to do something well. Typically, a skill is considered to be some form of craft, trade, or job requiring manual dexterity or special training in which a person has demonstrated competence and experience. the skill of cabinetmaking.
+
+					There is no rigid definition of a &quot;superpower&quot;. In popular culture, it may be used to describe anything from minimal exaggeration of normal human traits, magic, to godlike abilities that far exceed the scope of expectation or even possibility. Such super powered traits can be as simple as flight to the ability to projected unimagined destructive force with a simple look.</p>
+				<p><b>
+					Generally speaking, exceptional-but-not-superhuman fictional characters like the Avengers' <em>Black Widow</em> and <em>Hawkeye</em> or <em>Ka-zar</em> of the Savage Lands may be classified as superheroes although they do not have any &quot;actual&quot; superpowers. Common sense and an abilityt to think situations through should never be underestimated.</p>
+				<p>
+					Similarly, characters who derive their abilities from artificial or external sources such as <em>Iron Man's</em> robotic exoskelton, the <em>Winter Soldier</em> and his bionic limb or <em>Dr. Spectrum's</em> Soul Gem may be fairly described as having superpowers, but are not necessarily superhuman.</p>
+				<p>
+					Using the links from the power catorgys  you will find a great many descriptions of various super powers catagorized in to easily digestable bits. To view a catagory, either click on the links above to open one of the catagory containers, OR simply click on the 'plus' symbol attached to the catagory you wish to explore. Only one catagory can be open at a time. To close a catagory, click on another. Enjoy.</p>
+				<p>
+					<em class='text-muted'><b>Note</b> - Characters may routinely operate far below their shown scores shown, and sometimes far above those shown stats in extreme circumstances (with MOD approval). However, regardless of prior moderator approval, the player with the highest score (STAT/STAT CHAIN) always wins in a conflicted challenge.*</b></em>
+					<br >
+					<br >
+				</p>";
+
+
+				echo genOverview($myAction, $myBody, $codeName, $gender, $charID);;#END default
+
+} #END switch
+
+
+#CLOSE PAGE UP
+
+/**
+ * For each customer/domain, get a key from http://www.google.com/recaptcha/whyrecaptcha:
+ * $publivkey, $privatekey moved to credentials to protect them
+ *
+ * Following moved to config_inc.php
+ * $resp, $error, $skipFields, $fromDomain, $fromAddress,
+ * $toAddress, $toName, $website, $sendEmail = TRUE
+ *
+ * Following moved to config_inc
+ * include INCLUDE_PATH . 'recaptchalib_inc.php'; #required reCAPTCHA class code
+ * include INCLUDE_PATH . 'contact_inc.php'; #complex unsightly code moved here
+ */
+echo '<h4><i>Do you have a suggestion for a word which might need defining?</i></h4>
+
+			<form role="form" action="' . THIS_PAGE . '" method="post" onsubmit="return checkForm(this);">';
+
+			if (isset($_POST["recaptcha_response_field"])){# Check for reCAPTCHA response
+				$resp = recaptcha_check_answer ($privatekey,$_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"],$_POST["recaptcha_response_field"]);
+
+			if ($resp->is_valid){#reCAPTCHA agrees data is valid
+				handle_POST($skipFields,$sendEmail,$toName,$fromAddress,$toAddress,$website,$fromDomain);#process form elements, format and send email.
+
+			#Here we can enter the data sent into a database in a later version of this file
+			echo "<!-- format HTML here to be your 'thank you' message -->
+				<div class='text-center'><h2>Your Comments Have Been Received!</h2></div>
+				<div class='text-center'>Thanks for the input!</div>
+				<div class='text-center'>We'll respond via email within 48 hours, if you requested information.</div>";
+
+				}else{#reCATPCHA response says data not valid - prepare for feedback
+					$error = $resp->error;
+					send_POSTtoJS($skipFields); #function for sending POST data to JS array to reload form elements
+				}
+			}
+
+			#show form, either for first time, or if data not valid per reCAPTCHA
+			if(!isset($_POST["recaptcha_response_field"])|| $error != "")
+			{#separate code block to deal with returning failed data, or no data sent yet
+
+echo '<!-- below change the HTML to accommodate your form elements - only "Name" & "Email" are significant -->
+
+	<input
+		type="text"
+		name="Name"
+
+		class="col-xs-5"
+		required="true"
+
+		title="Your Name is Required"
+		placeholder="Your Name" />
+
+
+	<input
+		type="email"
+		name="Email"
+
+		class="col-xs-6 pull-right"
+		required="true"
+
+		title="A Valid Email is Required"
+		placeholder="Your Email" />
+
+		<br /><br /><br />
+
+	<textarea
+		class="form-control"
+		rows="3"
+		name="Comments"
+		placeholder="Please use this space to outline your idea or suggestion..."></textarea>
+
+		<br />
+
+
+		<div class="capatcha pull-right">';
+
+		echo recaptcha_get_html(SITE_KEY, $error);
+
+		echo '</div>
+		<div class="clearfix"></div>
+		<br />
+
+		<button type="submit" class="btn btn-success pull-right">Submit</button>
+
+			</p>
+		</form>';
+			}
+
+			echo '<br><br>
+
+		</div>
+	</div>
+</div>';#END display
+
+
+get_footer();
+
+
+function genOverview($myAction = '', $mainContent = '', $codeName, $charID, $gender, $str=''){ #format descriptions from array and
+
+	#remove the dashes used for urls
+	$mySubjectTitle = str_replace('-', ' ', $myAction);
+
+	$str  .= '<div class="container-fluid">
+			<div class="row content">
+
+				<div class="col-sm-3 sidenav">
+				<br />';
+
+	//Let folks tweak descriptions to their characters
+	$str .= getCusomizerForm($codeName, $gender);
+
+	$str .= personalizeStr();
+	$str .= genLegend();
+
+	$str .= '<br />
+					<div class="input-group class="col-sm-3" >
+						<input type="text" class="form-control" placeholder="Search To Come..">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+					</div>
+				</div><!-- end sidebar-->
+
+			<div class="col-sm-9">
+				<h2>' . ucwords($mySubjectTitle) . '</h2>
+				<h5><span class="glyphicon glyphicon-time"></span> Post by Monkee, October 9, 2016.</h5>
+				<h5><span class="label label-danger">Powers</span> <span class="label label-primary">Character Creation</span></h5><br>';
+
+	$str .= $mainContent;
+
+	$str .= '<p>
+				<em class="text-muted"><b>Note</b> - If you are logged in to ' . SITE_NAME . ', each entry shown below may already be personalized to reflect your character&quot;s codename and gender. If not, then they are shown in a generic format, but you can still set them to reflect your characters gender and codename by using the customizer located just above the catagory legend. Doing so will will instantly then format all the descriptions to your specifications to help you on your way to building an awesome addition to the  ' . SITE_NAME . ' universe.</em>
+			</p>
+			<hr />';
+
+	return $str;
+}
+
+function genLegend($codeName = '', $charID = 0, $str='' ){ #generate category legend and links from array
+	#$CodeName, $CharID are fed to us via Sh
+	if(isset($_GET['codeName'])){$codeName = ($_GET['codeName']); }
+	if(isset($_GET['charID'])){$charID = ($_GET['charID']); }
+
+	$charID = (int)$charID; #cast as int to be safe.
+
+	#used to creat links in the legend -- some &ndash; and asci code used to format some letters specifically
+	$myTitles = [
+			'combat', 'defensive', 'detection', 'energy control', 'energy emission', 'faith', 'illusions', 'lifeform control', 'magic&ndash;&#76;ike*',  'matter control', 'matter conversion', 'mental enhancements', 'restricted*', 'self&ndash;&#65;lteration', 'travel'
+		];
+	$myLoadedQuery = [
+			'combat-skills', 'defensive-skills', 'detection-skills', 'energy-control-skills', 'energy-emission-skills', 'faith-skills', 'illusion-skills', 'lifeform-control-skills', 'magic-skills', 'matter-control-skills', 'matter-conversion-skills', 'mental-enhancement-skills', 'restricted-skills', 'self-alteration-skills', 'travel-skills'
+		];
+
+	$str .= '<h4><a href="' . THIS_PAGE . '">Power Categories</a></h4>
+
+		<ul class="nav nav-pills nav-stacked">';
+
+	$count=0;
+
+	foreach($myTitles as $title){
+		$myLabel = str_replace("-", " ", $title);
+
+		#if our switch matchs, highlight legend li
+		$url  = $myLoadedQuery[$count];
+		$chek = $_SERVER['REQUEST_URI']; #get url to test match too
+		#clean url for first test
+		$act = str_replace("/WrDK/traits/powers.php?act=","", $chek );
+
+		#var_dump($codeName);
+		#var_dump($charID);
+
+		if($act == $url){
+				$str .= '<li class="active">
+					<a style="color: white;" href="'
+						. VIRTUAL_PATH . 'library/powers.php?act='
+						. $myLoadedQuery[$count++]
+						. '&codeName=' . $_SESSION['codeName']
+						. '&charID=' . $charID
+						. '">'
+						. ucwords($myLabel)
+						. ' </a>
+					</li>';
+
+			#if title matches these, don't show unless admin or soemthing
+			}else if($title == 'magic&ndash;&#76;ike' || $title == 'restricted'){
+
+				$str .= '<li>
+					<a class="" href="' . VIRTUAL_PATH . 'library/powers.php?'
+						. '&codeName=' . $codeName
+						. '&charID=' . $charID
+						. '">'
+						. ucwords($myLabel)
+						. '<sup>*<sup> </a>
+					</li>';
+
+					[$count++];
+
+			#show me unhighlighted all others
+			}else{
+				$str .= '<li>
+					<a  href="' . VIRTUAL_PATH . 'library/powers.php?act='
+						. $myLoadedQuery[$count++]
+						. '&codeName=' . $codeName
+						. '&charID=' . $charID
+						. '">'
+						. ucwords($myLabel)
+						. ' </a>
+					</li>';
+			}
+	}
+
+	$str .= '</ul>';
+
+	return $str;
+}
+
+
+#INCOMING -> #http://localhost/WrDKv3/library/powers.php?act=combat-skills&charID=60&codeName=Ulli&statusID=5
+#genCategory('defensive', $CodeName, $CharID, $Gender='')
+
+#http://localhost/WrDKv3/library/powers.php?act=combat-skills&codeName=Havok&charID=55&statusID=4
+function genCategory($sql, $charID, $codeName, $gender, $stageID,  $str='' ){ #generate cat descs...
+	#act/myAction already set on line #115
+	$cat = $sql; //for btns
+
+	$sql = "SELECT PowID, PowName, PowDesc, Available, LastUpdated  FROM `ma_CharPower` WHERE CatID = '$cat'; ";
+
+	$result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
+	if (mysqli_num_rows($result) > 0)//at least one record!
+	{//show results
+
+		#BEGIN external formatting
+		while ($row = mysqli_fetch_assoc($result))
+		{//dbOut() function is a 'wrapper' designed to strip slashes, etc. of data leaving db
+			$powID   = (int)dbOut($row['PowID']);
+			$powName = dbOut($row['PowName']);
+			$powDesc = dbOut($row['PowDesc']);
+
+			$powLink = str_replace('', ' ', $powName);
+
+			#uppercase everything up to first paren, then "small"
+			#creat anchors - see: http://www.echoecho.com/htmllinks08.htm
+			$str .= '<p><strong class="text-primary"><a name="' . $powLink . '">' . ucwords($powName) . '</a>: (#' . ucwords($powID) . ')</strong> <br />'
+				. dbOut($row['PowDesc']) . '</p>';
+
+
+			if(isset($stageID) && ($stageID >= 3)){$str .= '<a
+				class="btn btn-info pull-left btn-xs"
+				href="' . VIRTUAL_PATH . 'library/powers.php?act=addTrait&catID='
+												. $cat	        #combat-skills - combat-skills
+				. '&powID='     . $powID  		  #1             - beserker	id num
+				. '&powName='   . $powName  		#name of trait - beserker
+				. '&charID=' 		. $charID       #character id  - 60
+				. '&codeName='  . $codeName     #codename      - Ully
+				. '&stageID='   . $stageID			#3-6 = can add a power, else nope
+				. '"
+				title="Click to add ' . $powName . '  to ' . $codeName . '"><span class="glyphicon glyphicon-plus"></span> Add ' . strtoupper($powName) . ' power to ' . $codeName . '</a>';
+			}
+
+
+
+			#Edit trait
+			#$_SESSION['Privilege'] >= 4
+			if(isset($_SESSION['Privilege']) && ($_SESSION['Privilege'] >= 4)){$str .= '<a class="btn btn-info pull-right btn-xs" href="' . VIRTUAL_PATH .'library/powers.php?act=edit&powName=' . $powName . '&CatID=' . $cat . '" title="Click to edit"><span class="glyphicon glyphicon-edit"></span></a>';
+			}
+			$str .= '<br /><hr />';
+		}
+	}else{//no records
+			echo '<p>Currently No Mathcing Descriptions Available.</p><hr />';
+	}
+
+	@mysqli_free_result($result); //free resources
+
+	#personalize data
+	$str = personalizeStr($str, $codeName, $gender);
+
+
+	if(isset($_SESSION['Privilege']) && ($_SESSION['Privilege'] >= 4)){
+
+		#$_SESSION['Privilege'] >= 6
+
+
+
+		#add additional cheks
+		#if is admin, suepr, owner, developer or is player show edit option.
+
+		$str .= '<div align="center">
+					<a class="btn btn-primary btn-sm" href="' . THIS_PAGE . '?act=add&cat=' . $cat .'"><i class="glyphicon glyphicon-pencil"></i> add Power</a>
+				</div>';
+	}
+
+	$str .= '<hr />';
+
+	return ucfirst($str);
+}
+
+function genCategoryBtns($sql, $codeName='', $str='' ){ #generate cat descs...
+	#act/myAction already set on line #115
+
+	#if we have a codename
+	if(empty($codeName)){$codeName='your character';}
+
+	$sql = "SELECT PowName, Available FROM `ma_CharPower` WHERE CatID = '$sql'; ";
+
+	$result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
+	if (mysqli_num_rows($result) > 0)//at least one record!
+	{//show results
+
+		#BEGIN external formatting
+		$str .= '<p>';
+		while ($row = mysqli_fetch_assoc($result))
+		{//dbOut() function is a 'wrapper' designed to strip slashes, etc. of data leaving db
+
+			$powName  = dbOut($row['PowName']);
+			$powAvail = dbOut($row['Available']);
+
+			$powLink  = str_replace ('-', ' ', $powName);
+
+			#uppercase everything up to first paren, then "small"
+			#creat anchors - see: http://www.echoecho.com/htmllinks08.htm
+			$str .= '<small><a class="btn btn-primary btn-xs" href="#' . $powLink . '">' . ucwords($powName) . '</a></small>';
+		}
+		#END external formatting
+		$str .= '</p><hr />';
+	}
+
+	@mysqli_free_result($result); //free resources
+
+	return $str;
+}
+
+//Need to handle gender
+
+
+
+
+#http://localhost/WrDKv3/library/powers.php?act=physical-enhancement-skills&codeName=Havok&charID=26&statusID=4&gender=male
+function addTrait(){
+
+	if(isset($_SESSION['Privilege']) && ($_SESSION['Privilege'] > 2)){
+
+		#dumpDie($_GET);
+
+		#http://localhost/WrDKv3/library/powers.php?act=AddTrait&catID=combat&powName=beserker&charID=60&codeName=Ulli&statusID=6
+		$exgPD = $addPN = $addPD = $finalPD = '';
+
+		#SEE: http://stackoverflow.com/questions/11839523/secure-against-sql-injection-pdo-mysqli
+		#we are grabbing from url string instead of $_POST here....
+
+		$cat      	= strip_tags($_GET['catID']);				#combat-skills - combat-skills
+		$powID      = strip_tags($_GET['powID']);				#1             - power id for beserker power
+		$powName		= strip_tags($_GET['powName']);			#name of trait - beserker
+		$charID	 		= strip_tags($_GET['charID']);			#character id  - 60
+		$codeName		= strip_tags($_GET['codeName']);		#codename      - Ully
+		$stageID		= strip_tags($_GET['stageID']);	  #3-6 = can add a power, else no
+
+#dumpDie($_GET);
+		#TEST redirect
+		if(($stageID <= 2) || ($stageID >= 7)){
+			#if character stage not between 3-6, kick out
+			$redirect = $_SERVER['HTTP_REFERER'];
+			header( 'Location: ' . $redirect ) ;
+		}
+
+
+		#dumpDie($exgPD);
+
+		#get prior power description
+		$sql = "SELECT `CharID`, `CodeName`, `PowerDesc` FROM ma_Characters WHERE CharID = '$charID';";
+
+		$result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
+		if (mysqli_num_rows($result) > 0)//at least one record!
+		{//show results
+			#BEGIN outer HTML here
+			while ($row = mysqli_fetch_assoc($result))
+			{//dbOut() function is a 'wrapper' designed to strip slashes, etc. of data leaving db
+				$exgPD = dbOut($row['PowerDesc']); #Existing Power Description
+				#echo '<p>' . $exgPD . '</p>';
+			}
+			#END OUTER HTML here
+		}
+
+		@mysqli_free_result($result); //free resources
+
+		#dumpDie($exgPD);
+		#get the power to concatinate together
+		#get prior power description
+		$sql = "SELECT `PowID`, `PowName`, `PowDesc` FROM ma_CharPower WHERE PowID = '$powID';";
+
+		$result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
+		if (mysqli_num_rows($result) > 0)//at least one record!
+		{//show results
+			#BEGIN outer HTML here
+			while ($row = mysqli_fetch_assoc($result))
+			{//dbOut() function is a 'wrapper' designed to strip slashes, etc. of data leaving db
+				$addPN .= dbOut($row['PowName']); #name for New Power
+				$addPD .= dbOut($row['PowDesc']); #name for New Power Description
+				#echo '<p>' . $addPD . '</p>';
+			}
+			#END OUTER HTML here
+		}
+
+		@mysqli_free_result($result); //free resources
+
+		#dumpDie($exgPD);
+		#put it all together
+
+
+		if($exgPD != ''){
+			$finalPD = $exgPD . ' <br /><br/> ' . strtoupper($addPN) . ':: ' . personalizeStr($addPD, $codeName);
+		}else{
+			$finalPD = strtoupper($addPN) . ':: ' . personalizeStr($addPD, $codeName); #need gender
+		}
+
+		$PowDesc = $finalPD;
+		#dumpDie($PowDesc);
+
+		$db = pdo(); # pdo() creates and returns a PDO object
+
+		//build string for SQL insert with replacement vars, ?
+		$sql = "UPDATE `ma_Characters` SET CharID='$charID', PowerDesc='$PowDesc' WHERE `CharID`='$charID'";
+
+
+		#dumpDie($sql);
+		$stmt = $db->prepare($sql);
+		//INTEGER EXAMPLE $stmt->bindValue(1, $id, PDO::PARAM_INT);
+		//The Primary Key of the row that we want to update.
+		$stmt = $db->prepare($sql);
+
+		$stmt->bindValue(1, $charID, 		PDO::PARAM_STR);
+		$stmt->bindValue(2, $PowDesc, 	PDO::PARAM_STR);
+
+		//INTEGER EXAMPLE $stmt->bindValue(1, $id, PDO::PARAM_INT);
+
+		try {$stmt->execute();} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
+		#feedback success or failure of update
+
+		if ($stmt->rowCount() > 0)
+		{//success!  provide feedback, chance to change another!
+			feedback($powName . " Power Added Successfully To " . $codeName . "!","success");
+		}else{//Problem!  Provide feedback!
+			feedback($powName . " Power NOT ADDED to" . $codeName . "!","warning");
+		}
+
+
+		myRedirect(THIS_PAGE);
+	}
+
+} #END addTrait()
+
+
+
+
+
+#ADMIN functions
+function powerAdd(){
+
+	$catName = $_GET['cat'];
+	$authorID = $_SESSION['UserID'];
+#dumpDie($authorID);
+
+	# shows details from a single customer, and preloads their first name in a form.
+	echo '
+	<script type="text/javascript" src="' . VIRTUAL_PATH . '_inc/util.js"></script>
+	<script type="text/javascript">
+		function checkForm(thisForm)
+		{//check form data for valid info
+			if(empty(thisForm.FirstName,"Please Enter Customer\'s First Name")){return false;}
+			if(empty(thisForm.LastName,"Please Enter Customer\'s Last Name")){return false;}
+			if(!isEmail(thisForm.Email,"Please Enter a Valid Email")){return false;}
+			return true;//if all is passed, submit!
+		}
+	</script>';
+
+
+	echo '<h3 class="text-center">Add Power to ' . ucwords($catName) . ' power category</h3>
+
+	<form action="' . THIS_PAGE . '" method="post" onsubmit="return checkForm(this);">
+
+		<div class="row hoverHighlight">
+			<div class="col-sm-3 text-right text-muted">
+				<p class="text-right"><strong>Power Name: </strong></p>
+			</div>
+			<div class="col-sm-9">
+				<input class="col-sm-9" type="text"  name="PowName" placeholder="The name of the power">
+			</div><!-- END Container -->
+		</div>
+
+
+		<div class="row hoverHighlight">
+			<br /><br />
+			<div class="col-sm-3 text-right text-muted">
+				<p class="text-right"><strong>Power Summary: </strong></p>
+			</div>
+			<div class="col-sm-9">
+				<textarea
+					class="autoExpand col-sm-9" rows="3" data-min-rows="3" placeholder="A one sentence description of the power"
+					name="PowSum" ></textarea>
+			</div><!-- END Container -->
+		</div>
+
+
+		<div class="row hoverHighlight">
+			<br /><br />
+			<div class="col-sm-3 text-right text-muted">
+				<p class="text-right"><strong>Power Description: </strong></p>
+			</div>
+			<div class="col-sm-9">
+				<textarea
+					class="autoExpand col-sm-9" rows="3" data-min-rows="3" placeholder="The full description of the proposed power with as much detail as possible."
+					name="PowDesc" ></textarea>
+			</div><!-- END Container -->
+
+		</div>
+
+
+		<input  type="hidden" name="CatID" value="' . $catName . '" />
+		<input  type="hidden" name="AuthorID" value="' . $authorID . '" />
+		<input  type="hidden" name="act" value="insert" />
+
+		<br /><br />
+
+
+		<div align="center">
+			<input
+				class="btn btn-primary btn-xs outline" type="submit" value="Add Power">
+			&nbsp; &nbsp;
+				<a class="btn btn-primary btn-xs outline" href="power.php">Exit Event</a>
+		</div>
+
+		<br />
+	</form>
+	';
+
+}
+
+#http://localhost/WrDKv3/power.php?act=edit&powName=Mary-Sue-ism&CatID=restricted
+function powerEdit(){
+	#If user is logged - allow edit else send back to power
+	if(startSession() && isset($_SESSION['UserID']))
+	{
+
+		$powName 		= ($_GET["powName"]);
+		#dumpDie($powName);
+#string 'Mary-Sue-ism' (length=12)
+
+		# SQL statement - PREFIX is optional way to distinguish your app
+		$sql = "SELECT
+
+			PowID, CatID, AuthorID, ReviewerID,
+			PowName, PowSum, PowDesc, Available,
+			NumReviews, LastUpdated, LastUpdated
+
+			FROM ma_CharPower
+
+			WHERE PowName = '$powName' ;";
+
+		$result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
+
+		if (mysqli_num_rows($result) > 0)//at least one record!
+		{//show results
+
+
+		# shows details from a single customer, and preloads their first name in a form.
+		echo '
+		<script type="text/javascript" src="' . VIRTUAL_PATH . '_inc/util.js"></script>
+
+		<script type="text/javascript">
+
+			function checkForm(thisForm)
+
+			{//check form data for valid info
+				if(empty(thisForm.FirstName,"Please Enter Customer\'s First Name")){return false;}
+				if(empty(thisForm.LastName,"Please Enter Customer\'s Last Name")){return false;}
+				if(!isEmail(thisForm.Email,"Please Enter a Valid Email")){return false;}
+				return true;//if all is passed, submit!
+			}
+
+		</script>
+
+		<script src="' . VIRTUAL_PATH . '_ckEditor/ckeditor.js"></script>
+		';
+
+			while ($row = mysqli_fetch_assoc($result))
+			{//dbOut() function - 'wrapper' to strip slashes, etc. of data leaving db
+
+				$powID			= dbOut($row['PowID']);
+				$catID			= dbOut($row['CatID']);
+				$authorID		= dbOut($row['AuthorID']);
+				$powName		= dbOut($row['PowName']);
+				$powSum			= dbOut($row['PowSum']);
+				$powDesc		= dbOut($row['PowDesc']);
+
+				$authorID		= $_SESSION['UserID'];
+
+
+				echo '<h3 class="text-center">Edit ' . ucwords($powName) . ' power entry</h3>
+
+				<form action="' . THIS_PAGE . '" method="post" onsubmit="return checkForm(this);">
+
+					<div class="row hoverHighlight">
+						<div class="col-sm-3 text-right text-muted">
+							<p class="text-right"><strong>Power Name: </strong></p>
+						</div>
+						<div class="col-sm-9">
+							<input class="col-sm-9" type="text" name="PowName" value="' . $powName . '">
+						</div><!-- END Container -->
+					</div>
+
+
+					<div class="row hoverHighlight">
+						<br /><br />
+						<div class="col-sm-3 text-right text-muted">
+							<p class="text-right"><strong>Power Summary: </strong></p>
+						</div>
+						<div class="col-sm-9">
+							<textarea
+								class="autoExpand col-sm-9" rows="3" data-min-rows="3" placeholder="A one sentence description of the power"
+								name="PowSum">' . $powSum . '</textarea>
+						</div><!-- END Container -->
+					</div>
+
+
+					<div class="row hoverHighlight">
+						<br /><br />
+						<div class="col-sm-3 text-right text-muted">
+							<p class="text-right"><strong>Power Description: </strong></p>
+						</div>
+						<div class="col-sm-9">
+							<textarea
+								class="autoExpand col-sm-9" rows="3" data-min-rows="3" placeholder="The full description of the proposed power with as much detail as possible."
+								name="PowDesc" >' . $powDesc . '</textarea>
+						</div><!-- END Container -->
+
+					</div>
+
+
+					<input  type="hidden" name="PowID" value="' . $powID . '" />
+					<input  type="hidden" name="CatID" value="' . $catID . '" />
+					<input  type="hidden" name="AuthorID" value="' . $authorID . '" />
+
+
+					<input type="hidden" name="act" value="revise" />
+
+					<br />
+
+
+					<div align="center">
+						<input class="btn btn-primary btn-xs outline"
+							type="submit"
+							value="Edit Power!">
+
+							&nbsp; &nbsp;
+
+						<a class="btn btn-primary btn-xs outline"
+							href="powers.php"
+							title="Exit"
+							">Exit Event</a>
+
+							&nbsp; &nbsp;
+
+						<a class="pull-right"
+							href="#" title="Delete Power">
+								<i class="glyphicon glyphicon-trash"></i>
+						</a>
+
+							&nbsp; &nbsp;
+
+					</div>
+
+					<br />';
+
+			}
+
+			echo '</form>';
+
+		}else{//no records
+				echo '<div align="center">
+					<h3>Currently No event found matching this power ID.</h3>
+				</div>';
+		}
+
+		@mysqli_free_result($result); //free resources
+
+	} else { #redirect back to power
+
+		myRedirect('index.php');
+	}
+
+
+}
+
+function powerInsert(){
+
+	$CatID			= strip_tags($_POST['CatID']);
+	$AuthorID		= strip_tags($_POST['AuthorID']);
+	$PowName		= strip_tags($_POST['PowName']);
+	$PowSum			= strip_tags($_POST['PowSum']);
+	$PowDesc		= strip_tags($_POST['PowDesc']);
+
+	$db = pdo(); # pdo() creates and returns a PDO object
+
+	//dumpDie($FirstName);
+
+	//PDO Quote has some great stuff re: injection:
+	//http://www.php.net/manual/en/pdo.quote.php
+
+	//next check for specific issues with data
+	/*
+	if(!ctype_graph($_POST['FirstName'])|| !ctype_graph($_POST['LastName']))
+	{//data must be alphanumeric or punctuation only
+		feedback("First and Last Name must contain letters, numbers or punctuation");
+		myRedirect(THIS_PAGE);
+	}
+
+
+	if(!onlyEmail($_POST['Email']))
+	{//data must be alphanumeric or punctuation only
+		feedback("Data entered for email is not valid");
+		myRedirect(THIS_PAGE);
+	}
+	*/
+
+		//build string for SQL insert with replacement vars, ?
+		$sql = "INSERT INTO ma_CharPower (
+				CatID, AuthorID, PowName, PowSum, PowDesc
+			)
+			VALUES ( ?, ?, ?, ?, ? )";
+
+	$stmt = $db->prepare($sql);
+	//INTEGER EXAMPLE $stmt->bindValue(1, $id, PDO::PARAM_INT);
+	$stmt->bindValue(1, $CatID,			PDO::PARAM_STR);
+	$stmt->bindValue(2, $AuthorID,	PDO::PARAM_STR);
+	$stmt->bindValue(3, $PowName,		PDO::PARAM_STR);
+	$stmt->bindValue(4, $PowSum,		PDO::PARAM_STR);
+	$stmt->bindValue(5, $PowDesc,		PDO::PARAM_STR);
+
+	try {$stmt->execute();} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
+	#feedback success or failure of update
+
+	if ($stmt->rowCount() > 0)
+	{//success!  provide feedback, chance to change another!
+		feedback("Power Added Successfully To {$catName}!","success");
+	}else{//Problem!  Provide feedback!
+		feedback("Power NOT added!","warning");
+	}
+
+	myRedirect(THIS_PAGE);
+}
+
+function powerRevise(){
+
+	#dumpDie($_POST);
+	/*
+
+	array (size=7)
+
+	'PowName' => string 'beserker' (length=8)
+	'PowSum' => string 'summary to come' (length=15)
+	'PowDesc' => string 'your character can enter into a battle-like rage that alters your character in some significant ways. Reason and Psyche plummet to Feeble rank while the ranks for Strength and Fighting increase by the same number of ranks. (That is, the total number of points lost are split evenly between the Fighting and Strength ranks.) your character also develops Iron Will for the duration of the Berserker rage; the rank for this is the same as the Berserker Power' rank. The Berserker lasts for the length of combat and '... (length=787)
+	'PowID' => string '1' (length=1)
+	'CatID' => string 'combat' (length=6)
+	'AuthorID' => string '1' (length=1)
+	'act' => string 'revise' (length=6)
+
+	*/
+
+
+	$PowName			 		= strip_tags($_POST['PowName']);				#int - primaryKey
+	$PowSum			 		  = strip_tags($_POST['PowSum']); 					#int
+	$PowDesc			 		= htmlspecialchars($_POST['PowDesc']); 			#str
+	$PowID			 			= strip_tags($_POST['PowID']);
+	$CatID			 			= strip_tags($_POST['CatID']);  			#str - entered by user
+	$AuthorID			 		= strip_tags($_POST['AuthorID']);          #str of comma sep numbers
+
+
+
+	#dumpDie($PowDesc);
+	#string 'string 'XcharnameX can can enter into a battle-like rage that alters XcharnameX in some significant ways. Reason and Psyche plummet to Feeble rank while the ranks for Strength and Fighting increase by the same number of ranks. (That is, the total number of points lost are split evenly between the Fighting and Strength ranks.) XcharnameX also develops Iron Will for the duration of the Berserker rage; the rank for this is the same as the Berserker Power' rank. The Berserker lasts for the length of combat and 10 turns'... (length=782)'
+
+	$db = pdo(); # pdo() creates and returns a PDO object
+
+	//build string for SQL insert with replacement vars, ?
+	$sql = "UPDATE `ma_CharPower`
+		SET
+			PowName='$PowName',
+			PowSum='$PowSum',
+			PowDesc='$PowDesc',
+			PowID='$PowID',
+			CatID='$CatID',
+			AuthorID='$AuthorID'
+
+		WHERE `PowID`='$PowID'";
+
+	#dumpDie($PowDesc);
+	#string 'string 'XcharnameX can can enter into a battle like rage that alters XcharnameX in some significant ways. Reason and Psyche plummet to Feeble rank while the ranks for Strength and Fighting increase by the same number of ranks. That is, the total number of points lost are split evenly between the Fighting and Strength ranks. XcharnameX also develops Iron Will for the duration of the Berserker rage the rank for this is the same as the Berserker Power' rank. The Berserker lasts for the length of combat and 10 turns'... (length=782)'
+
+#dumpDie($sql);
+/*
+
+'UPDATE `ma_CharPower`
+		SET
+			PowName='beserker',
+			PowSum='summary to come',
+			PowDesc='XcharnameX can can enter',
+			PowID='1',
+			CatID='combat',
+			AuthorID='1'
+
+		WHERE `PowID`='1'' (length=188)
+
+*/
+
+
+
+	$stmt = $db->prepare($sql);
+	//INTEGER EXAMPLE $stmt->bindValue(1, $id, PDO::PARAM_INT);
+	//The Primary Key of the row that we want to update.
+	$stmt = $db->prepare($sql);
+
+	$stmt->bindValue(1, $PowName, 		PDO::PARAM_STR);
+	$stmt->bindValue(2, $PowSum, 			PDO::PARAM_STR);
+	$stmt->bindValue(3, $PowDesc, 		PDO::PARAM_STR);
+	$stmt->bindValue(4, $PowID, 			PDO::PARAM_STR);
+	$stmt->bindValue(5, $CatID, 			PDO::PARAM_STR);
+	$stmt->bindValue(6, $AuthorID, 		PDO::PARAM_STR);
+
+	//INTEGER EXAMPLE $stmt->bindValue(1, $id, PDO::PARAM_INT);
+
+	try {$stmt->execute();} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
+	#feedback success or failure of update
+
+	if ($stmt->rowCount() > 0)
+	{//success!  provide feedback, chance to change another!
+		feedback("Event Revised Successfully!","success");
+	}else{//Problem!  Provide feedback!
+		feedback("Event NOT REVISED!","warning");
+	}
+	myRedirect(THIS_PAGE);
+}
+
+function powerTrash(){
+	#dumpDie($_POST);
+	$TimelineID			 	= strip_tags($_GET['TimelineID']);				  #int - primaryKey
+	#$EntryID			 		  = strip_tags($_POST['EntryID']); 					#int
+	#$EntryTitle			 	= strip_tags($_POST['EntryTitle']); 			#str
+	#$EntryDate			 		= strip_tags($_POST['EntryDate']);  			#str - entered by user
+	#$EntryDescription	= strip_tags($_POST['EntryDescription']); #str
+	#$CharTag			 			= strip_tags($_POST['CharTag']);          #str of comma sep numbers
+
+	$db = pdo(); # pdo() creates and returns a PDO object
+	#dumpDie($_POST);
+
+	$sql = "DELETE FROM ma_Timeline WHERE `TimelineID` = :TimelineID";
+
+	$stmt = $db->prepare($sql);
+	//INTEGER EXAMPLE $stmt->bindValue(1, $id, PDO::PARAM_INT);
+	$stmt->bindValue(':TimelineID', $TimelineID, PDO::PARAM_INT);
+
+	try {$stmt->execute();} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
+	#feedback success or failure of update
+
+	if ($stmt->rowCount() > 0)
+	{//success!  provide feedback, chance to change another!
+		feedback("Event Removed Successfully From Timeline!","success");
+	}else{//Problem!  Provide feedback!
+		feedback("Event Not Trashed!","warning");
+	}
+	myRedirect(THIS_PAGE);
+}
+#script for expanding textarea
+
+
+
+
+
+#HELPER FUNCTIONS
+#personalizeString($myDesc, $codename, $gender);
+function personalizeStr($str='', $codeName='', $gender=''){
+
+	if ($codeName != ''){ $str = str_replace('XcharnameX', $codeName, $str);
+	}else{
+		$str = str_replace('XcharnameX', 'your character', $str);
+	}
+
+	if ($gender == 'male'){ $str = str_replace('Xhim-her-themX', 'him', $str);}
+	if ($gender == 'female'){ $str = str_replace('Xhim-her-themX', 'her', $str);}
+	if ($str    != ''){ $str = str_replace('Xhim-her-themX', 'them', $str);}
+
+	#clean up formatting used in arrays for display on other pages
+	//$str = strip_tags($str, '<p>');
+	//$str = strip_tags($str, '<strong>');
+
+	return $str;
+}
+
+function getCusomizerForm($codeName, $gender, $str = ''){#creates form to personalize the descriptions
+
+	$str='<h4><a href="#">Customize Descriptions</a></h4>
+		<p>Enter characters name to personalize each &amp; every descriptions on this page to your character.</p>';
+
+
+		#$str .= '<p>' . $codeName  . ' -- ' . $gender . '</p>';
+
+
+
+			$str .='<form action="' . htmlspecialchars(THIS_PAGE) . '" method="get">
+				<input type="text" name="codeName"
+					value="' . $codeName . '" placeholder="Alias / Codename?"><br>
+
+					<input type="radio" name="gender"';
+
+					if ((isset($gender)) && ($gender=="female")){ $str .= "checked"; }
+
+					$str .='value="female"> Female <input type="radio" name="gender"';
+
+					if ((isset($gender)) && ($gender=="male")){ $str .= "checked"; }
+
+					$str .='value="male"> Male
+
+				<br /><br/>';
+
+
+				$str .='<input type="hidden" name="CharID" value="0">
+				<input type="submit" value="Submit">
+			</form>
+		<hr />';
+
+	return $str;
+
+}
+
+function getURL() {
+	$protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https')
+								=== FALSE ? 'http' : 'https';
+	$host     = $_SERVER['HTTP_HOST'];
+	$script   = $_SERVER['SCRIPT_NAME'];
+	$params   = $_SERVER['QUERY_STRING'];
+
+	$currentUrl = $protocol . '://' . $host . $script . '?' . $params;
+
+	return $currentUrl;
+}
+
+
+
+
+
+
+
+
+

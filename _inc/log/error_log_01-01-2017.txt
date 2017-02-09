@@ -1,0 +1,68 @@
+[Jan-01-2017 4:06:30] Undefined variable: uID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3940
+[Jan-01-2017 4:16:08] Undefined variable: uID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3707
+[Jan-01-2017 4:16:08] Undefined variable: hID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3707
+[Jan-01-2017 4:16:44] Undefined variable: uID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3707
+[Jan-01-2017 4:16:44] Undefined variable: hID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3707
+[Jan-01-2017 4:28:25] Missing argument 1 for postAdd(), called in /Applications/AMPPS/www/WrDKv4/threads/index.php on line 224 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3870
+[Jan-01-2017 4:31:06] Missing argument 1 for postAdd(), called in /Applications/AMPPS/www/WrDKv4/threads/index.php on line 224 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3870
+[Jan-01-2017 4:31:14] Missing argument 1 for postAdd(), called in /Applications/AMPPS/www/WrDKv4/threads/index.php on line 224 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3870
+[Jan-01-2017 4:33:11] Undefined index: CatID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4577
+[Jan-01-2017 4:33:11] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4578
+[Jan-01-2017 4:33:11] Undefined index: CharID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4579
+[Jan-01-2017 4:33:11] Undefined index: PostRating in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4582
+[Jan-01-2017 4:33:11] Undefined index: PostFeaturing in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4585
+[Jan-01-2017 4:33:11] SQLSTATE[HY093]: Invalid parameter number in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4662
+[Jan-01-2017 4:39:31] Undefined index: CatID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4544
+[Jan-01-2017 4:39:31] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4545
+[Jan-01-2017 4:39:31] Undefined index: CharID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4546
+[Jan-01-2017 4:39:31] Undefined index: PostRating in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4549
+[Jan-01-2017 4:39:31] Undefined index: PostFeaturing in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4552
+[Jan-01-2017 4:39:31] SQLSTATE[HY093]: Invalid parameter number in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4629
+[Jan-01-2017 4:41:40] Undefined index: CharID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4546
+[Jan-01-2017 4:41:40] Undefined index: PostRating in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4549
+[Jan-01-2017 4:41:40] Undefined index: PostFeaturing in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4552
+[Jan-01-2017 4:41:40] SQLSTATE[HY093]: Invalid parameter number in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4629
+[Jan-01-2017 4:44:22] Undefined index: PostRating in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4549
+[Jan-01-2017 4:44:22] Undefined index: PostFeaturing in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4552
+[Jan-01-2017 4:44:22] SQLSTATE[HY093]: Invalid parameter number in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4629
+[Jan-01-2017 4:45:59] Undefined index: PostFeaturing in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4552
+[Jan-01-2017 4:45:59] SQLSTATE[HY093]: Invalid parameter number in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4629
+[Jan-01-2017 4:52:42] Undefined index: PostTags in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4560
+[Jan-01-2017 4:52:42] SQLSTATE[HY093]: Invalid parameter number in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4629
+[Jan-01-2017 4:58:41] Undefined variable: cID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4164
+[Jan-01-2017 5:01:00] Undefined variable: cID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4163
+[Jan-01-2017 5:01:13] Undefined variable: cID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4163
+[Jan-01-2017 5:03:23] SQLSTATE[HY093]: Invalid parameter number in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4639
+[Jan-01-2017 5:08:27] Object of class PDOStatement could not be converted to string in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4645
+[Jan-01-2017 5:11:55] Object of class PDOStatement could not be converted to string in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4636
+[Jan-01-2017 5:13:58] Object of class PDOStatement could not be converted to string in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4636
+[Jan-01-2017 7:32:18] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3514
+[Jan-01-2017 7:32:50] Object of class PDOStatement could not be converted to string in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4636
+[Jan-01-2017 7:32:50] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3514
+[Jan-01-2017 7:57:03] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3514
+[Jan-01-2017 11:17:36] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3514
+[Jan-01-2017 11:23:38] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3514
+[Jan-01-2017 11:25:54] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3514
+[Jan-01-2017 13:49:49] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3514
+[Jan-01-2017 13:51:13] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3514
+[Jan-01-2017 13:52:52] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3515
+[Jan-01-2017 13:56:28] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3516
+[Jan-01-2017 13:57:57] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3516
+[Jan-01-2017 13:58:04] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3516
+[Jan-01-2017 14:00:01] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 100
+[Jan-01-2017 14:03:13] Undefined index: Rrd1Update in /Applications/AMPPS/www/WrDKv4/characters/profileUpdate.php on line 247
+[Jan-01-2017 14:03:13] Undefined index: Rrd2Update in /Applications/AMPPS/www/WrDKv4/characters/profileUpdate.php on line 252
+[Jan-01-2017 14:03:13] Undefined index: Rrd3Update in /Applications/AMPPS/www/WrDKv4/characters/profileUpdate.php on line 257
+[Jan-01-2017 14:03:13] Use of undefined constant MOD_MAIL - assumed 'MOD_MAIL' in /Applications/AMPPS/www/WrDKv4/_inc/processCharNotification-inc.php on line 93
+[Jan-01-2017 14:03:13] Undefined variable: CodeName in /Applications/AMPPS/www/WrDKv4/_inc/processCharNotification-inc.php on line 119
+[Jan-01-2017 16:13:10] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/users/modCreateChars.php on line 29
+[Jan-01-2017 16:13:10] Undefined index: UserName in /Applications/AMPPS/www/WrDKv4/users/modCreateChars.php on line 30
+[Jan-01-2017 16:13:10] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/users/modCreateChars.php on line 31
+[Jan-01-2017 16:13:10] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 57
+[Jan-01-2017 16:13:10] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22
+[Jan-01-2017 19:28:29] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22
+[Jan-01-2017 19:28:29] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22
+[Jan-01-2017 19:51:42] Missing argument 4 for threadSidebar(), called in /Applications/AMPPS/www/WrDKv4/threads/index.php on line 108 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1131
+[Jan-01-2017 19:51:42] Undefined variable: sql in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1143
+[Jan-01-2017 19:51:42] mysqli_query(): Empty query in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1143
+[Jan-01-2017 19:51:42]  in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1143
