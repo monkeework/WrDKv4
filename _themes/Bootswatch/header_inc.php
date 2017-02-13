@@ -14,9 +14,23 @@ include 'bootswatch_functions.php';//WAS bootswatch_functions.php
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--Bootstrap themes use style settings to change look and feel -->
 		<link rel="stylesheet" href="<?=THEME_PATH;?>css/<?=$config->style;?>" media="screen">
+
+        <!-- Calling jquery for carousel -- added 1702-13 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 		<link rel="stylesheet" href="<?=THEME_PATH;?>css/bootswatch.min.css">
 		<link rel="stylesheet" href="<?=THEME_PATH;?>css/bootswatch-overrides.css">
-		<link rel="shortcut icon" href="<?=VIRTUAL_PATH;?>_img/_mCons/favicon.ico" type="image/x-icon" />
+
+        <!-- Carousel added 1702-13-->
+        <script language="JavaScript" type="text/javascript">
+            $(document).ready(function(){
+                $('.carousel').carousel({
+                    interval: 3000
+                })
+            });
+        </script>
+
+        <link rel="shortcut icon" href="<?=VIRTUAL_PATH;?>_img/_mCons/favicon.ico" type="image/x-icon" />
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->

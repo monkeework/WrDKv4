@@ -1551,7 +1551,7 @@ function get_pTags($postTags, $str = ''){
 }
 
 #get all related posts, paged
-function get_pPaged($rtID, $tally, $act, $btns, $tTitle, $tType, $catID, $tType, $tRateEncoded, $twEncoded, $phaseEncoded, $timeEncoded, $locationEncoded, $whenEncoded, $priv, $str='', $btnGroup=''){
+function get_pPaged($rtID, $tally, $act, $btns, $tTitle, $tType, $catID, $titleEncoded, $tType, $tRateEncoded, $twEncoded, $phaseEncoded, $timeEncoded, $locationEncoded, $whenEncoded, $titleEncoded, $priv, $hID, $uID ,$str='', $btnGroup=''){
 	/**
 	 * Show the most recent posts for a catagory
 	 */
@@ -1982,7 +1982,7 @@ function categoryShow($sql, $sqlTags, $str='', $rCatName='', $catDesc=''){
 										$str .=  '<a href="../characters/profile.php?CodeName=CodeName&tID=' . $value . '">' . $arrNames[$value] . '</a>, ';
 									}
 								}else{
-									$str .=  '<span class="text-muted"><span class="glyphicon glyphicon-tag"></span>  No Tags Currently Set</span> ';
+									$str .=  '<span class="text-muted"><span class="glyphicon glyphicon-tag"></span>  No Tags Currently Set</span>';
 								}
 
 								$str .=  '</p>
@@ -1999,9 +1999,13 @@ function categoryShow($sql, $sqlTags, $str='', $rCatName='', $catDesc=''){
 			$str .= $myPager->showNAV(); # show paging nav, only if enough records
 
 			$str .= '</div>';
+
+		}else{#no records
+			$str .= "<div align=center>There are currently no active threads for $rCatName. Drats!!<br />
+			We should really do something about that soon.</div>";
 		}
 
-	$str .='</div><!-- end accordion -->';
+	$str .='</div><!-- end accordian -->';
 
 
 
@@ -2073,6 +2077,9 @@ function categoryAdd($str=''){
 					<div class="col-sm-8 pull-left" style="">
 						<h4 class="text-center">Add New Catagory</b></h4>';
 
+
+
+
 							$str .= '<div class="row ">
 								<div class="pull-middle">
 
@@ -2082,10 +2089,12 @@ function categoryAdd($str=''){
 										<option value="organization">Group By: Organization</option>
 									</select>
 
+
 									<select class="selectpicker" name="CatSort" required>
 										<option value="individual" select="select">Catagory Type: IC</option>
 										<option value="team">Catagory Type: OOC</option>
 									</select>
+
 								</div>
 							</div><!-- END Container -->
 
@@ -3576,7 +3585,7 @@ function threadRecent($sql, $tID='', $str=''){
 				while($row = mysqli_fetch_assoc($result))
 				{# process each row
 
-					$tID 	= (int)$row['ThreadID'];
+					$tID 		= (int)$row['ThreadID'];
 					$tTitle = $row['ThreadTitle'];
 					$tURL 	= THIS_PAGE . '?act=threadShow&tID=' . $tID . '&ttl=' . $tTitle;
 
@@ -3603,10 +3612,10 @@ function threadRecent($sql, $tID='', $str=''){
 
 #show list of participating characters in thread based on post entries in thread
 #show in order of participation
-					$charsFeatured = mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post);
+										$charsFeatured = mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post);
 #dumpDie($aCharNameIndex);
-                    $str .= str_replace(', ', '<br />', $charsFeatured);
-                    $str .='</small><br /><br /></p>';
+										$str .= str_replace(', ', '<br />', $charsFeatured);
+										$str .='</small><br /><br /></p>';
 
 #POST ORDER end
 #POST ORDER end
@@ -3630,52 +3639,67 @@ $myTags ='';
 	if($myResult->rowCount() > 0)
 	{#there are records - present data
 		while($row = $myResult->fetch(PDO::FETCH_ASSOC))
-            {# pull data from associative array
-                #instantiate needed vars
-                $threadId 		= $row['ThreadID'];
-                $pTag      		= $row['PostTags'];
+		{# pull data from associative array
+			#instantiate needed vars
+			$threadId 		= $row['ThreadID'];
+			$pTag      		= $row['PostTags'];
 
-                if(($pTag != '') && ($threadId == $tID)){
-                    $myTags .=  $pTag . ', ';
-                }
-            }
-
-            if(isset($myTags)){
-                //remove last comma if exists
-                $myTags = rtrim($myTags, ', ');
-
-                #remove duplicates from string
-                $myTags = implode(',', array_unique(explode(',', $myTags)));
-            }
-
-            if($myTags != ''){ $str .= '<p class="col-md-9 text-info "><span class="glyphicon glyphicon-tag"></span> ' . $myTags . '</p>';  }
-            if($myTags == ''){ $str .= '<p><i class="text-muted"><span class="glyphicon glyphicon-tag"></span>  No Characters Currently Tagged</i></p>';}
-
+			if($pTag != ''){
+				$myTags .=  $pTag . ', ';
+			}
+		}
+        #remove duplicates from string
+        $myTags = implode(',',array_unique(explode(',', $myTags)));
+	}else{#no records
+		$myTags =  'No Characters Currently Tagged.';
 	}
 	unset($myResult,$db);//clear resources
+	// test return
+	//dumpDie($aTagSet);
 
-    $str .= '<!-- Go To Thread -->
-        <p class="bottom-align-text" ><a class="pull-right" href="' . $tURL . '"> <span class="glyphicon glyphicon-share"></span> Go To Thread</i></a></p>
+    $str .= '<p class="col-md-9 text-info "><span class="glyphicon glyphicon-tag"></span> ' . $myTags . '</a></p>';
+
+
+					$str .=  '<p class="bottom-align-text" ><a class="pull-right" href="' . $tURL . '"> <span class="glyphicon glyphicon-share"></span> Go To Thread</i></a></p>
 							</div>
 						</div>
 					</div>';
 				}
 
 				@mysqli_free_result($result); //free resources
-				$str .= $myPager->showNAV($tID); # show paging nav, only if enough records
-            }
 
-			$str .='</div><!-- end accordion -->
-                </div>';
+				$str .= $myPager->showNAV($tID); # show paging nav, only if enough records
+
+				}else{#no records
+				$str .= "<div align=center>No posts currently Available.</div>";
+			}
+
+			$str .='</div><!-- end accordion --></div>';
 
 			if(startSession() && isset($_SESSION['UserID'])){
-				$str .='<a href="' . THIS_PAGE . '?act=threadAdd" class="btn btn-primary btn-xs pull-right">Add New Thread</a></p>';
+				$str .='<a href="' . THIS_PAGE . '?act=threadAdd" class="btn btn-primary btn-xs">Add New Thread</a></p>';
 			}
 
 			$str .='</p></div> <!-- END content -->';
 
 	return $str;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function threadRemove(){

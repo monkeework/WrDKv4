@@ -1,0 +1,30 @@
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 0:05:53] Undefined offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3426
+[Feb-12-2017 8:35:21] Undefined variable: tID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3394
+[Feb-12-2017 8:35:21] Undefined variable: tID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3394
+[Feb-12-2017 8:35:21] Undefined variable: tID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3394
+[Feb-12-2017 8:50:56] Undefined variable: formatStart in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3491
+[Feb-12-2017 8:50:56] Undefined variable: formatEnd in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3495
+[Feb-12-2017 8:50:56] Undefined variable: formatStart in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3491
+[Feb-12-2017 8:50:56] Undefined variable: formatEnd in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3495
+[Feb-12-2017 8:50:56] Undefined variable: formatStart in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3491
+[Feb-12-2017 8:50:56] Undefined variable: formatEnd in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3495
+[Feb-12-2017 8:50:56] Undefined variable: formatStart in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3491
+[Feb-12-2017 8:50:56] Undefined variable: formatEnd in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3495
+[Feb-12-2017 8:53:57] Undefined variable: tagEnd in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3496
+[Feb-12-2017 8:53:57] Undefined variable: tagEnd in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3496
+[Feb-12-2017 8:53:57] Undefined variable: tagEnd in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3496
+[Feb-12-2017 8:53:57] Undefined variable: tagEnd in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3496
+[Feb-12-2017 13:31:11] include(/Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php): failed to open stream: No such file or directory in /Applications/AMPPS/www/WrDKv4/_inc/config_inc.php on line 77
+[Feb-12-2017 13:31:11] include(): Failed opening '/Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php' for inclusion (include_path='.:') in /Applications/AMPPS/www/WrDKv4/_inc/config_inc.php on line 77
+[Feb-12-2017 13:31:44] include(/Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php): failed to open stream: No such file or directory in /Applications/AMPPS/www/WrDKv4/_inc/config_inc.php on line 77
+[Feb-12-2017 13:31:44] include(): Failed opening '/Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php' for inclusion (include_path='.:') in /Applications/AMPPS/www/WrDKv4/_inc/config_inc.php on line 77
+[Feb-12-2017 14:06:18] mysqli_fetch_assoc(): Couldn't fetch mysqli_result in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3576

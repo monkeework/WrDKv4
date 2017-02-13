@@ -67,7 +67,7 @@ $config->metaKeywords = 'Super-Heroes, Superheroes, Marvel, Comics, Characters, 
 
 get_header(); #defaults to theme header or header_inc.php
 
-echo MaxNotes($pageDeets); #notes to me!
+#echo MaxNotes($pageDeets); #notes to me!
 
 echo '
 

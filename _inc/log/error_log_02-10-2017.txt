@@ -1,0 +1,123 @@
+[Feb-10-2017 5:29:48] Undefined variable: charsFeatured in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3764
+[Feb-10-2017 5:29:48] Undefined variable: charsFeatured in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3764
+[Feb-10-2017 5:29:48] Undefined variable: charsFeatured in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3764
+[Feb-10-2017 5:29:48] Undefined variable: charsFeatured in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3764
+[Feb-10-2017 5:29:48] Undefined variable: charsFeatured in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3764
+[Feb-10-2017 5:29:48] Undefined variable: charsFeatured in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3764
+[Feb-10-2017 5:29:48] Undefined variable: charsFeatured in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3764
+[Feb-10-2017 5:29:48] Undefined variable: charsFeatured in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3764
+[Feb-10-2017 5:29:48] Undefined variable: charsFeatured in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3764
+[Feb-10-2017 5:57:42] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== 22 
+    GROUP BY `ThreadID`' at line 6 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3469
+[Feb-10-2017 5:57:42] Undefined variable: result in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3471
+[Feb-10-2017 5:58:08] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== 22' at line 6 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3468
+[Feb-10-2017 5:58:08] Undefined variable: result in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3470
+[Feb-10-2017 6:02:40] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== '22'' at line 6 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3468
+[Feb-10-2017 6:02:40] Undefined variable: result in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3470
+[Feb-10-2017 6:06:10] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== '22'' at line 6 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3474
+[Feb-10-2017 6:06:10] Undefined variable: result in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3476
+[Feb-10-2017 7:20:47] Object of class PDOStatement could not be converted to int in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3481
+[Feb-10-2017 7:21:29] Object of class PDOStatement could not be converted to int in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3481
+[Feb-10-2017 7:25:18] Object of class PDOStatement could not be converted to int in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3481
+[Feb-10-2017 7:27:28] Undefined variable: db in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3476
+[Feb-10-2017 7:29:37] Object of class PDOStatement could not be converted to int in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3484
+[Feb-10-2017 7:30:13] Object of class PDOStatement could not be converted to int in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3485
+[Feb-10-2017 7:30:31] Object of class PDOStatement could not be converted to int in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3485
+[Feb-10-2017 7:30:40] Object of class PDOStatement could not be converted to int in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3483
+[Feb-10-2017 7:38:50] Object of class PDOStatement could not be converted to int in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3482
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3486
+[Feb-10-2017 7:38:50] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Object of class PDOStatement could not be converted to int in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3484
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:41:13] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3488
+[Feb-10-2017 7:54:35] Undefined variable: threadID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3490
+[Feb-10-2017 7:57:16] Invalid argument supplied for foreach() in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3577
+[Feb-10-2017 7:57:16] Uninitialized string offset: 0 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3589
+[Feb-10-2017 7:57:16] Invalid argument supplied for foreach() in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3589
+[Feb-10-2017 10:49:08] Object of class PDOStatement could not be converted to string in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 5531
+[Feb-10-2017 11:04:49] Undefined variable: last2post in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3814
+[Feb-10-2017 11:04:49] Undefined variable: last2post in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3814
+[Feb-10-2017 11:04:49] Undefined variable: last2post in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3814
+[Feb-10-2017 11:04:49] Undefined variable: last2post in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3814
+[Feb-10-2017 11:04:49] Undefined variable: last2post in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3814
+[Feb-10-2017 11:04:49] Undefined variable: last2post in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3814
+[Feb-10-2017 11:04:49] Undefined variable: last2post in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3814
+[Feb-10-2017 11:04:49] Undefined variable: last2post in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3814
+[Feb-10-2017 11:04:49] Undefined variable: last2post in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3814
+[Feb-10-2017 11:09:52] Undefined variable: aLastPosting in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3777
+[Feb-10-2017 11:22:08] Undefined variable: arrDataarrData in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3556
+[Feb-10-2017 11:33:36] Undefined variable: dumpDie in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3553
+[Feb-10-2017 11:35:08] Undefined variable: dumpDie in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3553

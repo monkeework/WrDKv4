@@ -1,17 +1,5 @@
  <?php
- /**
-	* custom_inc.php stores custom functions specific to your application
-	*
-	* Keeping common_inc.php clear of your functions allows you to upgrade without conflict
-	*
-	*
-	* @package ma-v1605-22
-	* @author monkeework <monkeework@gmail.com>
-	* @version 3.02 2011/05/18
-	* @link http://www.monkeework.com/
-	* @license http://www.apche.org/licenses/LICENSE-2.0
-	* @todo add safeEmail to common_inc.php
-	*/
+ /**accordion*/
 
 
 
@@ -277,7 +265,7 @@ function isActive($page='', $userPage='', $str=''){
 }
 
 
-//////////////////      DATA REVEIWING      /////////////////
+//////////////////      DATA REVIEWING      /////////////////
 #echo reviewNotes($aarContent['charCreation-start'], $CodeName, $Gender, $Reviewer, $Rrd1, $Rrd2, $Rrd3);
 
 #WORKING HERE
@@ -3312,7 +3300,7 @@ function threadEdit($sqlThreads, $sqlTags, $str=''){
 
 #returns an array of character indexs involved in threads to match against
 #used in threads and posts
-function mk_charIndex($str ='')
+function gt_charIndex($str ='')
 {
 
 	#get full index of possible character names and id's from current session
@@ -3370,125 +3358,252 @@ function mk_charIndex($str ='')
 
 }
 
+ /**
+  * Generate an array of all characters participating in a thread
+  * @param  $threadID
+  * @param  $aPosts
+  * @param  array $aChars
+  * @param  array $aParticipants
+  * @param  int $postParticipantID
+  * @param  string $str
+  * @return string
+  */
+ function gt_threadParticipants($threadID, $aPosts, $aParticipants = [])
+ {
+     #get charIndex from $_SESSION
+     if (isset($_SESSION['charIndex'])){
+         $aChars = $_SESSION['charIndex'];
+     }
+
+     #1st foreach - get participating charIDs from participating posts matching $threadID
+     #if threadID exists AND matches, get character id
+     if (isset($threadID)){
+         #get the id of the character associated with individual post
+
+         #temp array -> is destroy/reinitialized
+         $arrTemp = [];
+         foreach ($aPosts[0] as $arrData){
+             # if ThreadID = Given ThreadID
+             if ($arrData['ThreadID'] == $threadID)
+             {
+                 #(int)$tempThreadID = $arrData['ThreadID'];
+                 #(int)$tempPostID 	= $arrData['PostID'];
+                 (int)$tempCharID = $arrData['CharID'];
+                 #(int)$tempOrderID  = $arrData['PostOrder'];
+
+                 #save character id from post data to array to clean of multiples/duplicates
+                 #get character id associated with individual post - get it - comes from posts array
+                 #$postParticipantID = $arrData['CharID'];
+
+                 if (($tempCharID != 0) && (!empty($tempCharID))){
+                     #if it has data and is not empty, get data
+                     $arrTemp[] = $tempCharID;
+                 } #END inner if
+             } #END outer if
+         }#END foreach
+
+         $aParticipants = array_unique($arrTemp);
+         #echo ' <br /><br /> ';
+     } #END if
+
+     # array_filter remove all values equal to null, 0, '' or false.
+     $aParticipants = array_filter($aParticipants);
+
+     return $aParticipants;
+ } #END gt_threadParticipants
+
+ function gt_last2post($aLastPost=[]){
+     // SQL statement - PREFIX is optional way to distinguish your app
+     // Pulls back table - ThreadID, CharID, MaxPostID -> MaxPostID -> ThreadID -> CharID
+     $sql = "SELECT `ThreadID`, `CharID`, MAX(`PostID`)
+	AS MaxPostID FROM `ma_Posts`
+	WHERE `PostTags` IS NOT NULL
+		AND `PostTags` != '0'
+		AND `PostTags` != ' '
+	GROUP BY `ThreadID`;";
+
+     $db = pdo(); # pdo() creates and returns a PDO object
+
+     #$result stores data object in memory
+     try {$result = $db->query($sql);} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
+
+     if($result->rowCount() > 0)
+     {#there are records - present data
+         while($row = $result->fetch(PDO::FETCH_ASSOC))
+         {# pull data from associative array
+
+             // make associative array
+             $aLastPost[]  = [
+                 'ThreadID'  => (int)$row['ThreadID'],
+                 'CharID'    => (int)$row['CharID'],
+                 'MaxPostID' => (int)$row['MaxPostID'],
+             ];
+         }
+     }
+
+     unset($result,$db);//clear resources
+
+     return $aLastPost;
+ }
+
+
+
+ /*
+     LOOK HERE - Thread Tags
+     LOOK HERE - Thread Tags
+     LOOK HERE - Thread Tags
+ */
+
+
+ /*
+  * get array of data - ThreadID -> PostTags
+  */
+ function gt_threadTags($arr=[]){
+     // get base result set of character tags
+     $sql ="SELECT `ThreadID`, `PostTags` FROM `ma_Posts` WHERE `PostTags` IS NOT NULL AND `PostTags` != '0' AND `PostTags` != ' ' ORDER BY `ThreadID`";
+
+     $db = pdo(); # pdo() creates and returns a PDO object
+
+     #$result stores data object in memory
+     try {$myResult = $db->query($sql);} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
+
+     if($myResult->rowCount() > 0)
+     {#there are records - present data
+         while($row = $myResult->fetch(PDO::FETCH_ASSOC))
+         {# pull data from associative array
+             #instantiate needed vars
+             $tId 	 = $row['ThreadID'];
+             $pTags  = $row['PostTags'];
+
+             #echo $tId .' -> ' . $pTags . '<br />';
+             $arr = [
+                 'tID' => $row['ThreadID'],
+                 'tags'=> $row['PostTags']
+             ];
+         }
+     }
+     unset($myResult,$db);//clear resources
+     return $arr;
+
+ } #END gt_threadTags
+
+
+ //mk_threadTags($tID, $tTagIndex)
+function mk_threadTags($tID, $aTags, $pTag=''){
+/*
+ * If ($tID == $aTags['tID']){
+ *      $pTag .= $pTag . $aTags['tags'] . ',';
+ * }
+ *
+ * if $aTag has for assoc arrays
+ * array of arrays
+ * array1 = $tID => 12 $tags => burt
+ * array1 = $tID => 12 $tags => allen
+ * array1 = $tID => 12 $tags => burt
+ * array1 = $tID => 13 $tags => mary
+ * array1 = $tID => 14 $tags => sue
+ *
+ * we would return a string
+ * $pTag == burt,allen,burt,;
+ */
+
+    //foreach loop to process needed array
+    if($aTags['tID'] == $tID){ $pTag .= $aTags['tags']; }
+
+    #$pTag = str_replace('-', ' ', $pTag);
+
+    // if we have tags return them.
+	if( (isset($pTag) && ($pTag != '')) ){ return '<span class="glyphicon glyphicon-tags text-info"></span> &nbsp; <i class="text-info">' . $pTag . '</i>'; }
+    // if no tags, let us know we could have tags
+
+    #if(!isset($pTag)){ return '<span class="glyphicon glyphicon-tag text-muted"></span> No Tags' ; }
+    if($pTag == ''){ return '<span class="text-muted"><span class="glyphicon glyphicon-tag"></span> No Tags</span>' ; }
+
+} #END mk_threadTags
+
+
+
+
 
 
 
 
 /**
-	* mk_cFeaturedLinks -> create a string of character links who are involved in a thread
+	* generate string of links
+	* links appear in order of first appearance in thread
+	* highlight link of the last character to post in thread
 	*
-	* Todo lots
-	* @return string of formated html char links
+	* @param $aParticipants
+	* @param string $str
+	* @return string
+	* TODO: highlight link of the last character to post in thread
 	*/
-function note_mkcFeatureLins_WORK_GOOD($str ='!!! MAKE IT WORK GOOD !!!'){
-/*
+ function mk_postOrder($tID, $aParticipants, $alastPosting, $last2post='', $str=''){
+	 #var_dump($aParticipants);
+	 // get data from associative array of arrays
 
 
-Alternatively, you can do it with one loop, using an array as a hash map to determine whether or not you've already printed a character.  Rough example:
+	 #1st loop - get participating charIDs from participating posts matching $threadID
+	 #if threadID exists AND matches, get character id
+	 if (isset($tID)){
+	 #get the id of the character associated with individual post
 
+	 #temp array -> is destroy/reinitialized
+	 $arrTemp = [];
+	 foreach ($alastPosting[0] as $arrData){
+		 # if ThreadID = Given ThreadID
+		 if ($arrData['ThreadID'] == $tID){
 
+			 (int)$tempCharID = $arrData['CharID'];
+			 (int)$tempPostID = $arrData['PostID'];
+			 (int)$tempMaxID  = $arrData['MaxPostID'];
 
-$seen = [];
-foreach($aCharNameIndex[0] as $data) {
-	if($data['ThreadID'] == $threadID && !isset($seen[$characterID]) {
-		echo "<a href=\"#\">$characterId</a>";
-		$seen[$characterId] = true;
+			 #save character id from post data to array to clean of multiples/duplicates
+			 #get character id associated with individual post - get it - comes from posts array
+			 #$postParticipantID = $arrData['CharID'];
+
+			 if (($tempCharID != 0) && (!empty($tempCharID))){
+				 #if it has data and is not empty, get data
+					 $last2post = $tempCharID;
+				 } #END inner if
+			 } #END outer if
+		 }#END foreach
+	 } #END if
+
+	#2nd loop - build string
+	if(count($aParticipants) > 0){
+		// Build char links for POST ORDER thread box
+
+		$str .= '<small><b class="text-muted">Post Order:</b><br/>';
+		foreach($aParticipants as $charID) {
+			#set up final pins
+			$codeName = $_SESSION['charIndex'][$charID];
+			#make link and concatinate to string
+			if($charID == $last2post){
+					$str .= '<a href="' . VIRTUAL_PATH . 'characters/profile.php?CodeName=' . $codeName . '&id=' . $charID . '&act=show" title="Profile for ' . $codeName . '"><strong>' . $codeName . '</strong></a>, ';
+			}else{
+					$str .= '<a href="' . VIRTUAL_PATH . 'characters/profile.php?CodeName=' . $codeName . '&id=' . $charID . '&act=show" title="Profile for ' . $codeName . '">' . $codeName . '</a>, ';
+			}#END inner if
+		}#END foreach
+
+	}else{
+		 $str .= '<small><b class="text-muted">No Posts</b><br/>';
 	}
-}
 
 
+	return $str;
 
-
-
-
-
-Looks like hash map is the term Java uses for their implementation and hash table is the generic term.
-
-This gets very CS very fast
-https://en.wikipedia.org/wiki/Hash_table
-
-Your $aCharNameIndex array is the perfect example for this.  Let's say you want to know the character ID of a given post ID.  Your array is arranged in a seemingly random order.  So to implement this function, here's what you have to do:
-
-function getCharacterIdForPostId($aCharNameIndex, $postId) {
-	foreach($aCharNameIndex as $data) {
-		if($data['PostId'] == $postId) {
-			return $data['CharId'];
-		}
-	}
-	return null;
-}
-
-If we query for post 32, we only have to do one loop iteration before we find it.  If we query for post 51, we have to get all the way to the end of the list before we find it.  If we query for 99999, we'll get through the entire list and never find what we want.  Assuming that each iteration of the loop takes the same amount of time, we can say that the runtime of this function in its worst case is n, where n is the number of elements in the array.
-
-But what if I told you I can get the worst case scenario down to 1 loop iteration?  Does it sound too good to be true?  It's not!  Instead, we declare the data differently:
-
-$postData = [
-	32 => 0,
-	51 => 0,
-];
-
-Here, we set the array key to the post ID and the value of each element to the character ID.  But we can actually set the array values to anything we want, so let's replicate the same data:
-
-$postData = [
-	32 => ['ThreadID' => 0, 'CharID' => 0, 'PostOrder' => 0],
-	51 => ['ThreadID' => 20, 'CharID' => 0, 'PostOrder' => 0],
-];
-
-Now if we want to find the Character ID for post 51, we just say:
-if(isset($postData[51])) {
-	echo $postData[51]['CharId'];
-}
-Or the thread ID for post 32:
-if(isset($postData[32])) {
-	echo $postData[32]['ThreadId'];
-}
-
-
-A quick note on hash tables: You'll probably be seeing stuff about "buckets".  Here's an example of how that might be used.
-
-Let's say you're a hospital and you have a database of all your patients and who their primary care provider is.  You keep track of your patients by their social security number.  If it's a big hospital, you'll have thousands and thousands of patients and you can't store all that data in memory.  So you store it off on disk somewhere but the hash table helps you quickly get to the right spot for a certain patient.  Let's just say that this hospital is huge and has 10,000,000 patients.  If we just use the SSN as the key, in the worst case scenario we would have to iterate over ten million records to get to the patient we're looking for.  So instead we create a bucket for each of the parts of the SSN.  So when we go to look up the data for patient 456-78-9012, we take the first set of digits, 456, and look through our first list which contains the first three digits of all the SSNs of all our patients.  We end up at the 456 bucket and then have to look through 100 more buckets to find the 78 bucket.  Once we have that, there's only a thousand records to look through so we can iterate over those much quicker than if there were ten million to look through.
-
-That may actually be pretty confusing without a diagram.  Don't worry if it doesn't make sense; it's not super important at this point.
-*/
-
-}
-
-function note_mkcFeatureLins_WORK($str ='!!! MAKE IT WORK !!!'){
-/*
-
-	MAKE IT WORK
-	You have too much code in your initial loop.
-
-	You are using the "foreach($aCharNameIndex[0] as $data)
-	{" to preprocess your data but you start dealing with it before you have finished processing your data.}
-
-Your call to array_unique is pointless as there's nothing that is ever done with the resulting array.
-
-MATCH all data in $aCharNameIndex to corresponding CharID's
-RETURN link of each character name, linking to their character profile
-
-TO DO THIS - two loops.
-LOOP ONE   - filter the data,
-LOOP TWO   - iterate over that filtered data, creat links.
-
-RETURN LINKS
-
-
-*/
-
-}
-
-
+} # END mk_postOrder
 
 /**
-* Based on all posts of a thread, returns a string of particpant character links
-* Links are returned in order of first appearance in an individual thread
-*
-* @param  int $threadID
-* @param  int array  $aPosts
-* @return  mixed string  character links based on order of first appearance in thread
-* @TODO review
-**/
+	* Based on all posts of a thread, returns a string of particpant character links
+	* Links are returned in order of first appearance in an individual thread
+	*
+	* @param  int $threadID
+	* @param  int array  $aPosts
+	* @return  mixed string  character links based on order of first appearance in thread
+	* @TODO review
+	**/
 function mk_cFeaturedLinks($threadID, $aPosts, $aChars=[], $aParticipants=[], $postParticipantID=0, $str='') {
 	#get charIndex from $_SESSION
 	if(isset($_SESSION['charIndex'])){ $aChars=$_SESSION['charIndex']; }
@@ -3632,230 +3747,120 @@ function threadRecent($sql, $sqlTags, $tId='', $str='', $postOrder =''){
 							</h4>
 						</div>
 						<div id="collapse-' . $tID . '" class="panel-collapse collapse">
-							<div class="panel-body">';
+							<div class="panel-body">
+								<p class="col-md-9"><b class="text-muted">PREFACE &raquo;</b> '. $row['ThreadSummary'] . '</p>
+								<p class="col-md-3 pull-left text-right">';
 
 
 
-					$str .=  '<p class="col-md-9">'. $row['ThreadSummary'] . '</p>
+//POST ORDER begin
+//POST ORDER begin
+//POST ORDER begin
 
-										<p class="col-md-3 pull-left text-right">';
+#get array from session['charIndex'] participants
+		$aCharNameIndex[] = gt_charIndex();
+		#show our list of participating characters in post order/alphanumeric depending on context order
+		// broke into two functions to make this more manageable
+		//GETs an array of thread participants from ma_Posts table
+		$aParticipants = gt_threadParticipants($tID, $aCharNameIndex);
+		//SETs a comma separated string of participants
 
-										#set up post order/partipants
-										$aCharNameIndex[] = mk_charIndex();
+		//GET last character to post in thread
+		$alastPosting = gt_last2post();
+		// SET up data into string of links
+		$charsFeatured = mk_postOrder($tID, $aParticipants, $alastPosting);
+		//bolds name of last character to post in thread.
+		//$charsFeatured = gt_lastParticipating($charsFeatured);
+		// Add in line brakes to make into a quick list
+		$str .= str_replace(', ', '<br />', $charsFeatured);
+		$str .='</small><br /><br /></p>';
 
-#show our list of particpating characters in post order/alphanumeric depending on context order
-										$charsFeatured = mk_cFeaturedLinks($tID, $aCharNameIndex);
-
-										$str .= str_replace(', ', '<br />', $charsFeatured);
-										$str .='</small><br /><br /></p>';
-
-#$str .= '<p>' . get_postingOrder() . '</p>';
-
-										#set ground work for tags
-										$threadTag 	= $row['ThreadTag'];
-										$arrTags 		= explode(',', $threadTag);
-										$arrNames 	= get_tNames($sqlTags);
-
-										#if we have tags show them
-										$str .= '<span class="glyphicon glyphicon-tag"></span> ';
-
-										$x = 0;
-										$tot = count($arrTags);
-
-#make links, comma separated
-										/*
-										 *  set up to take names
-										 *  $arrNames[$value] = gives numbers wants numbers
-										 * use $_SESSION to get comparative values
-										 *
-										 *
-										 */
+// POST ORDER end
+// POST ORDER end
+// POST ORDER end
 
 
 
+//TAGs begin
+//TAGs begin
+//TAGs begin
 
 
-$aTagSet=[];
-$myTags ='';
-
-	// get base result set of chracter tags
-	$sql ="SELECT `ThreadID`, `PostTags` FROM `ma_Posts` WHERE `PostTags` IS NOT NULL AND `PostTags` != '0' AND `PostTags` != ' ' ORDER BY `ThreadID`";
-
-	$db = pdo(); # pdo() creates and returns a PDO object
-
-	#$result stores data object in memory
-	try {$myResult = $db->query($sql);} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
-
-	if($myResult->rowCount() > 0)
-	{#there are records - present data
-		while($row = $myResult->fetch(PDO::FETCH_ASSOC))
-		{# pull data from associative array
-			 #echo '<p>';
-
-			#instantiate needed vars
-			$threadId 		= $row['ThreadID'];
-			$pTag      		= $row['PostTags'];
-
-			$aTemp				= [];
-
-
-
-			if($pTag != ''){
-
-				//explode();
-
-				// echo '<b>' . $threadId . '</b> ' . $pTag . ', ';
-				$myTags .=  $pTag . ', ';
-
-			}
-		}
-	}else{#no records
-		$myTags =  'No Characters Currently Tagged.';
-	}
-	unset($myResult,$db);//clear resources
-	// test return
-	//dumpDie($aTagSet);
-
-
-	$str .= '<p><i class="text-info">' . $myTags . ' - Tags here.</a>';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#get array from ma_Posts where we have a tag - index by ThreadID
+	$tTagIndex = gt_threadTags();
+#dumpDie($tTagIndex);
 /*
-		foreach($arrTags as $key => $value)
-		{
-				$str = !isset($value) || $value == FALSE ? $str . ' <i class="text-muted"> No Characters Currently Tagged.' : $str . '<a href="../characters/profile.php?CodeName=CodeName&id=' . $value . '&act=show"> TAGS GO HERE ';
-
-				#. $arrNames[$value] .
-				$str . 'I AM HEREXXX</a>'; #END if/else statement
-		}#END foreach loop
+	$tTagIndex  ->  returns
+	array (size=2)
+	'tID' => string '21' (length=2)
+	'tags' => string 'Union Jack' (length=10)
 */
-					$str .=  '<a class="pull-right" href="' . $tURL . '"> <span class="glyphicon glyphicon-share"></span> Go To Thread</i></a></p>
-							</div>
-						</div>
-					</div>';
-				}
+#var_dump($tTagIndex);
 
-				@mysqli_free_result($result); //free resources
 
-				$str .= $myPager->showNAV($tID); # show paging nav, only if enough records
 
-				}else{#no records
-				$str .= "<div align=center>No posts currently Available.</div>";
-			}
 
-			$str .='</div><!-- end accordian --></div>';
+	$str .= '<p>';
+	// returns string of profile links of characters appearing in the thread.
+	$str .= mk_threadTags($tID, $tTagIndex);
+	// go to thread link
+	$str .=  '<a class="pull-right" href="' . $tURL . '"> <span class="glyphicon glyphicon-share"></span> Go To Thread</i></a></p>
+			</div>
+		</div>
+	</div>';
+}
 
-			if(startSession() && isset($_SESSION['UserID'])){
-				$str .='<p> <a href="' . THIS_PAGE . '?act=threadAdd" class="btn btn-primary btn-xs pull-right">Add New Thread</a></p>';
-			}
+@mysqli_free_result($result); //free resources
+//TAGs end
+//TAGs end
+//TAGs end
 
-			$str .='</div> <!-- END content -->';
+		$str .= $myPager->showNAV($tID); # show paging nav, only if enough records
+
+		}else{#no records
+		$str .= '<div align=center>No posts currently Available.</div>';
+	}
+
+
+
+
+
+
+
+
+	//TAGs end
+	//TAGs end
+	//TAGs end
+
+	$str .='</div><!-- end accordion --></div>';
+
+	if(startSession() && isset($_SESSION['UserID'])){
+		$str .='<p> <a href="' . THIS_PAGE . '?act=threadAdd" class="btn btn-primary btn-xs pull-right">Add New Thread</a></p>';
+	}
+
+	$str .='</div> <!-- END content -->';
 
 	return $str;
-}
+}#END threadRecent()
 
 
-// WORKING HERE WORKING HERE WORKING HERE
-/**
- * mk_tagSet returns an array of threadIDs and unique tag id's
- *
- * @PARAM   mixed array
- * @RETURN  array
- * @TODO    nothing
- */
-#used on line #3677
-/*
-function mk_tagSet($aTagSet=[]){
-	// get base result set of chracter tags
-	$sql ="SELECT `ThreadID`, `PostTags` FROM `ma_Posts` WHERE `PostTags` IS NOT NULL AND `PostTags` != '0' AND `PostTags` != ' ' ORDER BY `ThreadID`";
-
-	$db = pdo(); # pdo() creates and returns a PDO object
-
-	#$result stores data object in memory
-	try {$result = $db->query($sql);} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
-
-	if($result->rowCount() > 0)
-	{#there are records - present data
-		while($row = $result->fetch(PDO::FETCH_ASSOC))
-		{# pull data from associative array
-			 #echo '<p>';
-			# echo 'Thread ID: <b>' . $row['ThreadID'] . '</b> --';
-			# echo 'Post Tag: <b>' . $row['PostTags'] . '</b></p>';
-
-			#store in array
-			$row['ThreadID'] = $row['PostTags'];
-			#store in associative array
-
-			echo $row;
-			$aTagSet[] = $row;
-
-		}
-	}else{#no records
-		echo '<div align="center">Sorry, there are no records that match this query</div>';
-	}
-	unset($result,$db);//clear resources
-	// test return
-	//dumpDie($aTagSet);
-
-	return $aTagSet;
-
-}
-*/
-
-/**
- * gt_cTags returns aof character names based on thread ID
- *
- * @PARAM   array
- * @PARAM		threadID /PostID
- * @RETURN  string
- * @TODO    nothing
- */
-/*
-function gt_cTags ($threadID = 20, $tURL, $str=''){
-
-	$arrTags = mk_tagSet();
-	foreach($arrTags as $tID => $cName)
-	{
-
-			# $str = !isset($value) || $value == FALSE ? $str . ' <i class="text-muted"> No Characters Currently Tagged.' : $str . '<a href="../characters/profile.php?CodeName=CodeName&id=' . $value . '&act=show"> TAGS GO HERE ';
-
-			#$str .= '<i class="text-muted"> No Characters Currently Tagged.' : $str . '<a href="../characters/profile.php?CodeName=CodeName&id=' . $value . '&act=show">';
-
-			#. $arrNames[$value] .
-			$str . 'I AM HEREXXX</a>'; #END if/else statement
-	}#END foreach loop
 
 
-	return $str;
-	#return '<a class="pull-right" href="' . $tURL . '"> <span class="glyphicon glyphicon-share"></span> Go To Thread</i></a></p>';
 
 
-}
 
-*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3901,7 +3906,6 @@ function threadRemove(){
 }
 
 function threadRevise($sqlThreads, $sqlTags, $str=''){
-
 	#echo 'thread revise';
 	#dumpDie($_POST);
 
@@ -3926,8 +3930,8 @@ function threadRevise($sqlThreads, $sqlTags, $str=''){
 
 
 
-/*
-	Full Set
+	/*
+		Full Set
 		$tID   				= strip_tags($_POST['ThreadID']);					#chk
 		$catID    					= strip_tags($_POST['CatID']);						#chk
 		#$pID    				= strip_tags($_POST['PostID']);

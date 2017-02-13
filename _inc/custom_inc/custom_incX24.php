@@ -1551,7 +1551,7 @@ function get_pTags($postTags, $str = ''){
 }
 
 #get all related posts, paged
-function get_pPaged($rtID, $tally, $act, $btns, $tTitle, $tType, $catID, $tType, $tRateEncoded, $twEncoded, $phaseEncoded, $timeEncoded, $locationEncoded, $whenEncoded, $priv, $str='', $btnGroup=''){
+function get_pPaged($rtID, $tally, $act, $btns, $tTitle, $tType, $catID, $titleEncoded, $tType, $tRateEncoded, $twEncoded, $phaseEncoded, $timeEncoded, $locationEncoded, $whenEncoded, $titleEncoded, $priv, $hID, $uID ,$str='', $btnGroup=''){
 	/**
 	 * Show the most recent posts for a catagory
 	 */
@@ -1982,7 +1982,7 @@ function categoryShow($sql, $sqlTags, $str='', $rCatName='', $catDesc=''){
 										$str .=  '<a href="../characters/profile.php?CodeName=CodeName&tID=' . $value . '">' . $arrNames[$value] . '</a>, ';
 									}
 								}else{
-									$str .=  '<span class="text-muted"><span class="glyphicon glyphicon-tag"></span>  No Tags Currently Set</span> ';
+									$str .=  '<span class="text-muted"><span class="glyphicon glyphicon-tag"></span>  No Tags Currently Set</span>';
 								}
 
 								$str .=  '</p>
@@ -1999,9 +1999,13 @@ function categoryShow($sql, $sqlTags, $str='', $rCatName='', $catDesc=''){
 			$str .= $myPager->showNAV(); # show paging nav, only if enough records
 
 			$str .= '</div>';
+
+		}else{#no records
+			$str .= "<div align=center>There are currently no active threads for $rCatName. Drats!!<br />
+			We should really do something about that soon.</div>";
 		}
 
-	$str .='</div><!-- end accordion -->';
+	$str .='</div><!-- end accordian -->';
 
 
 
@@ -2073,6 +2077,9 @@ function categoryAdd($str=''){
 					<div class="col-sm-8 pull-left" style="">
 						<h4 class="text-center">Add New Catagory</b></h4>';
 
+
+
+
 							$str .= '<div class="row ">
 								<div class="pull-middle">
 
@@ -2082,10 +2089,12 @@ function categoryAdd($str=''){
 										<option value="organization">Group By: Organization</option>
 									</select>
 
+
 									<select class="selectpicker" name="CatSort" required>
 										<option value="individual" select="select">Catagory Type: IC</option>
 										<option value="team">Catagory Type: OOC</option>
 									</select>
+
 								</div>
 							</div><!-- END Container -->
 
@@ -3398,17 +3407,11 @@ function mk_charIndex($str ='')
      return $cID;
  }
 
-// COMMIT TO MEMORY
-// COMMIT TO MEMORY
-// COMMIT TO MENORY
+ #WORKING HERE
+ #WORKING HERE
+ #WORKING HERE
 
-// DocBlock - what and why is happen, code will tell it is happening
 
-// COMMIT TO MEMORY
-// COMMIT TO MEMORY
-// COMMIT TO MENORY
-
- 
 /**
 * Based on all posts of a thread, returns a string of participant character links
 * Links are returned in order of first appearance in an individual thread
@@ -3418,7 +3421,7 @@ function mk_charIndex($str ='')
 * @return  mixed string  character links based on order of first appearance in thread
 * @TODO review
 **/
-function mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post, $aParticipants=[], $last2post='', $str='') {
+function mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post, $aParticipants=[], $last2post='', $tagOpen='', $tagClose='', $str='') {
 
 #dumpDie($aPosts);
 	#1st foreach - get participating charIDs from participating posts matching $threadID
@@ -3451,13 +3454,24 @@ function mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post, $aParticipants=[]
     //if match, pull CharID so we can bold it in Post Order list
 
 
+#COMES BACK EMPTY!!!
+#COMES BACK EMPTY!!!
+#COMES BACK EMPTY!!!
+
     #dumpDie($aLast2post);
         $last2post = chk_last2post($aLast2post, $tID);
 
     #simulate chk_last2post result - fake charID of last poster
     $last2post = 3;
     #dumpDie($last2post);
-   
+
+#COMES BACK EMPTY!!!
+#COMES BACK EMPTY!!!
+#COMES BACK EMPTY!!!
+
+    #dumpDie($charLastID);
+
+
 	if(count($aParticipants) > 0)
 	{
 		$str .= '<small><b>POST ORDER:</b>
@@ -3466,9 +3480,7 @@ function mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post, $aParticipants=[]
 		foreach($aParticipants as $charID) {
 			#set up final pins
             $codeName = $_SESSION['charIndex'][$charID];
-            //you have to reinitialize the values with each iteration of the loop
-            $tagOpen = '';
-            $tagClose = '';
+
             //if match make link bold
             if($charID == $last2post)
             {
@@ -3477,18 +3489,17 @@ function mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post, $aParticipants=[]
             }
 
 			//make link and concatenate to string
-			$str .= $tagOpen .  
-                '<a href="' . VIRTUAL_PATH .
-				'characters/profile.php?' .
-                    'CodeName=' . $codeName .
-				    '&id=' . $charID .
-				    '&act=show">' . $codeName .
+			$str .= $tagOpen . '<a href"' . VIRTUAL_PATH .
+				'characters/profile.php?CodeName=' . $codeName .
+				'&id=' . $charID .
+				'&act=show" title="">' . $codeName .
 				'</a>' . $tagClose . ', ';
 
 		}#END inner if
 	}else{
 
-		$str .= '<small>No Replies</small><br/>';
+		$str .= '<small><b>No Replies</b>
+										<br/>';
 	}
 	//if no data - tell me no data
 	if(!isset($aParticipants)){ return 'No Thread ID Found'; }
@@ -3576,7 +3587,7 @@ function threadRecent($sql, $tID='', $str=''){
 				while($row = mysqli_fetch_assoc($result))
 				{# process each row
 
-					$tID 	= (int)$row['ThreadID'];
+					$tID 		= (int)$row['ThreadID'];
 					$tTitle = $row['ThreadTitle'];
 					$tURL 	= THIS_PAGE . '?act=threadShow&tID=' . $tID . '&ttl=' . $tTitle;
 
@@ -3603,10 +3614,10 @@ function threadRecent($sql, $tID='', $str=''){
 
 #show list of participating characters in thread based on post entries in thread
 #show in order of participation
-					$charsFeatured = mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post);
+										$charsFeatured = mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post);
 #dumpDie($aCharNameIndex);
-                    $str .= str_replace(', ', '<br />', $charsFeatured);
-                    $str .='</small><br /><br /></p>';
+										$str .= str_replace(', ', '<br />', $charsFeatured);
+										$str .='</small><br /><br /></p>';
 
 #POST ORDER end
 #POST ORDER end
@@ -3630,52 +3641,67 @@ $myTags ='';
 	if($myResult->rowCount() > 0)
 	{#there are records - present data
 		while($row = $myResult->fetch(PDO::FETCH_ASSOC))
-            {# pull data from associative array
-                #instantiate needed vars
-                $threadId 		= $row['ThreadID'];
-                $pTag      		= $row['PostTags'];
+		{# pull data from associative array
+			#instantiate needed vars
+			$threadId 		= $row['ThreadID'];
+			$pTag      		= $row['PostTags'];
 
-                if(($pTag != '') && ($threadId == $tID)){
-                    $myTags .=  $pTag . ', ';
-                }
-            }
-
-            if(isset($myTags)){
-                //remove last comma if exists
-                $myTags = rtrim($myTags, ', ');
-
-                #remove duplicates from string
-                $myTags = implode(',', array_unique(explode(',', $myTags)));
-            }
-
-            if($myTags != ''){ $str .= '<p class="col-md-9 text-info "><span class="glyphicon glyphicon-tag"></span> ' . $myTags . '</p>';  }
-            if($myTags == ''){ $str .= '<p><i class="text-muted"><span class="glyphicon glyphicon-tag"></span>  No Characters Currently Tagged</i></p>';}
-
+			if($pTag != ''){
+				$myTags .=  $pTag . ', ';
+			}
+		}
+        #remove duplicates from string
+        $myTags = implode(',',array_unique(explode(',', $myTags)));
+	}else{#no records
+		$myTags =  'No Characters Currently Tagged.';
 	}
 	unset($myResult,$db);//clear resources
+	// test return
+	//dumpDie($aTagSet);
 
-    $str .= '<!-- Go To Thread -->
-        <p class="bottom-align-text" ><a class="pull-right" href="' . $tURL . '"> <span class="glyphicon glyphicon-share"></span> Go To Thread</i></a></p>
+    $str .= '<p class="col-md-9 text-info "><span class="glyphicon glyphicon-tag"></span> ' . $myTags . '</a></p>';
+
+
+					$str .=  '<p class="bottom-align-text" ><a class="pull-right" href="' . $tURL . '"> <span class="glyphicon glyphicon-share"></span> Go To Thread</i></a></p>
 							</div>
 						</div>
 					</div>';
 				}
 
 				@mysqli_free_result($result); //free resources
-				$str .= $myPager->showNAV($tID); # show paging nav, only if enough records
-            }
 
-			$str .='</div><!-- end accordion -->
-                </div>';
+				$str .= $myPager->showNAV($tID); # show paging nav, only if enough records
+
+				}else{#no records
+				$str .= "<div align=center>No posts currently Available.</div>";
+			}
+
+			$str .='</div><!-- end accordion --></div>';
 
 			if(startSession() && isset($_SESSION['UserID'])){
-				$str .='<a href="' . THIS_PAGE . '?act=threadAdd" class="btn btn-primary btn-xs pull-right">Add New Thread</a></p>';
+				$str .='<a href="' . THIS_PAGE . '?act=threadAdd" class="btn btn-primary btn-xs">Add New Thread</a></p>';
 			}
 
 			$str .='</p></div> <!-- END content -->';
 
 	return $str;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function threadRemove(){

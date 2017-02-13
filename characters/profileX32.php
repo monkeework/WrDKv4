@@ -1686,24 +1686,11 @@ function getJumboBg($cID, $cName, $playby, $cGen, $img='-0.jpg'){ #create backgr
 	return $img; #return gallery images
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #HELPER GENERAL IMAGE DISPLAY FUNCTIONS
-#
+
 #getImgGallery($cID, $cName, $playby, $gender);
-function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $imgHero='', $pbPath='', $modal = FALSE){
-#Take CharID, check upload __DIR__, return all images found meeting criteria of search given
+function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $imgPerm='', $imgTemp='', $imgHero='', $pbPath='', $modal = FALSE){
+#Take CharID, check upload __DIR__, return all images found meeint criteria of search given
 
 	$str .= '<h1 class="col-sm-8 vertical-align"><b>' . strtoupper($cName) . '</b></h1>
 		<!-- image gallery here -->
@@ -1770,11 +1757,6 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 				</a>';
 
 				if($modal){
-                    
-                    // look at the image url properly
-                    //left  equals image index minus one - right image index plus one
-                    // on first image is 0 - if you get minu one, need logic to set end/last of index which is
-                    //length minus one -- due lenght
 
 					$str .= '<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
@@ -1784,83 +1766,73 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 								<!-- Wrapper for slides -->
 								<div class="carousel-inner">';
 
-                            // create an array to hold directory list
-                                $results = array();
+								// create an array to hold directory list
+									$results = array();
 
-                                // create a handler for the directory
-                                $directory = '../uploads/_assigned/';
-                                $handler = opendir($directory);
+									// create a handler for the directory
+									$directory = '../uploads/_assigned/';
+									$handler = opendir($directory);
 
-                                // open directory and walk through the filenames
-                                while ($file = readdir($handler)) {
-                                    // if file isn't this directory or its parent, add it to the results
-                                    if ($file != "." && $file != "..") {
-                                        // check with regex that the file format is what we're expecting and not something else
-                                        //start of line, start of string, begins with $myID plus a single dash then whatever and is 'g.jpg'
-                                        if(preg_match('#\d?' . $cID . '-\d#', $file)) {
-                                            // add to our file array for later use
-                                            $results[] .= $file;
-                                        }
-                                        #$cars=array("Volvo","BMW","Toyota");
-                                    }
-                                }
-                                #var_dump ($results);
-                                $tot = count($results);
-                                $num = 1;
+									// open directory and walk through the filenames
+									while ($file = readdir($handler)) {
+										// if file isn't this directory or its parent, add it to the results
+										if ($file != "." && $file != "..") {
+											// check with regex that the file format is what we're expecting and not something else
+											//start of line, start of string, begins with $myID plus a single dash then whatever and is 'g.jpg'
+											if(preg_match('#\d?' . $cID . '-\d#', $file)) {
+												// add to our file array for later use
+												$results[] .= $file;
+											}
+											#$cars=array("Volvo","BMW","Toyota");
+										}
+									}
+									#var_dump ($results);
+									$tot = count($results);
+									$num = 1;
 
-                                foreach ($results as $result){
+									foreach ($results as $result){
 
-                                    #dumpDie ($CodeName);
+										#dumpDie ($CodeName);
 
-                                    if($num == 1){
-                                        // first one has a class of active on it
-                                        $str .= '<div class="item active">
-                                     <img class="img-responsive" src="../uploads/_assigned/' . $result . '" alt="...">
-                                        <div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
-                                    </div>';
+										if($num == 1){
+											// first one has a class of active on it
+											$str .= '<div class="item active">
+										 <img class="img-responsive" src="../uploads/_assigned/' . $result . '" alt="...">
+											<div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
+										</div>';
 
-                                     #
-                                    }else if((strpos($result, 't.jpg') === false)){
-                                        // if image isn't a thumbnail, add to gallery
-                                        $str .= '<div class="item ">
-                                     <img class="img-responsive" src="../uploads/_assigned/' . $result  . '" alt="...">
-                                        <div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
-                                    </div>';
+										 #
+										}else if((strpos($result, 't.jpg') === false)){
+											// if image isn't a thumbnail, add to gallery
+											$str .= '<div class="item ">
+										 <img class="img-responsive" src="../uploads/_assigned/' . $result  . '" alt="...">
+											<div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
+										</div>';
 
-                                    }
-                                }
+										}
+									}
 
-                                $str .= '</div>
+									$str .= '</div>
 
-                            <!-- Controls -->
-                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>';
-            } //END Modal Image Gallery
+								<!-- Controls -->
+								<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+									<span class="glyphicon glyphicon-chevron-left"></span>
+								</a>
+								<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+									<span class="glyphicon glyphicon-chevron-right"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>';
+				} //END Modal Image Gallery
 
-        $str .= '</div>
-        <div class="clearfix"></div>
-    </div></div><!--END IMAGES-->';
+			$str .= '</div>
+			<div class="clearfix"></div>
+		</div></div><!--END IMAGES-->';
 
 	return $str;
 }
-
-
-
-
-
-
-
-
-
-
 
 function tempImg($pbID='', $gID='', $imgTemp=''){
 	#Creates temporary base image path for a character profile
