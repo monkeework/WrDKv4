@@ -2,6 +2,13 @@
 require '../_inc/config_inc.php';
 
 
+/**
+ *
+ *
+ * #TODO - resolve modal image pickup - is it pulling the right images?
+		- 12 should not grab 112 or 312 or 100289
+ * @TODO - resolve browser width/chrome width / double pane issue
+ */
 
 $config->loadhead=''; #load page specific JS
 
@@ -1701,7 +1708,7 @@ function getJumboBg($cID, $cName, $playby, $cGen, $img='-0.jpg'){ #create backgr
 
 #HELPER GENERAL IMAGE DISPLAY FUNCTIONS
 #
-#getImgGallery($cID, $cName, $playby, $gender);
+
 function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $imgHero='', $pbPath='', $modal = FALSE){
 #Take CharID, check upload __DIR__, return all images found meeting criteria of search given
 
@@ -1715,133 +1722,67 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 
 			$str .= '<br />
 				<div col-sm-2 pull-right">
+
+					<!-- Call Bootstrap.min.JS before the gallery -->
+					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 					<!-- Large modal -->
+
+
 					<a href="#" class="btn " data-toggle="modal" data-target=".bs-example-modal-lg">
-					<img src="';
+						<img src="';
 
-					#make path if playby
-					if(!empty($playby)){
-						$playby = str_replace(' ', '_', strtolower($playby));
-						$playby = str_replace('-', '_', strtolower($playby));
-						$playby = str_replace("'", '_', strtolower($playby));
+						#make path if playby
+						if(!empty($playby)){
+							$playby = str_replace(' ', '_', strtolower($playby));
+							$playby = str_replace('-', '_', strtolower($playby));
+							$playby = str_replace("'", '_', strtolower($playby));
 
-						$pbPath = "../uploads/_{$gender}/{$playby}/{$playby}-1.jpg";
-					}
-
-					#make path if assigned image
-					if(!empty($cID)){$imgPath = '../uploads/_assigned/' . $cID . '-1.jpg';}
-					if(($_REQUEST['act']) == 'show'){
-						#make gallery of 4 random images
-
-						if(file_exists($imgPath)) {
-							$imgHero = $imgPath; #temp image
-							$modal = TRUE;
-
-						} else if(file_exists($pbPath)){
-							$imgHero = $pbPath; #temp image
-							$modal = TRUE;
-
-						} else{ #show static
-							$imgHero = '../_img/_static/static---00' . rand(1,9). '.gif';
-							#no image, no modal
+							$pbPath = "../uploads/_{$gender}/{$playby}/{$playby}-1.jpg";
 						}
-					}
-					if(($_REQUEST['act']) == 'edit'){
-						#make gallery of 4 random images
-						if((!empty($imgPath) == 1) && ( file_exists($imgPath))){
-							$imgHero = $imgPath;
-							$modal = TRUE;
-						}else{ #show static
-							$imgHero = VIRTUAL_PATH . '_img/_dims/dims170x170phf.jpg';
-							#no image, no modal
-						}
-					}
 
-				$str .= $imgHero . '" alt="' . $cName . '"
+						#make path if assigned image
+						if(!empty($cID)){$imgPath = '../uploads/_assigned/' . $cID . '-1.jpg';}
+						if(($_REQUEST['act']) == 'show'){
+							#make gallery of 4 random images
+
+							if(file_exists($imgPath)) {
+								$imgHero = $imgPath; #temp image
+								$modal = TRUE;
+
+							} else if(file_exists($pbPath)){
+								$imgHero = $pbPath; #temp image
+								$modal = TRUE;
+
+							} else{ #show static
+								$imgHero = '../_img/_static/static---00' . rand(1,9). '.gif';
+								#no image, no modal
+							}
+						}
+						if(($_REQUEST['act']) == 'edit'){
+							#make gallery of 4 random images
+							if((!empty($imgPath) == 1) && ( file_exists($imgPath))){
+								$imgHero = $imgPath;
+								$modal = TRUE;
+							}else{ #show static
+								$imgHero = VIRTUAL_PATH . '_img/_dims/dims170x170phf.jpg';
+								#no image, no modal
+							}
+						}
+
+					$str .= $imgHero . '" alt="' . $cName . '"
 					class="img-thumbnail pull-right" width="170" height="170">
-				</a>';
+				</a>
+			</div>';
 
-				if($modal){
-										// look at the image url properly
-										//left  equals image index minus one - right image index plus one
-										// on first image is 0 - if you get minu one, need logic to set end/last of index which is
-										//length minus one -- due lenght
-					$str .= '<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			// call MODAL GALLERY
+			$str .= gt_modalGallery($modal, $cID, $cName);
 
-								<!-- Wrapper for slides -->
-								<div class="carousel-inner">';
-														// create an array to hold directory list
-																$results = array();
-																// create a handler for the directory
-																$directory = '../uploads/_assigned/';
-																$handler = opendir($directory);
-
-																// open directory and walk through the filenames
-																while ($file = readdir($handler)) {
-																	// if file isn't this directory or its parent, add it to the results
-																	if ($file != "." && $file != "..") {
-																		// check with regex that the file format is what we're expecting and not something else
-																		//start of line, start of string, begins with $myID plus a single dash then whatever and is 'g.jpg'
-																		if(preg_match('#\d?' . $cID . '-\d#', $file)) {
-																				// add to our file array for later use
-																				$results[] .= $file;
-																		}
-																	}
-																}
-																#var_dump ($results);
-																$tot = count($results);
-																$num = 1;
-
-																foreach ($results as $result){
-																		#dumpDie ($CodeName);
-																		if($num == 1){
-																				// first one has a class of active on it
-																				$str .= '<div class="item active">
-																		 <img class="img-responsive" src="../uploads/_assigned/' . $result . '" alt="...">
-																				<div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
-																		</div>';
-																		}else if((strpos($result, 't.jpg') === false)){
-																				// if image isn't a thumbnail, add to gallery
-																				$str .= '<div class="item ">
-																		 <img class="img-responsive" src="../uploads/_assigned/' . $result  . '" alt="...">
-																				<div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
-																		</div>';
-
-																		}
-																}
-																$str .= '</div>
-
-														<!-- Controls -->
-														<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-																<span class="glyphicon glyphicon-chevron-left"></span>
-														</a>
-														<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-																<span class="glyphicon glyphicon-chevron-right"></span>
-														</a>
-												</div>
-										</div>
-								</div>
-						</div>';
-						} //END Modal Image Gallery
-
-				$str .= '</div>
-				<div class="clearfix"></div>
+			$str .= '</div>
+			<div class="clearfix"></div>
 		</div></div><!--END IMAGES-->';
 
 	return $str;
 }
-
-
-
-
-
-
-
-
-
 
 
 function tempImg($pbID='', $gID='', $imgTemp=''){
@@ -1943,9 +1884,6 @@ function galleryMaker($cID='', $returnPage, $x = 1, $imgIncrement = 2, $str=''){
 
 		#$X == zero unless the if statement was true, then incremented to ONE and will run again.
 
-
-
-
 	} while (file_exists('../uploads/_assigned/' . $cID . '-' . $imgIncrement . '.jpg'));
 	#dumpDie('../uploads/' . $cID . '-' . $imgIncrement . '.jpg');
 
@@ -1967,6 +1905,168 @@ function listApprovals(){
 	/*   date("F jS, Y", strtotime($DateCreated))   */
 	return $str;
 }
+
+
+
+
+
+
+
+
+/**
+*
+*
+*/
+
+function gt_modalGallery($modal, $cID, $cName, $str=""){ //BEGIN gt_modalGallery
+	// if modal has value
+	if(isset($modal))
+	{
+		$str = '<!-- start -->
+				<div class="modal fade bs-example-modal-lg w500" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg w500" >
+						<div class="modal-content">
+
+							<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+								<!-- Wrapper for slides -->
+								';
+
+								// makes image carousel
+								$str .= mk_carouselImgs($cID, $cName);
+/* $str .= ' */
+								$str .= '<!-- Controls -->
+								<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+										<span class="glyphicon glyphicon-chevron-left"></span>
+								</a>
+								<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+										<span class="glyphicon glyphicon-chevron-right"></span>
+								</a></div><!-- END carousel-example-generic -->
+
+					</div><!-- Modal-content --></div>
+				</div>
+			</div><!-- modal fade bs-example-modal-lg--></div>
+
+			</div>
+		</div>
+		<!-- END MODAL GALLERY -->';
+	}
+	return $str;
+} //END gt_modalGallery
+
+
+
+/**
+*
+*
+*/
+function mk_carouselImgs($cID, $cName, $str = '')
+{
+	// look at the image url properly
+	// left  equals image index minus one - right image index plus one
+	// on first image is 0 - if you get minu one, need logic to set end/last of index which is
+	// length minus one -- due lenght
+
+	// create an array to hold directory list
+	$results = array();
+	// create a handler for the directory
+	$directory = '../uploads/_assigned/';
+	$handler = opendir($directory);
+
+	// open directory and walk through the filenames
+	while ($file = readdir($handler)) {
+		// if file isn't this directory or its parent, add it to the results
+		if ($file != "." && $file != "..") {
+			// check with regex that the file format is what we're expecting and not something else
+			//start of line, start of string, begins with $myID plus a single dash then whatever and is 'g.jpg'
+
+			//need to make exact match so 28 doesn't also pick up 128 and 228 or 1028 or 1280
+
+			if(preg_match('#\d?' . $cID . '-\d#', $file)) {
+					// add to our file array for later use
+					#var_dump($file);
+					$results[] .= $file;
+			}
+		}
+	}
+
+	$result = array_shift($results);
+	#dumpDie ($results);
+	$tot = count($results);
+	$num = 1;
+
+	$str .= '<!-- BEGIN images -->';
+	foreach ($results as $result)
+	{
+		#the first slide we begin on
+		if($num == 1)
+		{
+			// first one has a class of active on it
+			$str .= '<!-- BEGIN inner carousel -->
+			<div class="carousel-inner">
+			<script>
+				$(document).ready(function()
+				{
+						$(".carousel").carousel({
+							interval: 6000
+						});
+
+						$(".carousel").carousel("next");
+				});
+			</script>
+
+				<div class="item active">
+
+					<img class="img-responsive" src="../uploads/_assigned/' . $result . '" alt="...">
+					<div class="carousel-caption">
+						<strong>' . $cName . '</strong> <small>(' . $num++ . '/' . $tot . ')</small>
+					</div>
+				</div>';
+
+		//remove thumbnails from array
+		}else if((strpos($result, 't.jpg') === false)){
+				// if image isn't a thumbnail, add to gallery
+				$str .= '<div class="item ">
+		 <img class="img-responsive" src="../uploads/_assigned/' . $result  . '" alt="' . $cName . '">
+				<div class="carousel-caption">
+					<strong>' . $cName . '</strong> <small>(' . $num++ . '/' . $tot . ')</small>
+				</div>
+		</div>';
+
+
+
+		}
+
+
+	}
+
+	$str .='</div><!-- END inner carousel -->
+	<!-- END images -->';
+
+	return $str;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //scripts must site outside php so the browser can properly read the script tags

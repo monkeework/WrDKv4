@@ -1906,7 +1906,6 @@ function listApprovals(){
 
 
 
-
 /**
 *
 *
@@ -1917,7 +1916,7 @@ function gt_modalGallery($modal, $cID, $cName, $str=""){ //BEGIN gt_modalGallery
 	if(isset($modal))
 	{
 		$str = '<!-- start -->
-				<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				<div class="modal fade bs-example-modal-lg w500" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg w500" >
 						<div class="modal-content">
 
@@ -1927,15 +1926,14 @@ function gt_modalGallery($modal, $cID, $cName, $str=""){ //BEGIN gt_modalGallery
 
 								// makes image carousel
 								$str .= mk_carouselImgs($cID, $cName);
-
+/* $str .= ' */
 								$str .= '<!-- Controls -->
 								<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
 										<span class="glyphicon glyphicon-chevron-left"></span>
 								</a>
 								<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
 										<span class="glyphicon glyphicon-chevron-right"></span>
-								</a>
-						</div><!-- END carousel-example-generic -->
+								</a></div><!-- END carousel-example-generic -->
 
 					</div><!-- Modal-content --></div>
 				</div>
@@ -1975,7 +1973,6 @@ function mk_carouselImgs($cID, $cName, $str = '')
 			//start of line, start of string, begins with $myID plus a single dash then whatever and is 'g.jpg'
 			if(preg_match('#\d?' . $cID . '-\d#', $file)) {
 					// add to our file array for later use
-
 					#var_dump($file);
 					$results[] .= $file;
 			}
@@ -1990,19 +1987,32 @@ function mk_carouselImgs($cID, $cName, $str = '')
 	$str .= '<!-- BEGIN images -->';
 	foreach ($results as $result)
 	{
+		#the first slide we begin on
 		if($num == 1)
 		{
 			// first one has a class of active on it
 			$str .= '<!-- BEGIN inner carousel -->
 			<div class="carousel-inner">
+			<script>
+				$(document).ready(function()
+				{
+						$(".carousel").carousel({
+							interval: 6000
+						});
+
+						$(".carousel").carousel("next");
+				});
+			</script>
 
 				<div class="item active">
-					<img class="img-responsive" src="../uploads/_assigned/' . $result . ' alt="...">
+
+					<img class="img-responsive" src="../uploads/_assigned/' . $result . '" alt="...">
 					<div class="carousel-caption">
 						<strong>' . $cName . '</strong> <small>(' . $num++ . '/' . $tot . ')</small>
 					</div>
 				</div>';
 
+		//remove thumbnails from array
 		}else if((strpos($result, 't.jpg') === false)){
 				// if image isn't a thumbnail, add to gallery
 				$str .= '<div class="item ">
@@ -2012,7 +2022,11 @@ function mk_carouselImgs($cID, $cName, $str = '')
 				</div>
 		</div>';
 
+
+
 		}
+
+
 	}
 
 	$str .='</div><!-- END inner carousel -->

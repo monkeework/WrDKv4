@@ -1705,8 +1705,71 @@ function getJumboBg($cID, $cName, $playby, $cGen, $img='-0.jpg'){ #create backgr
 function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $imgHero='', $pbPath='', $modal = FALSE){
 #Take CharID, check upload __DIR__, return all images found meeting criteria of search given
 
-	
-							$str .= '<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+	$str .= '<h1 class="col-sm-8 vertical-align"><b>' . strtoupper($cName) . '</b></h1>
+		<!-- image gallery here -->
+		<div class"col-sm-2 vertical-align pull-right .vertical-align">
+			<div class="  pull-right" >
+				<p class="myParagraph">';
+				$str .= getThumbs($cID, $cName);
+				$str .='</p>';
+
+			$str .= '<br />
+				<div col-sm-2 pull-right">
+					<!-- Large modal -->
+					<a href="#" class="btn " data-toggle="modal" data-target=".bs-example-modal-lg">
+					<img src="';
+
+					#make path if playby
+					if(!empty($playby)){
+						$playby = str_replace(' ', '_', strtolower($playby));
+						$playby = str_replace('-', '_', strtolower($playby));
+						$playby = str_replace("'", '_', strtolower($playby));
+
+						$pbPath = "../uploads/_{$gender}/{$playby}/{$playby}-1.jpg";
+					}
+
+					#make path if assigned image
+					if(!empty($cID)){$imgPath = '../uploads/_assigned/' . $cID . '-1.jpg';}
+					if(($_REQUEST['act']) == 'show'){
+						#make gallery of 4 random images
+
+						if(file_exists($imgPath)) {
+							$imgHero = $imgPath; #temp image
+							$modal = TRUE;
+
+						} else if(file_exists($pbPath)){
+							$imgHero = $pbPath; #temp image
+							$modal = TRUE;
+
+						} else{ #show static
+							$imgHero = '../_img/_static/static---00' . rand(1,9). '.gif';
+							#no image, no modal
+						}
+					}
+					if(($_REQUEST['act']) == 'edit'){
+						#make gallery of 4 random images
+						if((!empty($imgPath) == 1) && ( file_exists($imgPath))){
+							$imgHero = $imgPath;
+							$modal = TRUE;
+						}else{ #show static
+							$imgHero = VIRTUAL_PATH . '_img/_dims/dims170x170phf.jpg';
+							#no image, no modal
+						}
+					}
+
+				$str .= $imgHero . '" alt="' . $cName . '"
+					class="img-thumbnail pull-right" width="170" height="170">
+				</a>';
+
+				if($modal){
+										// look at the image url properly
+										//left  equals image index minus one - right image index plus one
+										// on first image is 0 - if you get minu one, need logic to set end/last of index which is
+										//length minus one -- due lenght
+					$str .= '<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
 								<!-- Wrapper for slides -->
 								<div class="carousel-inner">';
@@ -1749,6 +1812,24 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 
 																		}
 																}
+																$str .= '</div>
+
+														<!-- Controls -->
+														<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+																<span class="glyphicon glyphicon-chevron-left"></span>
+														</a>
+														<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+																<span class="glyphicon glyphicon-chevron-right"></span>
+														</a>
+												</div>
+										</div>
+								</div>
+						</div>';
+						} //END Modal Image Gallery
+
+				$str .= '</div>
+				<div class="clearfix"></div>
+		</div></div><!--END IMAGES-->';
 
 	return $str;
 }
