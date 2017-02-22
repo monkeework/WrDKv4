@@ -1,17 +1,34 @@
 <?php //aboutus.php
-/Tutorials - -SQL, GitHub, OOP
+/*
 
-To get to WrDKv.05
+TO RESOLVE ::
+#1. Resolve title showing in twice in summary
+#2. Resolve Privilege showing in reply post icon set.
 
-1. Fix/update thread and post tools so all work
+3. Resolve mail bug.
+	 - looking for '_inc/Array' if message passes criteria
 
-2. Resolve session issue - hit db instead when charIndex needed
-		- make function
-		- see below
+4. Resolve Image gallery bug OR make new tool/method for displaying images
+* credits page for those who've helped me with their wisdom
+*/
 
-3. Notifications
+/*
+ * To get to WrDKv.05
+ * 1. Fix/update thread and post tools so all work
+ * 2. Resolve session issue - hit db instead when charIndex needed
+ *		- make function
+ *		- see below
+ * 3. Notifications
+ * 4. Update char list if num out of scope
+ */
 
-4. Galleries - fix image slide
+
+
+
+
+
+
+
 
 /*
  * get list of current existing characters - possible equal to given tIDs?

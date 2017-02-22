@@ -1,0 +1,1 @@
+[Feb-21-2017 22:46:39] array_splice() expects parameter 1 to be array, null given in /Applications/AMPPS/www/WrDKv4/characters/profileX33fxd.php on line 1980

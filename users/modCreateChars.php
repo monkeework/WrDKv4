@@ -401,13 +401,6 @@ if (mysqli_num_rows($result) > 0)//at least one record!
 
 
 
-
-
-
-
-
-
-
 function showCharByFirstLetter($uPriv, $act='', $firstSort='', $secondSort='', $cStage=''){//Select Character
 	#show sorting menu
 	echo show_typeDD();
@@ -529,8 +522,11 @@ function showCharByFirstLetter($uPriv, $act='', $firstSort='', $secondSort='', $
 }
 
 function addChar(){# shows details from a single customer, and preloads their first name in a form.
-
-	$config->loadhead .= '
+    /*
+     * to make $config->loadhead .= work, we need boostrap functions maybe?
+     */
+	#$config->loadhead .= '
+    echo '
 	<script type="text/javascript" src="' . VIRTUAL_PATH . 'include/util.js"></script>
 	<script type="text/javascript">
 		function checkForm(thisForm)

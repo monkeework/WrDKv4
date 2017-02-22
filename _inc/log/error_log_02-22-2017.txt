@@ -1,0 +1,4 @@
+[Feb-22-2017 6:51:15] Undefined variable: var_dump in /Applications/AMPPS/www/WrDKv4/characters/profileX33fxd.php on line 1979
+[Feb-22-2017 6:51:17] Undefined variable: var_dump in /Applications/AMPPS/www/WrDKv4/characters/profileX33fxd.php on line 1979
+[Feb-22-2017 7:05:25] Use of undefined constant num - assumed 'num' in /Applications/AMPPS/www/WrDKv4/characters/profileX33fxd.php on line 2007
+[Feb-22-2017 7:11:55] Undefined variable: var_dump in /Applications/AMPPS/www/WrDKv4/characters/profileX33fxd.php on line 1979

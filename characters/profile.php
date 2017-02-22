@@ -1709,11 +1709,8 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 		<!-- image gallery here -->
 		<div class"col-sm-2 vertical-align pull-right .vertical-align">
 			<div class="  pull-right" >
-
 				<p class="myParagraph">';
-
 				$str .= getThumbs($cID, $cName);
-
 				$str .='</p>';
 
 			$str .= '<br />
@@ -1733,8 +1730,6 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 
 					#make path if assigned image
 					if(!empty($cID)){$imgPath = '../uploads/_assigned/' . $cID . '-1.jpg';}
-
-
 					if(($_REQUEST['act']) == 'show'){
 						#make gallery of 4 random images
 
@@ -1751,11 +1746,8 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 							#no image, no modal
 						}
 					}
-
 					if(($_REQUEST['act']) == 'edit'){
 						#make gallery of 4 random images
-
-
 						if((!empty($imgPath) == 1) && ( file_exists($imgPath))){
 							$imgHero = $imgPath;
 							$modal = TRUE;
@@ -1770,12 +1762,10 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 				</a>';
 
 				if($modal){
-                    
-                    // look at the image url properly
-                    //left  equals image index minus one - right image index plus one
-                    // on first image is 0 - if you get minu one, need logic to set end/last of index which is
-                    //length minus one -- due lenght
-
+										// look at the image url properly
+										//left  equals image index minus one - right image index plus one
+										// on first image is 0 - if you get minu one, need logic to set end/last of index which is
+										//length minus one -- due lenght
 					$str .= '<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
@@ -1783,71 +1773,63 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 
 								<!-- Wrapper for slides -->
 								<div class="carousel-inner">';
+														// create an array to hold directory list
+																$results = array();
+																// create a handler for the directory
+																$directory = '../uploads/_assigned/';
+																$handler = opendir($directory);
 
-                            // create an array to hold directory list
-                                $results = array();
+																// open directory and walk through the filenames
+																while ($file = readdir($handler)) {
+																	// if file isn't this directory or its parent, add it to the results
+																	if ($file != "." && $file != "..") {
+																		// check with regex that the file format is what we're expecting and not something else
+																		//start of line, start of string, begins with $myID plus a single dash then whatever and is 'g.jpg'
+																		if(preg_match('#\d?' . $cID . '-\d#', $file)) {
+																				// add to our file array for later use
+																				$results[] .= $file;
+																		}
+																	}
+																}
+																#var_dump ($results);
+																$tot = count($results);
+																$num = 1;
 
-                                // create a handler for the directory
-                                $directory = '../uploads/_assigned/';
-                                $handler = opendir($directory);
+																foreach ($results as $result){
+																		#dumpDie ($CodeName);
+																		if($num == 1){
+																				// first one has a class of active on it
+																				$str .= '<div class="item active">
+																		 <img class="img-responsive" src="../uploads/_assigned/' . $result . '" alt="...">
+																				<div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
+																		</div>';
+																		}else if((strpos($result, 't.jpg') === false)){
+																				// if image isn't a thumbnail, add to gallery
+																				$str .= '<div class="item ">
+																		 <img class="img-responsive" src="../uploads/_assigned/' . $result  . '" alt="...">
+																				<div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
+																		</div>';
 
-                                // open directory and walk through the filenames
-                                while ($file = readdir($handler)) {
-                                    // if file isn't this directory or its parent, add it to the results
-                                    if ($file != "." && $file != "..") {
-                                        // check with regex that the file format is what we're expecting and not something else
-                                        //start of line, start of string, begins with $myID plus a single dash then whatever and is 'g.jpg'
-                                        if(preg_match('#\d?' . $cID . '-\d#', $file)) {
-                                            // add to our file array for later use
-                                            $results[] .= $file;
-                                        }
-                                        #$cars=array("Volvo","BMW","Toyota");
-                                    }
-                                }
-                                #var_dump ($results);
-                                $tot = count($results);
-                                $num = 1;
+																		}
+																}
+																$str .= '</div>
 
-                                foreach ($results as $result){
+														<!-- Controls -->
+														<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+																<span class="glyphicon glyphicon-chevron-left"></span>
+														</a>
+														<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+																<span class="glyphicon glyphicon-chevron-right"></span>
+														</a>
+												</div>
+										</div>
+								</div>
+						</div>';
+						} //END Modal Image Gallery
 
-                                    #dumpDie ($CodeName);
-
-                                    if($num == 1){
-                                        // first one has a class of active on it
-                                        $str .= '<div class="item active">
-                                     <img class="img-responsive" src="../uploads/_assigned/' . $result . '" alt="...">
-                                        <div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
-                                    </div>';
-
-                                     #
-                                    }else if((strpos($result, 't.jpg') === false)){
-                                        // if image isn't a thumbnail, add to gallery
-                                        $str .= '<div class="item ">
-                                     <img class="img-responsive" src="../uploads/_assigned/' . $result  . '" alt="...">
-                                        <div class="carousel-caption"><strong>' . $cName . '</strong> (' . $num++ . '/' . $tot . ')</div>
-                                    </div>';
-
-                                    }
-                                }
-
-                                $str .= '</div>
-
-                            <!-- Controls -->
-                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>';
-            } //END Modal Image Gallery
-
-        $str .= '</div>
-        <div class="clearfix"></div>
-    </div></div><!--END IMAGES-->';
+				$str .= '</div>
+				<div class="clearfix"></div>
+		</div></div><!--END IMAGES-->';
 
 	return $str;
 }

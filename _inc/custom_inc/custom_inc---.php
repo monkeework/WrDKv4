@@ -1,5 +1,39 @@
  <?php
- /**accordion*/
+ /**
+	* custom_inc.php stores custom functions specific to your application
+	*
+	* Keeping common_inc.php clear of your functions allows you to upgrade without conflict
+	*
+	*
+	* @package ma-v1605-22
+	* @author monkeework <monkeework@gmail.com>
+	* @version 3.02 2011/05/18
+	* @link http://www.monkeework.com/
+	* @license http://www.apche.org/licenses/LICENSE-2.0
+	* @todo add safeEmail to common_inc.php
+	*/
+
+
+
+/**
+ * 1702-17 - resolved second title in threadShow function.
+ *           Not sure where it was coming from/how i solved it.
+ * 1702-17 - resolved on revising post order bug
+ * 1702-17 - temp resolve of $Priv printing next to edit btns
+ *					 SEE :: TEMP PRIV RESOLVE #task #3
+ *
+ * 1702-17 - identified odd number next to edit post - it's the user id
+ *					 TODO remove it
+ *
+ * 1702-17 - worked on gallery image in another file to figure out what issue is.
+ *
+ *
+ * @TODO   - notifications for posts/character updates
+ * @TODO   - check all post tools
+ * @TODP   - begin v.0.5
+ **/
+
+
 
 
 
@@ -265,7 +299,7 @@ function isActive($page='', $userPage='', $str=''){
 }
 
 
-//////////////////      DATA REVIEWING      /////////////////
+//////////////////      DATA REVEIWING      /////////////////
 #echo reviewNotes($aarContent['charCreation-start'], $CodeName, $Gender, $Reviewer, $Rrd1, $Rrd2, $Rrd3);
 
 #WORKING HERE
@@ -1322,8 +1356,6 @@ $titleEncoded, $priv, $hID, $uID , $str=''	){
 
 				$str .= $btnGroup;
 			}
-
-
 		$str .=  '</small>
 	 </div><!-- end right sidebar details -->';
 
@@ -1539,7 +1571,7 @@ function get_pTags($postTags, $str = ''){
 }
 
 #get all related posts, paged
-function get_pPaged($rtID, $tally, $act, $btns, $tTitle, $tType, $catID, $titleEncoded, $tType, $tRateEncoded, $twEncoded, $phaseEncoded, $timeEncoded, $locationEncoded, $whenEncoded, $titleEncoded, $priv, $hID, $uID ,$str='', $btnGroup=''){
+function get_pPaged($rtID, $tally, $act, $btns, $tTitle, $tType, $catID, $tType, $tRateEncoded, $twEncoded, $phaseEncoded, $timeEncoded, $locationEncoded, $whenEncoded, $priv, $hID, $uID, $str='', $btnGroup=''){
 	/**
 	 * Show the most recent posts for a catagory
 	 */
@@ -1656,14 +1688,13 @@ function get_pPaged($rtID, $tally, $act, $btns, $tTitle, $tType, $catID, $titleE
 				$twEncoded, $phaseEncoded, $timeEncoded, $locationEncoded, $whenEncoded,
 				$titleEncoded, $priv, $hID, $uID);
 
-			$str .=  '<div>
-			';
+			$str .=  '<div>';
 		}
 		#show buttons at end too
-		if($pager->showTotal() >= 1){ $str .= '<div calss="clearfix"><br /></div>' . $btns . '</div><div calss="clearfix"><br /></div>'; } else { $str .= '</div>';}
+		if($pager->showTotal() >= 1){ $str .= '<div class="clearfix"><br /></div><div>' . $btns . '</div><div class="clearfix"><br /></div>'; } else { $str .= '</div>';}
 
 		#give to pager -- $btnGroup;
-
+		$str .= '<div class="clearFix"></div>';
 		$str .=  $pager->showNAV(); # show paging nav, only if enough records
 
 	}else{#no records
@@ -1970,7 +2001,7 @@ function categoryShow($sql, $sqlTags, $str='', $rCatName='', $catDesc=''){
 										$str .=  '<a href="../characters/profile.php?CodeName=CodeName&tID=' . $value . '">' . $arrNames[$value] . '</a>, ';
 									}
 								}else{
-									$str .=  '<span class="text-muted"><span class="glyphicon glyphicon-tag"></span>  No Tags Currently Set</span>';
+									$str .=  '<span class="text-muted"><span class="glyphicon glyphicon-tag"></span>  No Tags Currently Set</span> ';
 								}
 
 								$str .=  '</p>
@@ -1987,13 +2018,9 @@ function categoryShow($sql, $sqlTags, $str='', $rCatName='', $catDesc=''){
 			$str .= $myPager->showNAV(); # show paging nav, only if enough records
 
 			$str .= '</div>';
-
-		}else{#no records
-			$str .= "<div align=center>There are currently no active threads for $rCatName. Drats!!<br />
-			We should really do something about that soon.</div>";
 		}
 
-	$str .='</div><!-- end accordian -->';
+	$str .='</div><!-- end accordion -->';
 
 
 
@@ -2065,9 +2092,6 @@ function categoryAdd($str=''){
 					<div class="col-sm-8 pull-left" style="">
 						<h4 class="text-center">Add New Catagory</b></h4>';
 
-
-
-
 							$str .= '<div class="row ">
 								<div class="pull-middle">
 
@@ -2077,12 +2101,10 @@ function categoryAdd($str=''){
 										<option value="organization">Group By: Organization</option>
 									</select>
 
-
 									<select class="selectpicker" name="CatSort" required>
 										<option value="individual" select="select">Catagory Type: IC</option>
 										<option value="team">Catagory Type: OOC</option>
 									</select>
-
 								</div>
 							</div><!-- END Container -->
 
@@ -3298,32 +3320,22 @@ function threadEdit($sqlThreads, $sqlTags, $str=''){
 
 
 
-#returns an array of character indexes involved in threads to match against
+#returns an array of character indexs involved in threads to match against
 #used in threads and posts
-function gt_charIndex($str ='')
+function mk_charIndex($str ='')
 {
-
 	#get full index of possible character names and id's from current session
 	$aCharNameIndex = [];
-
-	#$aCharChk = $_SESSION["charIndex"]; #array character check
-
-	#select statement
-	#$sql = "SELECT  `PostID`, `ThreadID`, `UserID`,`CharID`, `PostOrder` FROM `ma_Posts` ORDER BY `ThreadID`";
 
 	$sql = "SELECT  DISTINCT `ThreadID`, `PostID`, `CharID`, `PostOrder` FROM `ma_Posts` ORDER BY `ThreadID`;";
 
 	$result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
 	if (mysqli_num_rows($result) > 0)//at least one record!
 	{//show results
-
-		#hold temporty data
-		$aSortArray = [];
-
 		while ($row = mysqli_fetch_assoc($result))
 		{//dbOut() function is a 'wrapper' designed to strip slashes, etc. of data leaving db
 
-			$tID	   = (int)$row['ThreadID'];
+			$tID	 = (int)$row['ThreadID'];
 			$pID  	 = (int)$row['PostID'];
 			$cID  	 = (int)$row['CharID'];
 			#$uID  	 = (int)$row['UserID'];
@@ -3343,14 +3355,13 @@ function gt_charIndex($str ='')
 				$str .= $tID . ' || ' . $cID . ' || ' . $pOrder . '<br />';
 				#$aCharNameIndex[$threadID] = $pID ;
 			}
-
 		}
 
 			#sort sub array in main array
 			#array of arrays
 			#$aCharNameIndex = $aTempArray;
 
-		#closing formating here...
+		#closing formatting here...
 
 		return $aCharNameIndex;
 	}
@@ -3358,299 +3369,113 @@ function gt_charIndex($str ='')
 
 }
 
+#WORKING HERE
+#WORKING HERE
+#WORKING HERE
+ /*
+ array (size=10)
+	 0 =>
+		 array (size=3)
+			 'ThreadID' => int 1
+			 'PostID' => int 14
+			 'CharID' => int 2
+	 1 =>
+		 array (size=3)
+			 'ThreadID' => int 2
+			 'PostID' => int 16
+			 'CharID' => int 2
+	 2 =>
+		 array (size=3)
+			 'ThreadID' => int 13
+			 'PostID' => int 17
+			 'CharID' => int 3
+	*/
+ // check arr $tID == ['ThreadID'] -> $lastCharID = ['CharID']
+ //   foreach($aLast2post[0] AS $arrData){
+ //       if ($tID == $arrData['ThreadID']){
+ //           $charLastID = $arrData['CharID'];
+ //       }
+ //   }
+
  /**
-  * Generate an array of all characters participating in a thread
-  * @param  $threadID
-  * @param  $aPosts
-  * @param  array $aChars
-  * @param  array $aParticipants
-  * @param  int $postParticipantID
-  * @param  string $str
-  * @return string
-  */
- function gt_threadParticipants($threadID, $aPosts, $aParticipants = [])
- {
-     #get charIndex from $_SESSION
-     if (isset($_SESSION['charIndex'])){
-         $aChars = $_SESSION['charIndex'];
-     }
+	* @param $arrData
+	* @param $tID
+	* @param string $cID
+	* @return string
+	*/
+ function chk_last2post($arrData, $tID, $cID=''){
+		 #check array for last CharID
+		 foreach($arrData[0] AS $arrData) {
+				 // if ThreadID = Given ThreadID
+				 if($arrData[0]['ThreadID'] == $tID){
+						 // get id of last character to post
+						 $cID 	= $arrData[0]['CharID'];
+				 } #END outer if
+		 }#END foreach
 
-     #1st foreach - get participating charIDs from participating posts matching $threadID
-     #if threadID exists AND matches, get character id
-     if (isset($threadID)){
-         #get the id of the character associated with individual post
-
-         #temp array -> is destroy/reinitialized
-         $arrTemp = [];
-         foreach ($aPosts[0] as $arrData){
-             # if ThreadID = Given ThreadID
-             if ($arrData['ThreadID'] == $threadID)
-             {
-                 #(int)$tempThreadID = $arrData['ThreadID'];
-                 #(int)$tempPostID 	= $arrData['PostID'];
-                 (int)$tempCharID = $arrData['CharID'];
-                 #(int)$tempOrderID  = $arrData['PostOrder'];
-
-                 #save character id from post data to array to clean of multiples/duplicates
-                 #get character id associated with individual post - get it - comes from posts array
-                 #$postParticipantID = $arrData['CharID'];
-
-                 if (($tempCharID != 0) && (!empty($tempCharID))){
-                     #if it has data and is not empty, get data
-                     $arrTemp[] = $tempCharID;
-                 } #END inner if
-             } #END outer if
-         }#END foreach
-
-         $aParticipants = array_unique($arrTemp);
-         #echo ' <br /><br /> ';
-     } #END if
-
-     # array_filter remove all values equal to null, 0, '' or false.
-     $aParticipants = array_filter($aParticipants);
-
-     return $aParticipants;
- } #END gt_threadParticipants
-
- function gt_last2post($tID, $aLastPost=[]){
-     // SQL statement - PREFIX is optional way to distinguish your app
-     // Pulls back table - ThreadID, CharID, MaxPostID -> MaxPostID -> ThreadID -> CharID
-     $sql = "SELECT `ThreadID`, `CharID`, MAX(`PostID`)
-	AS MaxPostID FROM `ma_Posts`
-	WHERE `PostTags` IS NOT NULL
-		AND `PostTags` != '0'
-		AND `PostTags` != ' '
-	GROUP BY `ThreadID`;";
-
-     $db = pdo(); # pdo() creates and returns a PDO object
-
-     #$result stores data object in memory
-     try {$result = $db->query($sql);} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
-
-     if($result->rowCount() > 0)
-     {#there are records - present data
-         while($row = $result->fetch(PDO::FETCH_ASSOC))
-         {# pull data from associative array
-             // make associative array
-             $aLastPost[]  = [
-                 'ThreadID'  => (int)$row['ThreadID'],
-                 'CharID'    => (int)$row['CharID'],
-                 'MaxPostID' => (int)$row['MaxPostID'],
-             ];
-         }
-     }
-     unset($result,$db);//clear resources
-     return $aLastPost;
+		 //return the id of last character to post
+		 return $cID;
  }
 
+// COMMIT TO MEMORY
+// COMMIT TO MEMORY
+// COMMIT TO MENORY
 
+// DocBlock - what and why is happen, code will tell it is happening
 
- /*
-     LOOK HERE - Thread Tags
-     LOOK HERE - Thread Tags
-     LOOK HERE - Thread Tags
- */
-
-
- /*
-  * get array of data - ThreadID -> PostTags
-  */
- function gt_threadTags($arr=[]){
-     // get base result set of character tags
-     $sql ="SELECT `ThreadID`, `PostTags` FROM `ma_Posts` WHERE `PostTags` IS NOT NULL AND `PostTags` != '0' AND `PostTags` != ' ' ORDER BY `ThreadID`";
-
-     $db = pdo(); # pdo() creates and returns a PDO object
-
-     #$result stores data object in memory
-     try {$myResult = $db->query($sql);} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
-
-     if($myResult->rowCount() > 0)
-     {#there are records - present data
-         while($row = $myResult->fetch(PDO::FETCH_ASSOC))
-         {# pull data from associative array
-             #instantiate needed vars
-             $tId 	 = $row['ThreadID'];
-             $pTags  = $row['PostTags'];
-
-             #echo $tId .' -> ' . $pTags . '<br />';
-             $arr = [
-                 'tID' => $row['ThreadID'],
-                 'tags'=> $row['PostTags']
-             ];
-         }
-     }
-     unset($myResult,$db);//clear resources
-     return $arr;
-
- } #END gt_threadTags
-
-
- //mk_threadTags($tID, $tTagIndex)
-function mk_threadTags($tID, $aTags, $pTag=''){
-/*
- * If ($tID == $aTags['tID']){
- *      $pTag .= $pTag . $aTags['tags'] . ',';
- * }
- *
- * if $aTag has for assoc arrays
- * array of arrays
- * array1 = $tID => 12 $tags => burt
- * array1 = $tID => 12 $tags => allen
- * array1 = $tID => 12 $tags => burt
- * array1 = $tID => 13 $tags => mary
- * array1 = $tID => 14 $tags => sue
- *
- * we would return a string
- * $pTag == burt,allen,burt,;
- */
-
-    //foreach loop to process needed array
-    if($aTags['tID'] == $tID){ $pTag .= $aTags['tags']; }
-
-    #$pTag = str_replace('-', ' ', $pTag);
-
-    // if we have tags return them.
-	if( (isset($pTag) && ($pTag != '')) ){ return '<span class="glyphicon glyphicon-tags text-info"></span> &nbsp; <i class="text-info">' . $pTag . '</i>'; }
-    // if no tags, let us know we could have tags
-
-    #if(!isset($pTag)){ return '<span class="glyphicon glyphicon-tag text-muted"></span> No Tags' ; }
-    if($pTag == ''){ return '<span class="text-muted"><span class="glyphicon glyphicon-tag"></span> No Tags</span>' ; }
-
-} #END mk_threadTags
-
-
-
-
-
-
+// COMMIT TO MEMORY
+// COMMIT TO MEMORY
+// COMMIT TO MENORY
 
 
 /**
-	* generate string of links
-	* links appear in order of first appearance in thread
-	* highlight link of the last character to post in thread
-	*
-	* @param $aParticipants
-	* @param string $str
-	* @return string
-	* TODO: highlight link of the last character to post in thread
-	*/
- function mk_postOrder($tID, $aParticipants, $alastPosting, $last2post='',  $str=''){
-#var_dump($aParticipants);
-     //get id of last to post
-#var_dump($alastPosting) ;
-     // get data from associative array of arrays
-     #dumpDie($tID);
-	 #1st loop - get participating charIDs from participating posts matching $threadID
-	 #if threadID exists AND matches, get character id
-if (isset($tID)){
-	 #get the id of the character associated with individual post
+* Based on all posts of a thread, returns a string of participant character links
+* Links are returned in order of first appearance in an individual thread
+*
+* @param  int $threadID
+* @param  int array  $aPosts
+* @return  mixed string  character links based on order of first appearance in thread
+* @TODO review
+**/
+function mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post, $aParticipants=[], $last2post='', $str='') {
 
-
-	 foreach ($alastPosting[0] as $arrData){
-		 # if ThreadID = Given ThreadID
-		 if ($arrData['ThreadID'] == $tID){
-
-			 (int)$tempCharID = $arrData['CharID'];
-			 (int)$tempPostID = $arrData['PostID'];
-			 (int)$tempMaxID  = $arrData['MaxPostID'];
-
-			 #save character id from post data to array to clean of multiples/duplicates
-			 #get character id associated with individual post - get it - comes from posts array
-			 #$postParticipantID = $arrData['CharID'];
-
-			 if (($tempCharID != 0) && (!empty($tempCharID))){
-				 #if it has data and is not empty, get data
-					 $last2post = $tempCharID;
-				 } #END inner if
-			 } #END outer if
-		 }#END foreach
-	 } #END if
-*/
-	#2nd loop - build string
-	if(count($aParticipants) > 0){
-		// Build char links for POST ORDER thread box
-
-		$str .= '<small><b class="text-muted">Post Order:</b><br/>';
-		foreach($aParticipants as $charID) {
-			#set up final pins
-			$codeName = $_SESSION['charIndex'][$charID];
-			#make link and concatinate to string
-			if($charID == $last2post){
-					$str .= '<a href="' . VIRTUAL_PATH . 'characters/profile.php?CodeName=' . $codeName . '&id=' . $charID . '&act=show" title="Profile for ' . $codeName . '"><strong>' . $codeName . '</strong></a>, ';
-			}else{
-					$str .= '<a href="' . VIRTUAL_PATH . 'characters/profile.php?CodeName=' . $codeName . '&id=' . $charID . '&act=show" title="Profile for ' . $codeName . '">' . $codeName . '</a>, ';
-			}#END inner if
-		}#END foreach
-
-	}else{
-		 $str .= '<small><b class="text-muted">No Posts</b><br/>';
-	}
-
-
-	return $str;
-
-} # END mk_postOrder
-
-/**
-	* Based on all posts of a thread, returns a string of particpant character links
-	* Links are returned in order of first appearance in an individual thread
-	*
-	* @param  int $threadID
-	* @param  int array  $aPosts
-	* @return  mixed string  character links based on order of first appearance in thread
-	* @TODO review
-	**/
-function mk_cFeaturedLinks($threadID, $aPosts, $aChars=[], $aParticipants=[], $postParticipantID=0, $str='') {
-	#get charIndex from $_SESSION
-	if(isset($_SESSION['charIndex'])){ $aChars=$_SESSION['charIndex']; }
-
+#dumpDie($aPosts);
 	#1st foreach - get participating charIDs from participating posts matching $threadID
 	#if threadID exists AND matches, get character id
-	if(isset($threadID)){
+	if(isset($tID)){
 		#get the id of the character associated with individual post
-
 		#temp array -> is destroy/reinitialized
 		$arrTemp = [];
-		foreach($aPosts[0] as $arrData) {
-		/*
-			dumpDie($arrData);
-
-			array (size=4)
-			'ThreadID' => int 0
-			'PostID' => int 32
-			'CharID' => int 0
-			'PostOrder' => int 0
-		*/
-
+		foreach($aCharNameIndex[0] as $arrData) {
 			# if ThreadID = Given ThreadID
-			if($arrData['ThreadID'] == $threadID){
-				#(int)$tempThreadID = $arrData['ThreadID'];
-				#(int)$tempPostID 	= $arrData['PostID'];
+			if($arrData['ThreadID'] == $tID){
 				(int)$tempCharID 	= $arrData['CharID'];
-				#(int)$tempOrderID  = $arrData['PostOrder'];
 
 				#save character id from post data to array to clean of multiples/duplicates
 				#get character id associated with individual post - get it - comes from posts array
 				#$postParticipantID = $arrData['CharID'];
-
 				if(($tempCharID != 0) && (!empty($tempCharID))){
 					#if it has data and is not empty, get data
 					$arrTemp[] = $tempCharID;
 				} #END inner if
 			} #END outer if
-
 		}#END foreach
-
 		$aParticipants = array_unique($arrTemp);
-		#echo ' <br /><br /> ';
 	} #END if
-
 	# array_filter remove all values equal to null, 0, '' or false.
 	$aParticipants = array_filter($aParticipants);
 
-	#tempFix
+		//$aLast2post == contains array detailing ThreadID, PostID, CharID
+		//we want to match our ThreadID($tID) against the arrays thread id
+		//if match, pull CharID so we can bold it in Post Order list
 
+
+		#dumpDie($aLast2post);
+				$last2post = chk_last2post($aLast2post, $tID);
+
+		#simulate chk_last2post result - fake charID of last poster
+		$last2post = 3;
+		#dumpDie($last2post);
 
 	if(count($aParticipants) > 0)
 	{
@@ -3659,37 +3484,31 @@ function mk_cFeaturedLinks($threadID, $aPosts, $aChars=[], $aParticipants=[], $p
 		#2nd foreach
 		foreach($aParticipants as $charID) {
 			#set up final pins
+						$codeName = $_SESSION['charIndex'][$charID];
+						//you have to reinitialize the values with each iteration of the loop
+						$tagOpen = '';
+						$tagClose = '';
+						//if match make link bold
+						if($charID == $last2post)
+						{
+								$tagOpen ='<b>';
+								$tagClose   = '</b>';
+						}
 
-
-			$codeName = $_SESSION['charIndex'][$charID];
-			#make link and concatinate to string
-			$str .= '<a href"' . VIRTUAL_PATH .
-				'characters/profile.php?CodeName=' . $codeName .
-				'&id=' . $charID .
-				'&act=show" title="">' . $codeName .
-				'</a>, ';
+			//make link and concatenate to string
+			$str .= $tagOpen .
+								'<a href="' . VIRTUAL_PATH .
+				'characters/profile.php?' .
+										'CodeName=' . $codeName .
+						'&id=' . $charID .
+						'&act=show">' . $codeName .
+				'</a>' . $tagClose . ', ';
 
 		}#END inner if
 	}else{
 
-		$str .= '<small><b>No Post Order Set:</b>
-										<br/>';
+		$str .= '<small>No Replies</small><br/>';
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//if no data - tell me no data
 	if(!isset($aParticipants)){ return 'No Thread ID Found'; }
 
@@ -3697,10 +3516,57 @@ function mk_cFeaturedLinks($threadID, $aPosts, $aChars=[], $aParticipants=[], $p
 } #END mk_cFeaturedLinks
 
 
-function threadRecent($sql, $sqlTags, $tId='', $str='', $postOrder =''){
-	/**
-	 * Show the most recent posts, set pager to 3 for test
-	 */
+ /**
+	* make array detailing the last character to post in a thread
+	* @param array $aLast2post
+	* @return array
+	*/
+ function gt_last2post($aLast2post=[]){
+		/*
+		When you do a `GROUP BY` in a query you should typically aggregate on every column that isn't part of the grouping.
+		(Here you aggregate on `PostID` but not on `CharID` or `DateCreated`, even though they're not part of the grouping)
+
+		If you need to pluck individual values from a column like this when doing a grouping rather than using an aggregate function
+		on it, you can use a subquery so you can group in the subquery but not the top-level one. The logic behind this is to use
+		the subquery to produce the aggregated values (your MaxThreadID) and then use those values to select the rows you want in
+		the top-level (non-grouped) query. There are other ways to do this that achieve the same thing by joining the table against
+		itself or joining on a subquery, and at least in some situations those may be better/faster.
+		*/
+		 $sql = "SELECT p1.ThreadID, p1.CharID, p1.DateCreated, p1.PostID as MaxPostID
+				FROM ma_Posts p1
+				WHERE p1.PostID IN (SELECT MAX(p2.PostID)
+				FROM ma_Posts p2
+				GROUP BY p2.ThreadID);";
+
+
+		 $result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
+		 if (mysqli_num_rows($result) > 0)//at least one record!
+		 {//show results
+				 while ($row = mysqli_fetch_assoc($result))
+				 {//dbOut() function is a 'wrapper' designed to strip slashes, etc. of data leaving db
+
+						 $tID	 = (int)$row['ThreadID'];
+						 $mpID   = (int)$row['MaxPostID'];
+						 $cID  	 = (int)$row['CharID'];
+
+						 $aLast2post[] = [
+								 'ThreadID'  => $tID,
+								 'PostID'    => $mpID,
+								 'CharID'    => $cID,
+						 ];
+				 }
+				 return $aLast2post;
+		 }
+ }
+
+
+
+function threadRecent($sql, $tID='', $str=''){
+	// get character index so it's available through out function
+		$aCharNameIndex[] = mk_charIndex();
+		#index of the last character to post in a thread
+		$aLast2post = gt_last2post();
+#dumpDie($aLast2post);
 
 	$str .= '<!-- start general content -->
 
@@ -3729,7 +3595,7 @@ function threadRecent($sql, $sqlTags, $tId='', $str='', $postOrder =''){
 				while($row = mysqli_fetch_assoc($result))
 				{# process each row
 
-					$tID 		= (int)$row['ThreadID'];
+					$tID 	= (int)$row['ThreadID'];
 					$tTitle = $row['ThreadTitle'];
 					$tURL 	= THIS_PAGE . '?act=threadShow&tID=' . $tID . '&ttl=' . $tTitle;
 
@@ -3744,136 +3610,89 @@ function threadRecent($sql, $sqlTags, $tId='', $str='', $postOrder =''){
 							</h4>
 						</div>
 						<div id="collapse-' . $tID . '" class="panel-collapse collapse">
-							<div class="panel-body">
-								<p class="col-md-9"><b class="text-muted">PREFACE &raquo;</b> '. $row['ThreadSummary'] . '</p>
-								<p class="col-md-3 pull-left text-right">';
+							<div class="panel-body">';
+
+					$str .=  '<p class="col-md-9">'. $row['ThreadSummary'] . '</p>
+										<p class="col-md-3 pull-left text-right">';
 
 
 
-//POST ORDER begin
-//POST ORDER begin
-//POST ORDER begin
-
-#get array from session['charIndex'] participants
-		$aCharNameIndex[] = gt_charIndex();
-		#show our list of participating characters in post order/alphanumeric depending on context order
-		// broke into two functions to make this more manageable
-		//GETs an array of thread participants from ma_Posts table
-		$aParticipants = gt_threadParticipants($tID, $aCharNameIndex);
-		//SETs a comma separated string of participants
-
-		//GET last character to post in thread
-        //returns an array of associative arrays with ThreadID, CharID, MaxPostID
-		$alastPosting = gt_last2post();
-
-		// SET up data into string of links
-		$charsFeatured = mk_postOrder($tID, $aParticipants, $alastPosting);
-		//bolds name of last character to post in thread.
-		//$charsFeatured = gt_lastParticipating($charsFeatured);
-		// Add in line brakes to make into a quick list
-		$str .= str_replace(', ', '<br />', $charsFeatured);
-		$str .='</small><br /><br /></p>';
-
-// POST ORDER end
-// POST ORDER end
-// POST ORDER end
-
-
-
-//TAGs begin
-//TAGs begin
-//TAGs begin
-
-
-#get array from ma_Posts where we have a tag - index by ThreadID
-	$tTagIndex = gt_threadTags();
-#dumpDie($tTagIndex);
-/*
-	$tTagIndex  ->  returns
-	array (size=2)
-	'tID' => string '21' (length=2)
-	'tags' => string 'Union Jack' (length=10)
-*/
-#var_dump($tTagIndex);
+					#POST ORDER begin
+					#show list of participating characters in thread based on post entries in thread
+					#show in order of participation
+					$charsFeatured = mk_cFeaturedLinks($tID, $aCharNameIndex, $aLast2post);
+					#dumpDie($aCharNameIndex);
+					$str .= str_replace(', ', '<br />', $charsFeatured);
+					$str .='</small><br /><br />';
+					#POST ORDER end
 
 
 
 
-	$str .= '<p>';
-	// returns string of profile links of characters appearing in the thread.
-	$str .= mk_threadTags($tID, $tTagIndex);
-	// go to thread link
-	$str .=  '<a class="pull-right" href="' . $tURL . '"> <span class="glyphicon glyphicon-share"></span> Go To Thread</i></a></p>
-			</div>
-		</div>
-	</div>';
-}
+$str .= '<row>';
+#TAGS begin
+$myTags ='';
 
-@mysqli_free_result($result); //free resources
-//TAGs end
-//TAGs end
-//TAGs end
+	// get base result set of character tags
+	$sql ="SELECT `ThreadID`, `PostTags` FROM `ma_Posts` WHERE `PostTags` IS NOT NULL AND `PostTags` != '0' AND `PostTags` != ' ' ORDER BY `ThreadID`";
 
-		$str .= $myPager->showNAV($tID); # show paging nav, only if enough records
+	$db = pdo(); # pdo() creates and returns a PDO object
 
-		}else{#no records
-		$str .= '<div align=center>No posts currently Available.</div>';
-	}
+	#$result stores data object in memory
+	try {$myResult = $db->query($sql);} catch(PDOException $ex) {trigger_error($ex->getMessage(), E_USER_ERROR);}
+
+	if($myResult->rowCount() > 0)
+	{#there are records - present data
+		while($row = $myResult->fetch(PDO::FETCH_ASSOC))
+						{# pull data from associative array
+								#instantiate needed vars
+								$threadId 		= $row['ThreadID'];
+								$pTag      		= $row['PostTags'];
+
+								if(($pTag != '') && ($threadId == $tID)){
+										$myTags .=  $pTag . ', ';
+								}
+						}
+
+						if(isset($myTags)){
+								//remove last comma if exists
+								$myTags = rtrim($myTags, ', ');
+
+								#remove duplicates from string
+								$myTags = implode(',', array_unique(explode(',', $myTags)));
+						}
+
+		#$str .= '<p>';
+		if($myTags != ''){ $str .= '<p class="col-md-9 text-info "><span class="glyphicon glyphicon-tag"></span> ' . $myTags . '</p>';  }
+		if($myTags == ''){ $str .= '<p><i class="text-muted"><span class="glyphicon glyphicon-tag"></span>  No Characters Currently Tagged</i></p>';}
+
+	} #TAGS end
 
 
+	unset($myResult,$db);//clear resources
+# class="bottom-align-text"
+		$str .= '<!-- Go To Thread -->
+				<p><a class="pull-right" href="' . $tURL . '"> <span class="glyphicon glyphicon-share"></span> Go To Thread</i></a></p>
+							</div>
+						</div>
+					</div>';
+				}
 
+				@mysqli_free_result($result); //free resources
+				$str .= $myPager->showNAV($tID); # show paging nav, only if enough records
+						}
 
+			$str .='</div><!-- end accordion -->
+								</div>';
 
+			if(startSession() && isset($_SESSION['UserID'])){
+				$str .='<a href="' . THIS_PAGE . '?act=threadAdd" class="btn btn-primary btn-xs pull-right">Add New Thread</a></p>';
+			}
 
-
-
-	//TAGs end
-	//TAGs end
-	//TAGs end
-
-	$str .='</div><!-- end accordion --></div>';
-
-	if(startSession() && isset($_SESSION['UserID'])){
-		$str .='<p> <a href="' . THIS_PAGE . '?act=threadAdd" class="btn btn-primary btn-xs pull-right">Add New Thread</a></p>';
-	}
-
-	$str .='</div> <!-- END content -->';
+			$str .='</p></div> <!-- END content -->';
 
 	return $str;
-}#END threadRecent()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 function threadRemove(){
@@ -3905,6 +3724,7 @@ function threadRemove(){
 }
 
 function threadRevise($sqlThreads, $sqlTags, $str=''){
+
 	#echo 'thread revise';
 	#dumpDie($_POST);
 
@@ -3929,8 +3749,8 @@ function threadRevise($sqlThreads, $sqlTags, $str=''){
 
 
 
-	/*
-		Full Set
+/*
+	Full Set
 		$tID   				= strip_tags($_POST['ThreadID']);					#chk
 		$catID    					= strip_tags($_POST['CatID']);						#chk
 		#$pID    				= strip_tags($_POST['PostID']);
@@ -4138,8 +3958,18 @@ function threadShow($tally, $act, $dir='DESC', $str=''){
 
 			$rtID 	 			= (int)$row['ThreadID'];
 
+#ASK ANDREW - Why removing this removes repeating title
+#ASK ANDREW - Why removing this removes repeating title
+#ASK ANDREW - Why removing this removes repeating title
 			$tTitle 			= $row['ThreadTitle'];
-			$titleEncoded = str_replace(' ', '_', $tTitle); #URL safe
+			$titleEncoded = str_replace(' ', 'XXX', $tTitle); #URL safe
+
+
+
+#ASK ANDREW - Why removing this removes repeating title
+#ASK ANDREW - Why removing this removes repeating title
+#ASK ANDREW - Why removing this removes repeating title
+
 
 			$tType 				= $row['ThreadType'];
 			$tRate 				= $row['ThreadRating'];
@@ -4213,6 +4043,27 @@ function threadShow($tally, $act, $dir='DESC', $str=''){
 				#show threadHandler - make link to profile if logged in
 				if(!empty($priv)){
 					$hName = '<a href="' . VIRTUAL_PATH . 'users/userProfile.php?act=show&user=' . $uID . '" title="">' . get_hName($hID) . '</a>';
+
+
+
+
+#TALK TO ANDREW/BILL/TIM - VERY BAD SOLUTION
+#TALK TO ANDREW/BILL/TIM - VERY BAD SOLUTION
+#TALK TO ANDREW/BILL/TIM - VERY BAD SOLUTION
+
+// TEMP PRIV RESOLVE #task #3
+// can't find where little previledge when logged in is coming from
+// temp override - needs to be properly resolved
+#dumpDie($_SESSION);
+
+#BIZZARRE WEIRDNESS HAPPENS IF NOT SET TO ''
+					$priv='';
+
+#TALK TO ANDREW/BILL/TIM - VERY BAD SOLUTION
+#TALK TO ANDREW/BILL/TIM - VERY BAD SOLUTION
+#TALK TO ANDREW/BILL/TIM - VERY BAD SOLUTION
+
+
 				}else{
 					#if it's not our memeber, make link meaningless
 					$hName = get_hName($uID);
@@ -4221,10 +4072,10 @@ function threadShow($tally, $act, $dir='DESC', $str=''){
 				#display content
 				$str .=  '<h2 class="panel-title"><b>' . $tTitle . ' <span class="text-muted"></b><small>(#TiD-' . $rtID . ')</small></span></a>  <span class="pull-right"><span class="glyphicon glyphicon-pencil text-muted"></span> ' . $hName .'</span></h2>
 
-				<p><br /><b class="text-muted">SCENE SET &raquo; &nbsp;</b>'. nl2br($row['ThreadContent']) . '</p>';
+				<p><br /><b class="text-muted">SCENE SET &raquo; &nbsp;</b>'. nl2br($row['ThreadContent']) . ' XXX</p>';
 				#intial description/staging for thread
 
-
+#dumpDie($_SESSION);
 				$threadTag = $row['ThreadTag'];
 
 				#get Codenames of characters tagged
@@ -4303,34 +4154,29 @@ function threadShow($tally, $act, $dir='DESC', $str=''){
 
 				#GET posts - page them
 
+				#Make the btns
+				/*
+					#we need a handler id for edit, lock and delete options -- handler is the registered created of that post or thread...
+				*/
+				if(!empty($priv)){ $btns .= mk_btns4posts($priv, $hID, $uID, $pQueryAdd, $pQueryAdd, $pQueryEdit, $pQueryRemove, $pQueryLock); }
 
+				#sbow btns before posts.....
+				$str .= $btns; #add the btns
 
-			#Make the btns
-			/*
-				#we need a handler id for edit, lock and delete options -- handler is the registered created of that post or thread...
-			*/
+				#GET POSTS PAGED
+				$testStr .= get_pPaged($rtID, $tally, $act, $btns, $tTitle, $tType,
+					$catID, $titleEncoded, $tType, $tRateEncoded, $twEncoded, $phaseEncoded,
+					$timeEncoded, $locationEncoded, $whenEncoded, $priv, $hID, $uID); #get all psots
 
-
-			if(!empty($priv)){ $btns .= mk_btns4posts($priv, $hID, $uID, $pQueryAdd, $pQueryAdd, $pQueryEdit, $pQueryRemove, $pQueryLock); }
-
-			#sbow btns before posts.....
-			$str .= $btns; #add the btns
-
-			#GET POSTS PAGED
-			$testStr .= get_pPaged($rtID, $tally, $act, $btns, $tTitle, $tType,
-				$catID, $titleEncoded, $tType, $tRateEncoded, $twEncoded, $phaseEncoded,
-				$timeEncoded, $locationEncoded, $whenEncoded, $titleEncoded,
-				$priv, $hID, $uID); #get all psots
-
-			if($testStr != ''){
-				$str .= $testStr;
-				$str .= '<hr>';
-			#no records
-			}else{
-				$str .= "<div align=center>Houston we have problemo</div>";
+				if($testStr != ''){
+					$str .= $testStr;
+					$str .= '<hr>';
+				#no records
+				}else{
+					$str .= "<div align=center>Houston we have problemo</div>";
+				}
 			}
-		}
-		#close it all up
+			#close it all up
 
 		$str .='</div><!-- END content -->';
 		@mysqli_free_result($result); //free resources
@@ -4346,12 +4192,8 @@ function mk_btns4posts($priv='', $hID='', $uID='', $pQueryAdd='', $pQueryEdit=''
 	#for buttons
 	#$pQueryAdd=$pQueryEdit=$pQueryRemove=$pQueryLock=$str='';
 	$str = '<!-- START buttons -->
-
-
-		<div class="btn-group btn-group-sm" role="group" aria-label="...">
-			<br />
+		<div class="btn-group btn-group-sm" role="group" aria-label="..."><br />
 			<small>';
-
 
 		if($priv > 0){
 			# disable class btn?
@@ -4371,48 +4213,99 @@ function mk_btns4posts($priv='', $hID='', $uID='', $pQueryAdd='', $pQueryEdit=''
 			$str .=  ' &nbsp; &nbsp; | &nbsp; &nbsp; <a class="" href="' . THIS_PAGE . $pQueryLock . '">Lock Thread</a>';
 		}
 
-
 		$str .='</small>';
 
 		#glyphicon glyphicon-sort-by-attributes-
 		$str .= '&nbsp; &nbsp; ';
 
-
 		$str .= '</div><!-- END buttons -->
 		<div class="pull-right">';
-
-
-#ASC = crhonolgical;
-#DESC = most recent
-
-
-
 
 		#get full query string - then revise it to revise thread posting order
 		$tUrl   = $_SERVER["QUERY_STRING"];
 
-		#http://localhost/WrDKv4/act=threadShow&tID=20&ttl=IC%20TTa%20-%20Mall%20of%20Champions&tOrder=ASC
 
-		#if tOrder exists/isset...
+
+/*
+		#check that the $tOrder is set.
 		if(isset($_GET['tOrder']) && !empty($_GET['tOrder'])){$tOrder = ($_GET['tOrder']);} else {$tOrder ='';}
 
+
+		if ($tOrder == 'DESC')
+		{
+			$tUrl = str_replace("&tOrder=DESC", "", $tUrl);
+		}
+
 		#default - if tOrder = '' or doesn't exist, show most recent post first
-		if(empty($tOrder)){
+		if($tOrder == '')
+		{
 			#http://localhost/WrDKv4/threads/index.php?act=threadShow&tID=20&ttl=IC%20TTa%20-%20Mall%20of%20Champions&tOrder=ASC&tOrder=ASC
 			$str .= '<a href="' . VIRTUAL_PATH . 'threads/index.php?' . $tUrl . '&tOrder=DESC"><span class="glyphicon glyphicon glyphicon glyphicon-sort-by-attributes-alt pull-right" aria-hidden="true" data-toggle="tooltip" title="Read Thread By Chronological Order"></span>
 			</div></a>';
 
-		#change to chronological...
-		}else{
-			#http://localhost/WrDKv4/threads/index.php?act=threadShow&tID=20&ttl=IC%20TTa%20-%20Mall%20of%20Champions&tOrder=ASC&tOrder=DESC
-
-			$str .= '<a href="' . VIRTUAL_PATH . 'threads/index.php?' . $tUrl . '&tOrder=ASC"><span class="glyphicon glyphicon glyphicon-sort-by-attributes pull-right" aria-hidden="true" data-toggle="tooltip" title="Read Thread By Most Recent Post First"></span>
+			#change to chronological...
+		}
+		else
+		{
+			#set to original order
+			$str .= '<a href="' . VIRTUAL_PATH . 'threads/index.php?' . $tUrl . '"><span class="glyphicon glyphicon glyphicon-sort-by-attributes pull-right" aria-hidden="true" data-toggle="tooltip" title="Read Thread By Most Recent Post First"></span>
 			</div></a>';
 		}
+*/
+
+
+		$str .= gt_pOrderLnk($tUrl, $str='');
+
 
 
 	}
 	return $str;
+}
+
+
+// get a link to change the order of posts in a thread
+// used in threadShow()
+function gt_pOrderLnk($tUrl, $str=''){
+	#check that the $tOrder is set.
+	if(isset($_GET['tOrder']) && !empty($_GET['tOrder'])){$tOrder = ($_GET['tOrder']);} else {$tOrder ='';}
+
+	# chk query string for DESC
+	if ($tOrder == 'DESC')
+	{
+		// if DESC exists, replace with ''
+		$tUrl = str_replace("&tOrder=DESC", "", $tUrl);
+	}
+
+	// efault - if tOrder = ''/doesn't exist, show most recent post first (chronological/ASC order)
+	if($tOrder == '')
+	{
+		$str .= '<a href="' . VIRTUAL_PATH . 'threads/index.php?' . $tUrl . '&tOrder=DESC"><span class="glyphicon glyphicon glyphicon glyphicon-sort-by-attributes-alt pull-right" aria-hidden="true" data-toggle="tooltip" title="Read Thread By Chronological Order"></span>
+		</div></a>';
+		// change to chronological... (Most Recent/DESC)
+	}
+	else
+	{// #set to original order
+		$str .= '<a href="' . VIRTUAL_PATH . 'threads/index.php?' . $tUrl . '"><span class="glyphicon glyphicon glyphicon-sort-by-attributes pull-right" aria-hidden="true" data-toggle="tooltip" title="Read Thread By Most Recent Post First"></span>
+		</div></a>';
+	}
+	// return link
+	return $str;
+}
+
+#currently not being used
+#get current whole url from quesry string
+function gt_CurrentURL()
+{
+		$currentURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+		$currentURL .= $_SERVER["SERVER_NAME"];
+
+		if($_SERVER["SERVER_PORT"] != "80" && $_SERVER["SERVER_PORT"] != "443")
+		{
+				$currentURL .= ":".$_SERVER["SERVER_PORT"];
+		}
+
+				$currentURL .= $_SERVER["REQUEST_URI"];
+		return $currentURL;
 }
 
 function mk_cIDcName($hID){ #char name and ids

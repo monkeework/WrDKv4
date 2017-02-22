@@ -1,0 +1,13 @@
+[Feb-18-2017 6:42:48] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-18-2017 6:44:34] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3986
+[Feb-18-2017 6:44:34] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4000
+[Feb-18-2017 6:44:34] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4005
+[Feb-18-2017 6:44:34] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4010
+[Feb-18-2017 6:44:34] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4125
+[Feb-18-2017 6:44:34] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4126
+[Feb-18-2017 7:32:49] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-18-2017 7:33:37] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-18-2017 7:37:37] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-18-2017 8:57:57] Object of class PDOStatement could not be converted to string in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 5139
+[Feb-18-2017 16:38:21] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4351
+[Feb-18-2017 16:38:21] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4239

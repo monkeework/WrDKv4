@@ -134,3 +134,7 @@ color: #FFFFFF;
 /* Navbar Active Link */
 li a.nav-item.active {background-color: #000;}
 
+
+/* set character modal width to 500px to match image proportions */
+.w500 {width: 500px;}
+

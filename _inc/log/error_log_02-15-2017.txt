@@ -1,0 +1,2 @@
+[Feb-15-2017 12:28:00] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22
+[Feb-15-2017 12:28:00] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22

@@ -1,0 +1,71 @@
+[Feb-17-2017 8:15:25] Undefined variable: twID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4158
+[Feb-17-2017 8:15:25] Undefined variable: btns in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4311
+[Feb-17-2017 8:15:25] Undefined variable: testStr in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4320
+[Feb-17-2017 8:16:19] Undefined variable: twID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4158
+[Feb-17-2017 8:16:19] Undefined variable: btns in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4313
+[Feb-17-2017 8:16:19] Undefined variable: testStr in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4322
+[Feb-17-2017 8:16:34] Undefined variable: twID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4158
+[Feb-17-2017 8:16:34] Undefined variable: btns in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4315
+[Feb-17-2017 8:16:34] Undefined variable: testStr in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4324
+[Feb-17-2017 8:16:34] Undefined variable: twID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4158
+[Feb-17-2017 8:16:34] Undefined variable: btns in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4315
+[Feb-17-2017 8:16:34] Undefined variable: testStr in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4324
+[Feb-17-2017 8:21:36] Undefined index: tID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4113
+[Feb-17-2017 8:21:36] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY PostID DESC' at line 2 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4132
+[Feb-17-2017 8:24:23] Undefined index: tID in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4113
+[Feb-17-2017 8:24:23] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY PostID DESC' at line 2 in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4132
+[Feb-17-2017 8:43:01] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-17-2017 8:46:59] Object of class PDOStatement could not be converted to string in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 5333
+[Feb-17-2017 13:20:11] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3994
+[Feb-17-2017 13:20:11] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4008
+[Feb-17-2017 13:20:11] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4013
+[Feb-17-2017 13:20:11] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4018
+[Feb-17-2017 13:20:11] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4133
+[Feb-17-2017 13:20:11] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4134
+[Feb-17-2017 13:22:12] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3997
+[Feb-17-2017 13:22:12] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4011
+[Feb-17-2017 13:22:12] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4016
+[Feb-17-2017 13:22:12] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4021
+[Feb-17-2017 13:22:12] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4136
+[Feb-17-2017 13:22:12] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4137
+[Feb-17-2017 13:28:58] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 3989
+[Feb-17-2017 13:28:58] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4003
+[Feb-17-2017 13:28:58] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4008
+[Feb-17-2017 13:28:58] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4013
+[Feb-17-2017 13:28:58] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4128
+[Feb-17-2017 13:28:58] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4129
+[Feb-17-2017 13:38:13] Undefined variable: titleEncode in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4136
+[Feb-17-2017 13:43:02] Missing argument 25 for get_pDetails(), called in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1673 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1238
+[Feb-17-2017 13:43:02] Missing argument 25 for get_pDetails(), called in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1673 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1238
+[Feb-17-2017 13:43:28] Missing argument 25 for get_pDetails(), called in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1673 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1238
+[Feb-17-2017 13:43:28] Missing argument 25 for get_pDetails(), called in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1673 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1238
+[Feb-17-2017 13:43:41] Missing argument 25 for get_pDetails(), called in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1673 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1238
+[Feb-17-2017 13:43:41] Missing argument 25 for get_pDetails(), called in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1673 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1238
+[Feb-17-2017 13:48:54] Missing argument 25 for get_pDetails(), called in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1668 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1238
+[Feb-17-2017 13:48:54] Missing argument 25 for get_pDetails(), called in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1668 and defined in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 1238
+[Feb-17-2017 13:51:37] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-17-2017 15:16:33] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'zde' at line 4 in /Applications/AMPPS/www/WrDKv4/_inc/Pager_inc.php on line 135
+[Feb-17-2017 15:26:50] Undefined variable: urlLink in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4204
+[Feb-17-2017 15:26:51] Undefined variable: urlLink in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4208
+[Feb-17-2017 15:26:51] Undefined variable: urlLink in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4213
+[Feb-17-2017 15:26:51] Undefined variable: urlLink in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4204
+[Feb-17-2017 15:26:51] Undefined variable: urlLink in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4208
+[Feb-17-2017 15:26:51] Undefined variable: urlLink in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4213
+[Feb-17-2017 15:37:27] Undefined index: HTTPS in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4229
+[Feb-17-2017 18:47:20] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4008
+[Feb-17-2017 18:47:20] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4022
+[Feb-17-2017 18:47:20] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4027
+[Feb-17-2017 18:47:20] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4032
+[Feb-17-2017 18:47:20] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4166
+[Feb-17-2017 18:47:20] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4167
+[Feb-17-2017 18:47:53] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4022
+[Feb-17-2017 18:47:53] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4027
+[Feb-17-2017 18:47:53] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4032
+[Feb-17-2017 18:47:53] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4166
+[Feb-17-2017 18:47:53] Undefined variable: titleEncoded in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 4167
+[Feb-17-2017 18:59:31] Object of class PDOStatement could not be converted to string in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 5420
+[Feb-17-2017 19:05:06] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 116
+[Feb-17-2017 19:05:06] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22
+[Feb-17-2017 19:05:58] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-17-2017 19:07:12] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-17-2017 19:39:34] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
