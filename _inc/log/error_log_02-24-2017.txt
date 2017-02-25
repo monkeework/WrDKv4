@@ -1,0 +1,21 @@
+[Feb-24-2017 8:24:18] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22
+[Feb-24-2017 8:31:35] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-24-2017 8:42:18] Undefined index: Rrd1Update in /Applications/AMPPS/www/WrDKv4/characters/profileUpdate.php on line 247
+[Feb-24-2017 8:42:18] Undefined index: Rrd2Update in /Applications/AMPPS/www/WrDKv4/characters/profileUpdate.php on line 252
+[Feb-24-2017 8:42:18] Undefined index: Rrd3Update in /Applications/AMPPS/www/WrDKv4/characters/profileUpdate.php on line 257
+[Feb-24-2017 8:42:18] Use of undefined constant MOD_MAIL - assumed 'MOD_MAIL' in /Applications/AMPPS/www/WrDKv4/_inc/processCharNotification-inc.php on line 93
+[Feb-24-2017 8:42:22] Undefined variable: CodeName in /Applications/AMPPS/www/WrDKv4/_inc/processCharNotification-inc.php on line 119
+[Feb-24-2017 15:18:37] Undefined index: name in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 62
+[Feb-24-2017 15:18:37] Undefined index: message in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 64
+[Feb-24-2017 15:18:37] Undefined index: urlPointer in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 66
+[Feb-24-2017 15:18:37] Undefined index: dateBot in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 68
+[Feb-24-2017 15:18:37] Undefined index: other_email in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 70
+[Feb-24-2017 15:18:37] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22
+[Feb-24-2017 18:49:49] Undefined index: name in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 62
+[Feb-24-2017 18:49:49] Undefined index: message in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 64
+[Feb-24-2017 18:49:49] Undefined index: urlPointer in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 66
+[Feb-24-2017 18:49:49] Undefined index: dateBot in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 68
+[Feb-24-2017 18:49:49] Undefined index: other_email in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 70
+[Feb-24-2017 18:52:50] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22
+[Feb-24-2017 19:05:08] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22
+[Feb-24-2017 19:05:08] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22

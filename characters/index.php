@@ -847,7 +847,13 @@ if(isset(dbOut($row['Gender'])))	{$cGen = dbOut($row['Gender']);	}else{ $cGen = 
 		<br style="clear:both" />'; #close images container
 
 	}else{#no records
-			echo "<h3 class='text-center' style='border-bottom:solid 1px silver;'>No matches found.</h3>";
+        // tell them no result found
+        feedback("No results found for " . $_GET['cCe'], "info");
+
+        // send back to main form/search
+        myRedirect('index.php');
+
+        die;
 	} #END PROFILES SEARCH
 
 	@mysqli_free_result($result);
@@ -1011,22 +1017,18 @@ function searchResult($sql, $count=0, $str=''){
 		#update SQL
 		$sql = "SELECT CharID, CodeName, FirstName, LastName, MiddleName, StatusID, Playby, Gender FROM ma_Characters WHERE CodeName LIKE '%$cName%'";
 
-
 		#use updated SQL
-		genTiles($sql);
+		genTiles($sql, $count);
 
-		$str.= '<hr />
+        $str.= '<hr />
 			<a href="' . VIRTUAL_PATH . 'characters/index.php" class="btn btn-default btn-xs" role="button">reset link</a>
 			<a href="' . VIRTUAL_PATH . 'characters/index.php" class="btn btn-default btn-xs pull-right" role="button">see more</a>';
 
-		// if we have duplicates count them
-		$count++;
 	}
 
 	#character regular name
 	if(isset($_GET['rNe']))	{
 		$regName = htmlspecialchars(trim($_GET['rNe']), ENT_QUOTES, "UTF-8");
-
 	}
 
 	#character type
@@ -1056,7 +1058,6 @@ function searchResult($sql, $count=0, $str=''){
 		';
 	}
 
-
 	#character playby
 	#if(isset($_GET['cPB']))
 	#http://localhost/WrDKv3/characters/indexDev.php?cCe=&cTm=&cPB=taylor+swift&token=6f1dee0ff07610370409a67cd665892c#
@@ -1075,33 +1076,27 @@ function searchResult($sql, $count=0, $str=''){
 		<br />
 		<div class="col-sm-9 text-center" >
 			<a href="' . VIRTUAL_PATH . 'characters/index.php" class="btn btn-default btn-xs" role="button">Clear Form</a>
-
-			&nbsp; &nbsp;
-
 			<a href="' . VIRTUAL_PATH . 'characters/index.php?act=ShowPlayby" class="btn btn-default btn-xs" role="button">See Taken</a>
-
-			&nbsp; &nbsp;
-
 			<a href="' . VIRTUAL_PATH . 'characters/index.php?act=male" class="btn btn-default btn-xs" role="button" >Unclaimed Males</a>
-
-			&nbsp; &nbsp;
-
 			<a href="' . VIRTUAL_PATH . 'characters/index.php?act=female" class="btn btn-default btn-xs" role="button">Unclaimed Females</a>
 		</div>';
-
-
 	}
 
 
-	///// IF ALL EMPTY - SHOW GENERIC RESULT ////
-
+	// IF EMPTY - SHOW GENERIC RESULT
 	if(($cName == '') && ($cTeam == '') && ($cPlayby == '')) {
 		showRandom($sql);
 	}
 
 }
 
-function genCharTiles($sql, $str=''){
+
+/*
+ // Not being used?
+ // Not being used?
+ // Not being used?
+
+function genCharTiles($sql, $count=0, $str=''){
 	$result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
 
 	if(mysqli_num_rows($result) > 0)
@@ -1168,10 +1163,69 @@ function genCharTiles($sql, $str=''){
 	return $str;
 }
 
-function genTiles($sql, $cName='', $regName='', $cTeam='', $cType='', $cPlayby='', $str='' ){
+ // Not being used?
+ // Not being used?
+ // Not being used?
+*/
+
+/**
+ * if we have only one match, forward us to matching character profile
+ *
+ * @param $sql
+ * @param string $str
+ */
+function charRedirect($sql, $count=0, $link=''){
+    $result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
+
+    if(mysqli_num_rows($result) > 0)
+    {#records exist - process
+        // NO html start
+        while($row = mysqli_fetch_assoc($result))
+        {# process each row
+
+            $cID   		= dbOut($row['CharID']);
+            $cName 		= dbOut($row['CodeName']);
+
+           # http://localhost/WrDKv4/characters/profile.php?CodeName=Cyclops&id=1&act=show
+            $link = VIRTUAL_PATH . 'characters/profile.php?CodeName=' . $cName . '&id=' . $cID . '&act=show';
+            $count++;
+        }
+        // NO html end
+    }
+
+    if($count === 1){
+        // tell them no result found
+        feedback("One result found for " . $_GET['cCe'], "info");
+
+        // send back to main form/search
+        myRedirect($link);
+
+    }
+
+}
+
+
+/**
+ * generate result based on search params given
+ *
+ * @param $sql
+ * @param string $count
+ * @param string $cName
+ * @param string $regName
+ * @param string $cTeam
+ * @param string $cType
+ * @param string $cPlayby
+ * @param string $str
+ * @return string
+ */
+function genTiles($sql, $count='', $cName='', $regName='', $cTeam='', $cType='', $cPlayby='', $str='' ){
 		#produce a title match for values given for jarvis/cerebra/cerebro/shield database et al.
 
+    // if only one result, send us to character profile
+    charRedirect($sql);
 
+
+    //if multiple results, chek params and respond ac
 	if($cName){ //show random results
 
 		$str .= "<h3>All known existing matches for {$cName}</h3>";
@@ -1179,15 +1233,11 @@ function genTiles($sql, $cName='', $regName='', $cTeam='', $cType='', $cPlayby='
 
 		$str .= genCharTiles($sql);
 
-
 		return $str;
 
-	//////////////////////////////////////////
 	} else if($regName){ //show random results
-
 		$str .= "<h3>All known existing matches for {$regName}</h3>";
 		$sql = " SELECT CodeName, CharID, StatusID, Alias, Playby, Gender FROM ma_Characters WHERE CodeName LIKE '%$regName%';";
-
 
 		return $str;
 

@@ -71,73 +71,43 @@ $oMail = $_POST['other_email'];
 
 # GET & SET url return path
 # If sending page is known - Contact form appears in a modal on all pages)
-if (isset($urlReferring)){ $urlPointer = str_replace('http://marvel-champions.com/', '', $urlReferring ); }
+if (isset($urlReferring)){ $urlPointer = $urlReferring; }
 # set reference point unknown
 if (!isset($urlReferring)){ $urlPointer = VIRTUAL_PATH; }
 
-
-
-# spam handling
-
-# gCaptcha for eval
-# string is unique everytime
-# @TODO - how to handle this?
-#$captcha 			= $_POST['g-recaptcha-response'];
-#$testCaptcha	= '03AHJ_VuuTcjNb0JB0A86AG0JW5qYC_M6JS6ZqHf8jXlcl7HHvtPB-kK3gS3_CeMcN8o64IN5rZt1ovtqQk0-Q7vuo5Xfqb955e9bveEAgs37e82GRNtP96zIuBaKJBwlHqynhPqY0h2qWDEzhUm-1DuePj2lVpFlGizbUrZEpofSqs_silYxcIxwUW_Cpx0BUhtwslGnu20C_F3AGXh8aU0jc6COIdsQn4tWugEQRjih8l2e25_2grT_NaFHmzMaPvlCs-epcs93xivxboEvtp9KoEbEzUx79_dcDiMreQb5YMZATNQvAq7ddNmkQ990tzUTqHwBIh5zkpWIeWyabwbJP6R7yvBPpZMRr66SBlI2qrknXLjwH8W1NlFF8Yl7mUQqwSYy-7mIF5hx4CtVae9yfRPJOpwjSzJyA1X23fRXF3igFJIg5O3vxQW8yciVc0wP305yiC446kzvdjpOvm63iGxuk5IEkHirNFl2-JukSPdwYszH7TQdoLwYI76';
-
-/*
-if( isset( $captcha != $testCaptcha)){
-	feedback("We're sorry, you message could not be sent. (CODE-0078)", "info");
-	header( "Location: " . $urlPointer  ); //Send to origin
-}
-*/
 
 
 # check user name for illegal characters
 # if illegal - punt them back to where they came from
 
 if ( (strpos($uName, '@')    !== false) ||
-		 (strpos($uName, 'www.') !== false) ||
-		 (strpos($uName, '.com') !== false) ||
-		 (strpos($uName, '.net') !== false) ){
+     (strpos($uName, 'www.') !== false) ||
+     (strpos($uName, '.com') !== false) ||
+     (strpos($uName, '.net') !== false) ){
 
-			#kick them out/kill form handler
-			feedback("Message unsent &mdash; Please try again. (CODE-0106)", "info");
-			header( "Location: " . $urlPointer  ); //Send to origin
+    #kick them out/kill form handler
+    feedback("Message unsent &mdash; Please try again. (CODE-0106)", "info");
 
-			die;
+    myRedirect($urlPointer);
+
+    #dumpDie($urlPointer);
+    header( "Location: " . $urlPointer  ); //Send to origin
+
+    die;
 }
 
-
-
-/*
-if ((strpos($uName, '@')    !== false)){
-		feedback("We're sorry, you message could not be sent. (CODE-0078)", "info");
-		#send spammer back to start
-		header( "Location: " . $urlPointer  );
-
-		#if redirect doesn't work - fake failure to stop spammer
-		#not proud of this solution, but it works until i can get redirect working.
-		header( 'Location: http://www.yahoo.com' ) ;
-}
-
-echo $uName;
-
-header( 'Location: http://www.yahoo.com' ) ;
-die;
-*/
 
 
 if ( (strpos($uMessage, '@')    !== false) ||
-		 (strpos($uMessage, 'www.') !== false) ||
-		 (strpos($uMessage, '.com') !== false) ||
-		 (strpos($uMessage, '.net') !== false) ){
+     (strpos($uMessage, 'www.') !== false) ||
+     (strpos($uMessage, '.com') !== false) ||
+     (strpos($uMessage, '.net') !== false) ){
 
-			#kick them out/kill form handler
-			feedback("Message unsent &mdash; Please try again. (CODE-0106)", "info");
-			header( "Location: " . $urlPointer  ); //Send to origin
+    #kick them out/kill form handler
+    feedback("Message unsent &mdash; Please try again. (CODE-0106)", "info");
+    header( "Location: " . $urlPointer  ); //Send to origin
 
-			die;
+    die;
 }
 
 #security chek one using hidden field to catch bots

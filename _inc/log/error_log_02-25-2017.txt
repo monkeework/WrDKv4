@@ -1,0 +1,22 @@
+[Feb-25-2017 6:03:02] Undefined index: name in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 62
+[Feb-25-2017 6:03:02] Undefined index: message in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 64
+[Feb-25-2017 6:03:02] Undefined index: urlPointer in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 66
+[Feb-25-2017 6:03:02] Undefined index: dateBot in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 68
+[Feb-25-2017 6:03:02] Undefined index: other_email in /Applications/AMPPS/www/WrDKv4/_inc/processMSG-inc.php on line 70
+[Feb-25-2017 7:58:25] Undefined variable: cName in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 852
+[Feb-25-2017 7:58:25] Use of undefined constant index - assumed 'index' in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 853
+[Feb-25-2017 7:58:25] Use of undefined constant php - assumed 'php' in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 853
+[Feb-25-2017 7:58:51] Undefined variable: cName in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 852
+[Feb-25-2017 7:59:33] Undefined variable: cName in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 853
+[Feb-25-2017 8:01:54] Undefined variable: cName in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 853
+[Feb-25-2017 8:02:23] Undefined variable: cName in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 853
+[Feb-25-2017 8:16:29] Undefined variable: link in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 799
+[Feb-25-2017 8:18:10] Undefined variable: count in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 860
+[Feb-25-2017 8:18:10] Undefined variable: count in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 862
+[Feb-25-2017 8:31:49] Missing argument 3 for searchResult(), called in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 329 and defined in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 1008
+[Feb-25-2017 8:38:07] Undefined variable: count in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 1021
+[Feb-25-2017 8:38:07] Undefined variable: count in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 1028
+[Feb-25-2017 8:42:27] Undefined variable: send2page in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 1034
+[Feb-25-2017 9:22:51] Missing argument 4 for charRedirect(), called in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 1226 and defined in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 1177
+[Feb-25-2017 9:22:51] Undefined variable: str in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 1204
+[Feb-25-2017 9:22:57] Missing argument 4 for charRedirect(), called in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 1226 and defined in /Applications/AMPPS/www/WrDKv4/characters/index.php on line 1177

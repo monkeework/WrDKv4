@@ -2,13 +2,10 @@
 /*
 
 TO RESOLVE ::
-#1. Resolve title showing in twice in summary
-#2. Resolve Privilege showing in reply post icon set.
+#5 image gallery width
 
-3. Resolve mail bug.
-	 - looking for '_inc/Array' if message passes criteria
 
-4. Resolve Image gallery bug OR make new tool/method for displaying images
+
 * credits page for those who've helped me with their wisdom
 */
 
@@ -22,7 +19,11 @@ TO RESOLVE ::
  * 4. Update char list if num out of scope
  */
 
-
+DONE ::
+### #1. Resolve title showing in twice in summary
+### #2. Resolve Privilege showing in reply post icon set.
+### #3. Resolve mail bug. - looking for '_inc/Array' if message passes criteria
+### 4. Resolve Image gallery bug OR make new tool/method for displaying images
 
 
 
