@@ -1,0 +1,5 @@
+[Feb-27-2017 19:21:21] Undefined index: UserID in /Applications/AMPPS/www/WrDKv4/users/modCreateChars.php on line 30
+[Feb-27-2017 19:21:21] Undefined index: UserName in /Applications/AMPPS/www/WrDKv4/users/modCreateChars.php on line 31
+[Feb-27-2017 19:21:21] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/users/modCreateChars.php on line 32
+[Feb-27-2017 19:21:21] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/_inc/custom_inc.php on line 105
+[Feb-27-2017 19:21:21] Undefined index: Privilege in /Applications/AMPPS/www/WrDKv4/index.php on line 22

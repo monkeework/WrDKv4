@@ -1,0 +1,6 @@
+[Feb-26-2017 7:40:28] Undefined property: stdClass::$adminDashboard in /Applications/AMPPS/www/WrDKv4/users/validateUser.php on line 119
+[Feb-26-2017 7:41:25] Undefined index: Rrd1Update in /Applications/AMPPS/www/WrDKv4/characters/profileUpdate.php on line 247
+[Feb-26-2017 7:41:25] Undefined index: Rrd2Update in /Applications/AMPPS/www/WrDKv4/characters/profileUpdate.php on line 252
+[Feb-26-2017 7:41:25] Undefined index: Rrd3Update in /Applications/AMPPS/www/WrDKv4/characters/profileUpdate.php on line 257
+[Feb-26-2017 7:41:25] Use of undefined constant MOD_MAIL - assumed 'MOD_MAIL' in /Applications/AMPPS/www/WrDKv4/_inc/processCharNotification-inc.php on line 93
+[Feb-26-2017 7:41:25] Undefined variable: CodeName in /Applications/AMPPS/www/WrDKv4/_inc/processCharNotification-inc.php on line 119

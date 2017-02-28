@@ -3,11 +3,8 @@ require '../_inc/config_inc.php';
 
 
 /**
- *
- *
- * #TODO - resolve modal image pickup - is it pulling the right images?
-		- 12 should not grab 112 or 312 or 100289
- * @TODO - resolve browser width/chrome width / double pane issue
+ * #TODO - #mk_carouselImgs
+		- 2 should not grab 12 or 312 or 100289
  */
 
 $config->loadhead=''; #load page specific JS
@@ -29,7 +26,8 @@ function maxDoc_characters_profile(){
  *	  cheks char assigned/is mod+
  *		show edit option
  *
- * @todo add back button
+ * @todo add back button?
+ * @todo add in title name if no team == equal to character status?
  */
 
  # '../' works for a sub-folder.  use './' for the root
@@ -532,7 +530,7 @@ $path_cDetails='?charID=' . $CharID .
 
 			echo '<style> form div.row {margin-bottom: 5px;} </style>';
 
-			echo '<form
+			echo '<form class="container"
 				action="profileUpdate.php?act=update&id=' . $cID . '" id="myForm" method="post">';
 
 
@@ -1922,8 +1920,22 @@ function gt_modalGallery($modal, $cID, $cName, $str=""){ //BEGIN gt_modalGallery
 	// if modal has value
 	if(isset($modal))
 	{
-		$str = '<!-- start -->
-				<div class="modal fade bs-example-modal-lg w500" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		$str = '
+			<!-- move to custom.css -->
+			<!-- move to custom.css -->
+			<!-- move to custom.css -->
+			<style>
+				.modal-dialog {
+						width: 500px;
+						margin: 30px auto;
+				}
+			</style>
+			<!-- move to custom.css -->
+			<!-- move to custom.css -->
+			<!-- move to custom.css -->
+
+			<!-- start -->
+				<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg w500" >
 						<div class="modal-content">
 
@@ -1946,9 +1958,7 @@ function gt_modalGallery($modal, $cID, $cName, $str=""){ //BEGIN gt_modalGallery
 				</div>
 			</div><!-- modal fade bs-example-modal-lg--></div>
 
-			</div>
-		</div>
-		<!-- END MODAL GALLERY -->';
+		</div><!-- END MODAL GALLERY -->';
 	}
 	return $str;
 } //END gt_modalGallery
@@ -1956,10 +1966,14 @@ function gt_modalGallery($modal, $cID, $cName, $str=""){ //BEGIN gt_modalGallery
 
 
 /**
-*
-*
-*/
-function mk_carouselImgs($cID, $cName, $str = '')
+ * get images for carousel
+ *
+ * Bug Here - picks up some unwanted errors
+ * Bug Here - picks up some unwanted errors
+ * Bug Here - picks up some unwanted errors
+ *
+ */
+function mk_carouselImgs($cID, $cName, $slice=5, $chk='', $str = '')
 {
 	// look at the image url properly
 	// left  equals image index minus one - right image index plus one
@@ -1976,18 +1990,36 @@ function mk_carouselImgs($cID, $cName, $str = '')
 	while ($file = readdir($handler)) {
 		// if file isn't this directory or its parent, add it to the results
 		if ($file != "." && $file != "..") {
+
+			//prep eval string
+			$chk = substr($file, 0, strpos($chk, '-'));
+			// count length of cID
+			$count = count($cID);
+			// sent max char count of id
+			$chk = ltrim($file, $chk);
+			// count length of cID
+			$count = count($chk);
+
 			// check with regex that the file format is what we're expecting and not something else
 			//start of line, start of string, begins with $myID plus a single dash then whatever and is 'g.jpg'
-
 			//need to make exact match so 28 doesn't also pick up 128 and 228 or 1028 or 1280
+			// $count = count($cID);
+			// if(preg_match('/["' . $cID . '-"]{' . $count . '}/', $file)) {
 
-			if(preg_match('#\d?' . $cID . '-\d#', $file)) {
+			if(preg_match('#\d?' . $cID . '-\d#', $file) &&
+				 (strpos($file, '-0.jpg') == false) 			 &&
+				 (strpos($file, 't.jpg') == false)         &&
+				 (strpos($file, ' .jpg') == false)         &&
+				 ($count >= $chk)
+				) {
 					// add to our file array for later use
 					#var_dump($file);
 					$results[] .= $file;
 			}
 		}
 	}
+
+
 
 	$result = array_shift($results);
 	#dumpDie ($results);
@@ -2016,7 +2048,7 @@ function mk_carouselImgs($cID, $cName, $str = '')
 
 				<div class="item active">
 
-					<img class="img-responsive" src="../uploads/_assigned/' . $result . '" alt="...">
+					<img class="img-responsive w500" src="../uploads/_assigned/' . $result . '" alt="...">
 					<div class="carousel-caption">
 						<strong>' . $cName . '</strong> <small>(' . $num++ . '/' . $tot . ')</small>
 					</div>
@@ -2026,7 +2058,7 @@ function mk_carouselImgs($cID, $cName, $str = '')
 		}else if((strpos($result, 't.jpg') === false)){
 				// if image isn't a thumbnail, add to gallery
 				$str .= '<div class="item ">
-		 <img class="img-responsive" src="../uploads/_assigned/' . $result  . '" alt="' . $cName . '">
+		 <img class="img-responsive  w500" src="../uploads/_assigned/' . $result  . '" alt="' . $cName . '">
 				<div class="carousel-caption">
 					<strong>' . $cName . '</strong> <small>(' . $num++ . '/' . $tot . ')</small>
 				</div>
@@ -2046,27 +2078,12 @@ function mk_carouselImgs($cID, $cName, $str = '')
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * Bug Here - picks up some unwanted errors
+ * Bug Here - picks up some unwanted errors
+ * Bug Here - picks up some unwanted errors
+ *
+ */
 
 
 //scripts must site outside php so the browser can properly read the script tags
