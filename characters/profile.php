@@ -1773,7 +1773,14 @@ function getImgGallery($cID='', $cName='', $playby='', $gender='', $str='', $img
 			</div>';
 
 			// call MODAL GALLERY
-			$str .= gt_modalGallery($modal, $cID, $cName);
+
+
+            // chek that we have a valid array (not by name but by ID)
+
+            if (file_exists('./../uploads/_assigned/' . $cID . '-1.jpg')) {
+                $str .= gt_modalGallery($modal, $cID, $cName);;
+            }
+
 
 			$str .= '</div>
 			<div class="clearfix"></div>
@@ -1973,7 +1980,7 @@ function gt_modalGallery($modal, $cID, $cName, $str=""){ //BEGIN gt_modalGallery
  * Bug Here - picks up some unwanted errors
  *
  */
-function mk_carouselImgs($cID, $cName, $slice=5, $chk='', $str = '')
+function mk_carouselImgs($cID, $cName, $slice=5, $count ='', $chk='', $str = '')
 {
 	// look at the image url properly
 	// left  equals image index minus one - right image index plus one
@@ -1991,14 +1998,11 @@ function mk_carouselImgs($cID, $cName, $slice=5, $chk='', $str = '')
 		// if file isn't this directory or its parent, add it to the results
 		if ($file != "." && $file != "..") {
 
-			//prep eval string
-			$chk = substr($file, 0, strpos($chk, '-'));
-			// count length of cID
-			$count = count($cID);
-			// sent max char count of id
-			$chk = ltrim($file, $chk);
-			// count length of cID
-			$count = count($chk);
+
+
+
+            #trim string to match $cID count expected
+            #$count = count($cID);
 
 			// check with regex that the file format is what we're expecting and not something else
 			//start of line, start of string, begins with $myID plus a single dash then whatever and is 'g.jpg'
@@ -2006,20 +2010,46 @@ function mk_carouselImgs($cID, $cName, $slice=5, $chk='', $str = '')
 			// $count = count($cID);
 			// if(preg_match('/["' . $cID . '-"]{' . $count . '}/', $file)) {
 
-			if(preg_match('#\d?' . $cID . '-\d#', $file) &&
-				 (strpos($file, '-0.jpg') == false) 			 &&
-				 (strpos($file, 't.jpg') == false)         &&
-				 (strpos($file, ' .jpg') == false)         &&
+/*
+
+            if ($file != "." && $file != "..") {
+
+                if(preg_match("#/^2-\d*\.#", $file)){
+                    $results[] .= $file;
+                }
+            }
+
+*/
+
+
+
+            if(preg_match('#\d?' . $cID . '-\d#', $file) &&
+				 (strpos($file, '-0.jpg') == false) 	 &&
+				 (strpos($file, 't.jpg') == false)       &&
+				 (strpos($file, ' .jpg') == false)       &&
 				 ($count >= $chk)
-				) {
-					// add to our file array for later use
-					#var_dump($file);
-					$results[] .= $file;
+            ) {
+
+                #trim string to match $cID count expected
+                // count number tot to delineater
+                list($prefix) = explode('-', $file);
+                // count character id index - how many digits?
+
+
+                $prefixlength = strlen($prefix);
+                $cIDlength    = strlen($cID);
+
+                if($prefixlength == $cIDlength){
+                    $results[] .= $file;
+                }
+
+
 			}
+
 		}
 	}
 
-
+   // die;
 
 	$result = array_shift($results);
 	#dumpDie ($results);
